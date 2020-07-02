@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 	"github.com/gorilla/mux"
-	"github.com/jmmal/runs-api/cmd"
+	"github.com/jmmal/runs-api/internal/activity"
 )
 
 func main() {
@@ -13,7 +13,7 @@ func main() {
 	
 	router := mux.NewRouter().StrictSlash(true)
 
-	cmd.Setup(router)
+	activity.Setup(router)
 	
 	// Start server and wait
 	log.Fatal(http.ListenAndServe(":10000", router))
