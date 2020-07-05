@@ -1,37 +1,68 @@
 package activity
 
 import (
+	"regexp"
 	"time"
 	"github.com/tkrajina/gpxgo/gpx"
+	"googlemaps.github.io/maps"
 )
 
 // GetActivityFromFile takes a filename as the argument and returns 
 // an activity object
-func GetActivityFromFile(bytes []byte) Activity {
+func GetActivityFromFile(bytes []byte, filename string) DbActivity {
 	gpx := getGPXBytes(bytes)
 
 	movingData := gpx.MovingData()
 	title := gpx.Tracks[0].Name
-	time := gpx.Time
-	dist := gpx.Length2D()
-	laps := len(gpx.Tracks[0].Segments)
-	locations := getLocations(gpx.Tracks[0].Segments[0])
-	duration := Duration{
-		Elapsed: movingData.MovingTime + movingData.StoppedTime,
-		Moving: movingData.MovingTime,
-		Stopped: movingData.StoppedTime,
-	}
-	pace := getPace(dist, duration.Moving)
+	timeBounds := gpx.TimeBounds()
+	elBounds := gpx.ElevationBounds()
+	mapBounds := gpx.Bounds()
 
-	return Activity{
-		Title: title,
-		StartTime: time,
-		Pace: pace,
-		Duration: duration,
-		Laps: laps,
-		Distance: dist,
-		Locations: locations,
+	if timeBounds.StartTime.IsZero() {
+		timeBounds.StartTime = ParseTimeFromFilename(filename)
 	}
+
+	dist := gpx.Length2D()
+	locations := getLocations(&gpx.Tracks[0].Segments[0])
+	polyline := maps.Encode(locations)
+	pace := getPace(dist, movingData.MovingTime)
+
+	return DbActivity{
+		Title: title,
+		UploadKey: filename,
+		Type: gpx.Tracks[0].Type,
+		StartTime: timeBounds.StartTime,
+		EndTime: timeBounds.EndTime,
+		Pace: pace,
+		ElapsedTime: movingData.MovingTime + movingData.StoppedTime,
+		MovingTime: movingData.MovingTime,
+		Distance: dist,
+		Polyline: polyline,
+		MinElevation: elBounds.MinElevation,
+		MaxElevation: elBounds.MaxElevation,
+		Bounds: Bounds{
+			MinLat: mapBounds.MinLatitude,
+			MinLng: mapBounds.MinLongitude,
+			MaxLat: mapBounds.MaxLatitude,
+			MaxLng: mapBounds.MaxLongitude,
+		},
+	}
+}
+
+// ParseTimeFromFilename takes a filename and checks if it has a DateTime
+// Expects the format 2006-01-02_03-04-05, returns Zero Time if it doesn't match
+func ParseTimeFromFilename(filename string) time.Time {
+	r := regexp.MustCompile(`^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}`)
+	
+	res := r.FindString(filename)
+	
+	start, err := time.Parse("2006-01-02_03-04-05", res)
+
+	if err != nil {
+		return time.Time{}
+	}
+
+	return start
 }
 
 func getTimeDifference(start time.Time, end time.Time) time.Duration {
@@ -50,15 +81,15 @@ func getGPXBytes(bytes []byte) *gpx.GPX {
 	return gpxFile
 }
 
-func getLocations(segment gpx.GPXTrackSegment) []LatLng {
+func getLocations(segment *gpx.GPXTrackSegment) []maps.LatLng {
 	points := segment.Points
 
 	// Create array of same size to store the LatLngs
-	locations := make([]LatLng, len(points), len(points))
+	locations := make([]maps.LatLng, len(points), len(points))
 
 	idx := 0
 	for  _, value := range points {
-		locations[idx] = LatLng{ Lat: value.Latitude, Lng: value.Longitude }
+		locations[idx] = maps.LatLng{ Lat: value.Latitude, Lng: value.Longitude }
 		idx++
 	}
 

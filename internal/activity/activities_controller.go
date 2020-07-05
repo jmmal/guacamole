@@ -11,7 +11,7 @@ import (
 
 // Server - the API server
 type Server struct {
-	repository Repository
+	repository *Repository // Interface?? 
 	router *mux.Router
 }
 
@@ -43,18 +43,43 @@ func commonMiddleware(next http.Handler) http.Handler {
 	})
 }
 
-
 // GetActivities retrieves all activities for a user
 func (s *Server) GetActivities() http.HandlerFunc {
 	
 	return func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Request - GET /activities")
+		fmt.Printf("Query Params: %s", r.URL.RawQuery)
 		
-		activities, err := s.repository.GetAllActivities()
+		request := NewPageRequest()
+		
+		page, pageOk := r.URL.Query()["pageNumber"]
+		pageSize, pageSizeOk := r.URL.Query()["pageSize"]
+
+		if pageOk {
+			request.SetPageNumber(page[0])
+		}
+		
+		if pageSizeOk {
+			request.SetPageSize(pageSize[0])
+		}
+
+		activities, count, err := s.repository.GetAllActivities(request)
 
 		check(err)
 
-		json.NewEncoder(w).Encode(activities)
+		// Another layer between controller/repository??
+		mapped := make([]Activity, len(activities))
+
+		for index, activity := range activities {
+			mapped[index] = activity.GetActivity()
+		}
+
+		resp := GetAllResponse{
+			TotalCount: count,
+			Results: mapped,
+		}
+
+		json.NewEncoder(w).Encode(resp)
 	}
 }
 
@@ -83,7 +108,7 @@ func (s *Server) PostActivity() http.HandlerFunc {
 
 		// Restrict file size
 		r.ParseMultipartForm(10 << 20)
-		file, _, err := r.FormFile("file")
+		file, header, err := r.FormFile("file")
 		
 		check(err)
 		defer file.Close()
@@ -92,10 +117,11 @@ func (s *Server) PostActivity() http.HandlerFunc {
 		io.Copy(&buf, file)
 		
 		contents := buf.Bytes()
-		activity := GetActivityFromFile(contents)
+		activity := GetActivityFromFile(contents, header.Filename)
+		
 		result := s.repository.InsertActivity(activity)
 
-		json.NewEncoder(w).Encode(result.InsertedID)
+		json.NewEncoder(w).Encode(result.UpsertedID)
 		return
 	}
 }
