@@ -1,0 +1,10 @@
+.upload-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  
+  .input-group {
+    max-width: 40rem;
+    margin-right: 0;
+  }
+}
