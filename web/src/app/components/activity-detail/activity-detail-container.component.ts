@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 // App
 import { ActivityService, Activity } from '../../core/activity.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-activity-detail-container',
@@ -10,12 +11,17 @@ import { ActivityService, Activity } from '../../core/activity.service';
   styleUrls: ['./activity-detail.component.scss']
 })
 export class ActivityDetailContainerComponent implements OnInit {
-  constructor(private service: ActivityService) {}
+  constructor(
+    private service: ActivityService,
+    private route: ActivatedRoute
+  ) {}
 
   activity: Activity = null;
 
   ngOnInit() {
-    this.service.getRun("5f0168c70fc212b09aa32e7e")
+    let id = this.route.snapshot.paramMap.get('id');
+
+    this.service.getRun(id)
       .subscribe((data) => {
         this.activity = data;
       })

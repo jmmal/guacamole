@@ -37,16 +37,22 @@ func atoiOrDefault(s string, def int64) int64 {
 }
 
 
-// GetAllResponse defines the response structure
+// GetAllResponse defines the response structure for fetching multiple activities
 type GetAllResponse struct {
 	// TODO: Add page data
 	TotalCount int64 `json:"totalCount"`
 	Results []Activity `json:"results"`
 }
 
+// InsertResponse defines the response structure when a activity is inserted
+type InsertResponse struct {
+	ID string `json:"id"`
+}
+
 // GetActivity converts from MongoActivity to Activity
 func (a *DbActivity) GetActivity() Activity {
 	return Activity{
+		ID: a.ID.Hex(),
 		Title: a.Title,
 		Type: a.Type,
 		Distance: a.Distance,
@@ -69,6 +75,7 @@ func (a *DbActivity) GetActivity() Activity {
 
 // Activity is the public facing model
 type Activity struct {
+	ID			string			`json:"id"`
 	Title 		string 			`json:"title"`
 	Type 		string			`json:"type"`
 	Distance 	float64 		`json:"distance"`

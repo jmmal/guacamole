@@ -69,9 +69,7 @@ func (ar *Repository) GetAllActivities(r PageRequest) ([]DbActivity, int64, erro
 	)
 
 	result := []DbActivity{}
-	count, err := ar.activities.CountDocuments(context.TODO(), bson.M{
-		"distance": bson.M{ "$gt": 0 },
-	})
+	count, err := ar.activities.CountDocuments(context.TODO(), bson.M{})
 
 	check(err)
 
@@ -100,17 +98,20 @@ func (ar *Repository) GetActivity(id string) (Activity, error) {
 
 // InsertActivity will attempt to create a new Activity in the database.
 // If it finds a document with matching uploadKey (filename), it will replace it.
-func (ar *Repository) InsertActivity(activity DbActivity) *mongo.UpdateResult {
+// TODO: return a different (external?) ID instead of internal ObjectID
+func (ar *Repository) InsertActivity(activity DbActivity) primitive.ObjectID {
 	bsonVal, _ := bson.Marshal(&activity)
 
-	result, err := ar.activities.ReplaceOne(
+	result := ar.activities.FindOneAndReplace(
 		context.TODO(),
 		bson.M{ "uploadKey": activity.UploadKey },
 		bsonVal,
-		options.Replace().SetUpsert(true),
+		options.FindOneAndReplace().SetUpsert(true),
 	)
 
-	check(err)
+	var insertedDoc DbActivity
+
+	result.Decode(&insertedDoc)
 	
-	return result
+	return insertedDoc.ID
 }

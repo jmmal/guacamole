@@ -9,9 +9,14 @@ export interface GetAllResponse {
   results: Activity[];
 }
 
+export interface InsertResponse {
+  id: string;
+}
+
 export interface Activity {
   id: string;
   title: string;
+  type: string;
   distance: number;
   startTime: Date;
   endTime: Date;
@@ -21,6 +26,8 @@ export interface Activity {
   polyline: string;
   locations: LatLng[];
   bounds: Bounds;
+  minElevation: number;
+  maxElevation: number;
 }
 
 export interface Bounds {
@@ -66,11 +73,11 @@ export class ActivityService {
       .get<Activity>(url);
   }
 
-  createActivity(file: File): Observable<any> {
+  createActivity(file: File): Observable<InsertResponse> {
     const url = environment.baseUrl + this.routes.upload;
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
 
-    return this.httpClient.post(url, formData);
+    return this.httpClient.post<InsertResponse>(url, formData);
   }
 }

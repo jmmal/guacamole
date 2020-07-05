@@ -1,4 +1,5 @@
 <div class="container">
+  <h4>{{ activities?.totalCount }} activities</h4>
   <table class="table table-striped table-hover table-bordered">
     <thead>
       <tr>
@@ -8,11 +9,12 @@
         <th>Distance</th>
         <th>Pace</th>
         <th>Duration</th>
+        <th>Elevation</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let activity of activities?.results" [routerLink]="['/activity', '5f0168c70fc212b09aa32e7e']">
-        <td scope="row">Run</td>
+      <tr *ngFor="let activity of activities?.results" [routerLink]="['/activity', activity.id]">
+        <td scope="row">{{ activity.type }}</td>
         <td>
           {{ activity.startTime | date: "EEE, dd/MM/yyyy" }}
         </td>
@@ -20,6 +22,7 @@
         <td>{{ activity.distance / 1000 | number: "1.2-2" }}km</td>
         <td>{{ activity.pace | pace }}/km</td>
         <td>{{ activity.elapsedTime | duration }}</td>
+        <td>{{ (activity.maxElevation - activity.minElevation) | number: "1.1-1" }} m</td>
       </tr>
     </tbody>
   </table>

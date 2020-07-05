@@ -1,5 +1,5 @@
 // Core Imports
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 // Third Party Imports
 import * as mapboxgl from 'mapbox-gl';
@@ -14,21 +14,26 @@ import { Activity } from 'src/app/core/activity.service';
   templateUrl: './mapbox-map.component.html',
   styleUrls: ['./mapbox-map.component.scss'],
 })
-export class MapboxMapComponent implements OnInit {
+export class MapboxMapComponent implements OnInit, AfterViewInit {
   @Input() activity: Activity;
 
   map: mapboxgl.Map;
+  
+  @ViewChild('map') mapRef: ElementRef;
 
   ngOnInit() {
     if (!this.activity) {
       throw new TypeError("'activity' input must not be null or undefined'");
     }
+  }
+  
+  ngAfterViewInit() {
     this.setupMap();
   }
 
   private setupMap() {
     const map = new mapboxgl.Map({
-      container: 'map',
+      container: this.mapRef.nativeElement,
       style: 'mapbox://styles/mapbox/outdoors-v11',
       bounds: new mapboxgl.LngLatBounds(
         new mapboxgl.LngLat(

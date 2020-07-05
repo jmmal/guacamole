@@ -121,7 +121,7 @@ func (s *Server) PostActivity() http.HandlerFunc {
 		
 		result := s.repository.InsertActivity(activity)
 
-		json.NewEncoder(w).Encode(result.UpsertedID)
+		json.NewEncoder(w).Encode(InsertResponse{ ID: result.Hex() })
 		return
 	}
 }
