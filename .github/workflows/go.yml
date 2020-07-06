@@ -1,4 +1,4 @@
-name: Go
+name: Build
 
 on:
   push:
@@ -60,7 +60,13 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install node_modules
-        run: npm i 
+        run: npm ci
+
+      - name: Run Linting
+        run: npm run lint
+
+      - name: Run unit tests
+        run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI 
 
       - name: Build project        
         run: npm run build -- --prod
