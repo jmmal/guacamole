@@ -2,13 +2,13 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { MapBoxToken } from './keys';
+// import { MapBoxToken } from './keys';
 
 export const environment = {
   production: false,
   baseUrl: 'http://localhost:10000',
   mapBox: {
-    accessToken: MapBoxToken
+    accessToken: '123'
   }
 };
 
