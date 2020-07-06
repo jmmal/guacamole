@@ -16,7 +16,7 @@ describe('UploadFormComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ UploadFormComponent ],
-      providers: [ 
+      providers: [
         { provide: ActivityService, useClass: ActivityServiceStub },
         { provide: Router, useValue: routerSpy }
       ]

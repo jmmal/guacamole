@@ -14,16 +14,16 @@ import { ActivityService, Activity } from './core/activity.service';
 })
 export class AppComponent implements OnInit {
   data: Activity;
-  
+
   private subs = new SubSink();
 
   constructor(private service: ActivityService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subs.sink = this.service
-      .getRun("5f00379c0fc212b09aa31ab0")
+      .getRun('5f00379c0fc212b09aa31ab0')
       .subscribe(run => {
         this.data = run;
-      })
+      });
   }
 }

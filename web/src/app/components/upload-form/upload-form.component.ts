@@ -15,14 +15,14 @@ export class UploadFormComponent {
     private router: Router
   ) {}
 
-  handleFileInput(files: FileList) {
+  handleFileInput(files: FileList): void {
     this.file = files.item(0);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.service.createActivity(this.file).subscribe(
       (data) => {
-        this.router.navigate(['/activity', data.id])
+        this.router.navigate(['/activity', data.id]);
       },
       (error) => {
         console.log(error);

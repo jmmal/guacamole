@@ -18,20 +18,20 @@ export class MapboxMapComponent implements OnInit, AfterViewInit {
   @Input() activity: Activity;
 
   map: mapboxgl.Map;
-  
+
   @ViewChild('map') mapRef: ElementRef;
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (!this.activity) {
-      throw new TypeError("'activity' input must not be null or undefined'");
+      throw new TypeError('\'activity\' input must not be null or undefined\'');
     }
   }
-  
-  ngAfterViewInit() {
+
+  ngAfterViewInit(): void {
     this.setupMap();
   }
 
-  private setupMap() {
+  private setupMap(): void {
     const map = new mapboxgl.Map({
       container: this.mapRef.nativeElement,
       style: 'mapbox://styles/mapbox/outdoors-v11',
@@ -61,7 +61,7 @@ export class MapboxMapComponent implements OnInit, AfterViewInit {
 
     const coords = polyline.toGeoJSON(this.activity.polyline);
 
-    map.on('load', function () {
+    map.on('load', () => {
       map.addSource('route', {
         type: 'geojson',
         data: {

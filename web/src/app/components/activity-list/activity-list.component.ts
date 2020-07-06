@@ -4,7 +4,7 @@ import { SubSink } from 'subsink';
 import { ActivityService, GetAllResponse } from 'src/app/core/activity.service';
 
 @Component({
-  selector: 'activity-list',
+  selector: 'app-activity-list',
   styleUrls: [ './activity-list.component.scss' ],
   templateUrl: './activity-list.component.html'
 })
@@ -12,21 +12,21 @@ export class ActivityListComponent implements OnInit {
   activities: GetAllResponse;
 
   private subs = new SubSink();
-  private _page: number = 1;
+  private pagen = 1;
 
-  get page() { return this._page; }
+  get page(): number { return this.pagen; }
   set page(v: number) {
-    this._page = v;
+    this.pagen = v;
     this.reloadActivities();
   }
 
   constructor(private activityService: ActivityService) { }
 
   ngOnInit(): void {
-    this.reloadActivities()
+    this.reloadActivities();
   }
 
-  private reloadActivities() {
+  private reloadActivities(): void {
     // Update service to use switchMap
     this.subs.sink = this.activityService
       .getAllRuns(20, this.page)
@@ -35,7 +35,7 @@ export class ActivityListComponent implements OnInit {
       });
   }
 
-  onPageChange(page) {
+  onPageChange(page): void {
     this.page = page;
   }
 }

@@ -23,7 +23,7 @@ const activity: Activity = {
   },
   minElevation: 23,
   maxElevation: 10,
-}
+};
 
 describe('MapboxMapComponent', () => {
   let component: MapboxMapComponent;

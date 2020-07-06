@@ -18,12 +18,12 @@ export class ActivityDetailContainerComponent implements OnInit {
 
   activity: Activity = null;
 
-  ngOnInit() {
-    let id = this.route.snapshot.paramMap.get('id');
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
 
     this.service.getRun(id)
       .subscribe((data) => {
         this.activity = data;
-      })
+      });
   }
 }
