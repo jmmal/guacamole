@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // Components
 import { AppComponent } from './app.component';
@@ -19,6 +20,7 @@ import { ActivityDetailComponent } from './components/activity-detail/activity-d
 import { MapboxMapComponent } from './components/mapbox-map/mapbox-map.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { UploadFormComponent } from './components/upload-form/upload-form.component';
+import { ActivityDetailContainerComponent } from './components/activity-detail/activity-detail-container.component';
 
 // Services
 import { ActivityService } from './core/activity.service';
@@ -26,8 +28,6 @@ import { ActivityService } from './core/activity.service';
 // Pipes
 import { PacePipe } from './pipes/pace.pipe';
 import { DurationPipe } from './pipes/duration.pipe';
-import { ActivityDetailContainerComponent } from './components/activity-detail/activity-detail-container.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [

@@ -1,6 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ActivityListComponent } from './activity-list.component';
+import { ActivityService } from 'src/app/core/activity.service';
+import { of } from 'rxjs';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+class ActivityServiceStub {
+  getRun(v) { return of() }
+  getAllRuns() { return of() }
+}
+
 
 describe('ActivityListComponent', () => {
   let component: ActivityListComponent;
@@ -8,7 +17,11 @@ describe('ActivityListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ActivityListComponent ]
+      declarations: [ ActivityListComponent ],
+      providers: [
+        { provide: ActivityService, useClass: ActivityServiceStub }
+      ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));
