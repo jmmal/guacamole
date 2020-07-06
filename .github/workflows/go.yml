@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  build:
+  api:
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -33,5 +33,35 @@ jobs:
     - name: Build
       run: go build -v cmd/server/main.go
 
-#     - name: Test
-#       run: go test -v .
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install node_modules
+        env:
+          NG_CLI_ANALYTICS: "ci"
+        run: npm i 
+
+      - name: Build project        
+        run: npm run build -- --prod
