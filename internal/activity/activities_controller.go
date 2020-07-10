@@ -2,8 +2,9 @@ package activity
 
 import (
 	"io"
-	"fmt"
+	"log"
 	"bytes"
+	"time"
 	"net/http"
 	"encoding/json"
 	"github.com/gorilla/mux"
@@ -26,6 +27,7 @@ func Setup(router *mux.Router) error {
 		router: router,
 	}
 
+	s.router.HandleFunc("/healthcheck", s.healthcheck())
 	s.router.HandleFunc("/activities", s.GetActivities())
 	s.router.HandleFunc("/activities/{id}", s.GetActivity())
 	s.router.HandleFunc("/upload", s.PostActivity())
@@ -43,12 +45,21 @@ func commonMiddleware(next http.Handler) http.Handler {
 	})
 }
 
+func (s *Server) healthcheck() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		log.Println("Request - GET /healthcheck")
+		time := time.Now()
+
+		json.NewEncoder(w).Encode(time)
+	}
+}
+
 // GetActivities retrieves all activities for a user
 func (s *Server) GetActivities() http.HandlerFunc {
 	
 	return func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("Request - GET /activities")
-		fmt.Printf("Query Params: %s", r.URL.RawQuery)
+		log.Println("Request - GET /activities")
+		log.Printf("Query Params: %s", r.URL.RawQuery)
 		
 		request := NewPageRequest()
 		
@@ -65,7 +76,10 @@ func (s *Server) GetActivities() http.HandlerFunc {
 
 		activities, count, err := s.repository.GetAllActivities(request)
 
-		check(err)
+		if err != nil {
+			log.Println("Failed to read all from DB")
+			w.WriteHeader(http.StatusInternalServerError)
+		}
 
 		// Another layer between controller/repository??
 		mapped := make([]Activity, len(activities))
@@ -87,13 +101,17 @@ func (s *Server) GetActivities() http.HandlerFunc {
 func (s *Server) GetActivity() http.HandlerFunc {
 	
 	return func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("Request - GET /activities/:id")
+		log.Println("Request - GET /activities/:id")
 		
 		id := mux.Vars(r)["id"]
 
 		result, err := s.repository.GetActivity(id)
 
-		check(err)
+		if err != nil {
+			log.Println("Failed to fetch activity")
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
 		
 		json.NewEncoder(w).Encode(result)
 		return
@@ -104,30 +122,42 @@ func (s *Server) GetActivity() http.HandlerFunc {
 func (s *Server) PostActivity() http.HandlerFunc {
 	
 	return func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("Request - POST /activities")
+		log.Println("Request - POST /activities")
 
 		// Restrict file size
 		r.ParseMultipartForm(10 << 20)
 		file, header, err := r.FormFile("file")
 		
-		check(err)
+		if err != nil {
+			log.Println("Failed to read file from the request body")
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+
 		defer file.Close()
 				
 		var buf bytes.Buffer
 		io.Copy(&buf, file)
 		
 		contents := buf.Bytes()
-		activity := GetActivityFromFile(contents, header.Filename)
+		activity, err := GetActivityFromFile(contents, header.Filename)
 		
-		result := s.repository.InsertActivity(activity)
+		if err != nil {
+			log.Println("Failed to parse GPX file correctly")
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
 
+		result, err := s.repository.InsertActivity(activity)
+
+		if err != nil {
+			log.Println("Failed to run activity to DB")
+			w.WriteHeader(http.StatusInternalServerError)
+		}
+
+		// TODO: ID is only populated for already existing activities,
+		// this should be populated for all requests
 		json.NewEncoder(w).Encode(InsertResponse{ ID: result.Hex() })
 		return
-	}
-}
-
-func check(err error) {
-	if err != nil {
-		panic(err)
 	}
 }

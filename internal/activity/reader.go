@@ -1,6 +1,7 @@
 package activity
 
 import (
+	"log"
 	"regexp"
 	"time"
 	"github.com/tkrajina/gpxgo/gpx"
@@ -9,8 +10,12 @@ import (
 
 // GetActivityFromFile takes a filename as the argument and returns 
 // an activity object
-func GetActivityFromFile(bytes []byte, filename string) DbActivity {
-	gpx := getGPXBytes(bytes)
+func GetActivityFromFile(bytes []byte, filename string) (DbActivity, error) {
+	gpx, err := getGPXBytes(bytes)
+
+	if err != nil {
+		return DbActivity{}, err
+	}
 
 	movingData := gpx.MovingData()
 	title := gpx.Tracks[0].Name
@@ -27,7 +32,7 @@ func GetActivityFromFile(bytes []byte, filename string) DbActivity {
 	polyline := maps.Encode(locations)
 	pace := getPace(dist, movingData.MovingTime)
 
-	return DbActivity{
+	dbActivity := DbActivity{
 		Title: title,
 		UploadKey: filename,
 		Type: gpx.Tracks[0].Type,
@@ -47,6 +52,8 @@ func GetActivityFromFile(bytes []byte, filename string) DbActivity {
 			MaxLng: mapBounds.MaxLongitude,
 		},
 	}
+
+	return dbActivity, nil
 }
 
 // ParseTimeFromFilename takes a filename and checks if it has a DateTime
@@ -74,11 +81,15 @@ func getPace(distance float64, time float64) float64 {
 	return float64(time) / (distance / 1000)
 }
 
-func getGPXBytes(bytes []byte) *gpx.GPX {
+func getGPXBytes(bytes []byte) (*gpx.GPX, error) {
 	gpxFile, err := gpx.ParseBytes(bytes)
-	check(err)
+	
+	if err != nil {
+		log.Println("Failed to read file in as GPX")
+		return gpxFile, err
+	}
 
-	return gpxFile
+	return gpxFile, nil
 }
 
 func getLocations(segment *gpx.GPXTrackSegment) []maps.LatLng {
