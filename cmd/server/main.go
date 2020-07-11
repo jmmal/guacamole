@@ -9,22 +9,18 @@ import (
 )
 
 func main() {
-	file, err := os.OpenFile("info.log", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
+	port := os.Getenv("PORT")
 
-	if err != nil {
-		log.Fatal(err)
+	if port == "" {
+		port = "8080"
 	}
 
-	defer file.Close()
-
-	log.SetOutput(file)
-
-	log.Println("Server starting... Listening on port 8080")
+	log.Printf("Server starting... Listening on port %s\n", port)
 
 	router := mux.NewRouter().StrictSlash(true)
 
 	activity.Setup(router)
 	
 	// Start server and wait
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }
