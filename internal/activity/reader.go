@@ -1,6 +1,7 @@
 package activity
 
 import (
+	"math"
 	"log"
 	"regexp"
 	"time"
@@ -29,6 +30,9 @@ func GetActivityFromFile(bytes []byte, filename string) (DbActivity, error) {
 
 	dist := gpx.Length2D()
 	locations := getLocations(&gpx.Tracks[0].Segments[0])
+
+	points := ProcessLocations(gpx)
+
 	polyline := maps.Encode(locations)
 	pace := getPace(dist, movingData.MovingTime)
 
@@ -51,9 +55,14 @@ func GetActivityFromFile(bytes []byte, filename string) (DbActivity, error) {
 			MaxLat: mapBounds.MaxLatitude,
 			MaxLng: mapBounds.MaxLongitude,
 		},
+		Points: points,
 	}
 
 	return dbActivity, nil
+}
+
+func getDistance(p1, p2 gpx.GPXPoint) float64 {
+	return gpx.HaversineDistance(p1.Latitude, p1.Longitude, p2.Latitude, p2.Longitude)
 }
 
 // ParseTimeFromFilename takes a filename and checks if it has a DateTime
@@ -105,4 +114,47 @@ func getLocations(segment *gpx.GPXTrackSegment) []maps.LatLng {
 	}
 
 	return locations
+}
+
+// ProcessLocations does
+func ProcessLocations(gpx *gpx.GPX) []DbPoint {
+	gpx.ReduceGpxToSingleTrack()
+
+	points := []DbPoint{}
+
+	if len(gpx.Tracks) < 1 {
+		return points
+	}
+
+	start := gpx.Tracks[0].Segments[0].Points[0]
+	prev := start
+	totalDistance := float64(0)
+
+	for _, seg := range gpx.Tracks[0].Segments {
+		for _, point := range seg.Points {
+			totalDistance = totalDistance + getDistance(prev, point)
+
+			speed := prev.SpeedBetween(&point, false)
+			
+			if math.IsNaN(speed) {
+				speed = 0
+			}
+
+			newPoint := DbPoint{
+				DistanceFromStart: totalDistance,
+				Pace: speed, // m/s
+				Elevation: point.Elevation.Value(),
+				LatLng: LatLng{
+					Lat: point.Latitude,
+					Lng: point.Longitude,
+				},
+				Time: point.Timestamp,
+			}
+
+			prev = point
+			points = append(points, newPoint)
+		}
+	}
+
+	return points
 }

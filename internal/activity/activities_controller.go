@@ -31,6 +31,7 @@ func Setup(router *mux.Router) error {
 	s.router.HandleFunc("/activities", s.GetActivities())
 	s.router.HandleFunc("/activities/{id}", s.GetActivity())
 	s.router.HandleFunc("/upload", s.PostActivity())
+	s.router.HandleFunc("/activities/{id}/points", s.GetActivityPoints())
 
 	return nil
 }
@@ -158,6 +159,27 @@ func (s *Server) PostActivity() http.HandlerFunc {
 		// TODO: ID is only populated for already existing activities,
 		// this should be populated for all requests
 		json.NewEncoder(w).Encode(InsertResponse{ ID: result.Hex() })
+		return
+	}
+}
+
+// GetActivityPoints retrieves a list points by activity distance
+func (s *Server) GetActivityPoints() http.HandlerFunc {
+	
+	return func(w http.ResponseWriter, r *http.Request) {
+		log.Println("Request - Get /activities/{id}/points")
+
+		id := mux.Vars(r)["id"]
+
+		result, err := s.repository.GetActivity(id)
+
+		if err != nil {
+			log.Println("Failed to fetch activity")
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		
+		json.NewEncoder(w).Encode(result.Points)
 		return
 	}
 }

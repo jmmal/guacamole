@@ -29,6 +29,22 @@ type DbActivity struct {
 	MinElevation float64			`bson:"minElevation"`	
 	MaxElevation float64			`bson:"maxElevation"`
 	Bounds 		 Bounds 			`bson:"bounds"`
+	Points		 []DbPoint			`bson:"points"`
+}
+
+// DbPoint represents a slice of data from an activity. 
+type DbPoint struct {
+	Time time.Time `bson:"time"`
+	DistanceFromStart float64 `bson:"distanceFromStart"`
+	Pace float64 `bson:"pace"`
+	Elevation float64 `bson:"elevation"`
+	LatLng LatLng `bson:"latLng"`
+}
+
+// LatLng ds
+type LatLng struct {
+	Lat float64 `bson:"latitude"`
+	Lng float64 `bson:"longitude"`
 }
 
 // Repository is a data access layer for activity

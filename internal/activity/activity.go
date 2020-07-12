@@ -70,7 +70,24 @@ func (a *DbActivity) GetActivity() Activity {
 			MaxLat: a.Bounds.MaxLat,
 			MaxLng: a.Bounds.MaxLng,
 		},
+		Points: mapPoints(a.Points),
 	}
+}
+
+func mapPoints(points []DbPoint) []Point {
+	result := make([]Point, len(points))
+
+	for i, p := range points {
+		result[i] = Point{
+			Time: p.Time,
+			DistanceFromStart: p.DistanceFromStart,
+			Pace: p.Pace,
+			Elevation: p.Elevation,
+			LatLng: p.LatLng,
+		}
+	}
+
+	return result
 }
 
 // Activity is the public facing model
@@ -88,6 +105,7 @@ type Activity struct {
 	MinElevation float64		`json:"minElevation"`	
 	MaxElevation float64		`json:"maxElevation"`
 	Bounds		 Bounds			`json:"bounds"`
+	Points 		[]Point			`json:"points"`
 }
 
 // Bounds defines the NE and SW corners of an Activity
@@ -96,4 +114,13 @@ type Bounds struct {
 	MaxLat float64 `json:"maxLat"`
 	MinLng float64 `json:"minLng"`
 	MaxLng float64 `json:"maxLng"`
+}
+
+// Point represents a slice of data from an activity. 
+type Point struct {
+	Time time.Time `json:"time"`
+	DistanceFromStart float64 `json:"distanceFromStart"`
+	Pace float64 `json:"pace"`
+	Elevation float64 `json:"elevation"`
+	LatLng LatLng `json:"latLng"`
 }
