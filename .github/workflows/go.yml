@@ -31,7 +31,7 @@ jobs:
         fi
 
     - name: Build
-      run: go build -v cmd/server/main.go
+      run: go build -v cmd/main.go
 
   web:
     runs-on: ubuntu-latest
