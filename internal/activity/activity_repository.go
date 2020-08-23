@@ -30,6 +30,7 @@ type DbActivity struct {
 	MaxElevation float64			`bson:"maxElevation"`
 	Bounds 		 Bounds 			`bson:"bounds"`
 	Points		 []DbPoint			`bson:"points"`
+	Image		 string 			`bson:"image"`
 }
 
 // DbPoint represents a slice of data from an activity. 
@@ -117,7 +118,7 @@ func (ar *Repository) GetAllActivities(r PageRequest) ([]DbActivity, int64, erro
 			"distance": bson.M{ "$gt": 0 },
 		},
 		options.Find().SetSkip(skip).SetLimit(r.PageSize).SetSort(bson.M{
-			"startTime": -1,
+			"startTime": 1,
 		}),
 	)
 

@@ -70,7 +70,7 @@ func (a *DbActivity) GetActivity() Activity {
 			MaxLat: a.Bounds.MaxLat,
 			MaxLng: a.Bounds.MaxLng,
 		},
-		Points: mapPoints(a.Points),
+		Image: a.Image,
 	}
 }
 
@@ -105,7 +105,7 @@ type Activity struct {
 	MinElevation float64		`json:"minElevation"`	
 	MaxElevation float64		`json:"maxElevation"`
 	Bounds		 Bounds			`json:"bounds"`
-	Points 		[]Point			`json:"points"`
+	Image 		string			`json:"image"`
 }
 
 // Bounds defines the NE and SW corners of an Activity

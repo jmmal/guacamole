@@ -7,6 +7,7 @@ import (
 	"time"
 	"github.com/tkrajina/gpxgo/gpx"
 	"googlemaps.github.io/maps"
+	"github.com/jmmal/runs-api/internal/images"
 )
 
 // GetActivityFromFile takes a filename as the argument and returns 
@@ -29,10 +30,19 @@ func GetActivityFromFile(bytes []byte, filename string) (DbActivity, error) {
 	}
 
 	dist := gpx.Length2D()
+
 	locations := getLocations(&gpx.Tracks[0].Segments[0])
-
-	points := ProcessLocations(gpx)
-
+	
+	var image string
+	if len(locations) > 0 {
+		image = images.GetImage(locations, images.Options{
+			MapStyle: images.OutdoorsV11,
+			Size: "1280x600",
+		})
+	}
+	
+	points := GetAllPoints(gpx)
+	
 	polyline := maps.Encode(locations)
 	pace := getPace(dist, movingData.MovingTime)
 
@@ -56,6 +66,7 @@ func GetActivityFromFile(bytes []byte, filename string) (DbActivity, error) {
 			MaxLng: mapBounds.MaxLongitude,
 		},
 		Points: points,
+		Image: image,
 	}
 
 	return dbActivity, nil
@@ -79,10 +90,6 @@ func ParseTimeFromFilename(filename string) time.Time {
 	}
 
 	return start
-}
-
-func getTimeDifference(start time.Time, end time.Time) time.Duration {
-	return end.Sub(start)
 }
 
 // getPace calculates the total pace in seconds / unit
@@ -116,13 +123,13 @@ func getLocations(segment *gpx.GPXTrackSegment) []maps.LatLng {
 	return locations
 }
 
-// ProcessLocations does
-func ProcessLocations(gpx *gpx.GPX) []DbPoint {
+// GetAllPoints combines all points in the given GPX into a single slice of points
+func GetAllPoints(gpx *gpx.GPX) []DbPoint {
 	gpx.ReduceGpxToSingleTrack()
 
 	points := []DbPoint{}
 
-	if len(gpx.Tracks) < 1 {
+	if len(gpx.Tracks) < 1 || len(gpx.Tracks[0].Segments) < 1 || len(gpx.Tracks[0].Segments[0].Points) < 1 {
 		return points
 	}
 

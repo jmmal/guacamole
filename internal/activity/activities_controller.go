@@ -16,7 +16,7 @@ type Server struct {
 	router *mux.Router
 }
 
-// Setup - setups the required routes
+// Setup the given router with the required routes for the ActivityController.
 func Setup(router *mux.Router) error {
 	repo := NewRepository()
 
