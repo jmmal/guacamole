@@ -1,5 +1,12 @@
 // Core Imports
-import { Component, Input, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 
 // Third Party Imports
 import * as mapboxgl from 'mapbox-gl';
@@ -7,7 +14,7 @@ import * as polyline from '@mapbox/polyline';
 
 // App Imports
 import { environment } from 'src/environments/environment';
-import { Activity } from 'src/app/core/activity.service';
+import { Activity } from 'src/app/core/activity';
 
 @Component({
   selector: 'app-mapbox-map',

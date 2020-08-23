@@ -1,8 +1,29 @@
-@import '~bootstrap/dist/css/bootstrap.min.css';
+$safety-orange-blaze-orange: #FF6700;
+$platinum: #F7F7F7;
+$silver: #C0C0C0;
+$queen-blue: #3A6EA5;
+$yale-blue: #004E98;
 
-html, body { height: 100%; }
+$pallete: (
+  primary: $safety-orange-blaze-orange,
+  secondary: $queen-blue,
+  light: $silver,
+  bg: $platinum,
+  blue: $yale-blue,
+);
+
+html, body { 
+  height: 100vh;
+  width: 100vw;
+  font-size: 1rem;
+}
+
+p, h1, h2, h3 {
+  margin: 0
+}
+
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #f7f7fa;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont;
+  background-color: map-get($map: $pallete, $key: bg);
 }

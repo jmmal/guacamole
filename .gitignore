@@ -11,9 +11,7 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-fit_reader.go
-
-data/*
+to_upload/*
 config-prod.yaml
 
 # Dependency directories (remove the comment below to include it)

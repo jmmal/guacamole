@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MapboxMapComponent } from './mapbox-map.component';
-import { Activity } from 'src/app/core/activity.service';
+import { Activity } from 'src/app/core/activity';
 
 const activity: Activity = {
   id: '1234',
@@ -23,6 +23,7 @@ const activity: Activity = {
   },
   minElevation: 23,
   maxElevation: 10,
+  image: ''
 };
 
 describe('MapboxMapComponent', () => {
@@ -41,9 +42,5 @@ describe('MapboxMapComponent', () => {
     component = fixture.componentInstance;
     component.activity = activity;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });

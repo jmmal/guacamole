@@ -6,7 +6,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:10000',
+  baseUrl: 'http://localhost:8080',
   mapBox: {
     accessToken: '123'
   }

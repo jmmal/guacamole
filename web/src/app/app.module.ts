@@ -5,22 +5,14 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// Third Party
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 // Modules
 import { AppRoutingModule } from './app-routing.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // Components
 import { AppComponent } from './app.component';
 import { GoogleMapComponent } from './components/google-map/google-map.component';
-import { ActivityListComponent } from './components/activity-list/activity-list.component';
-import { ActivityDetailComponent } from './components/activity-detail/activity-detail.component';
 import { MapboxMapComponent } from './components/mapbox-map/mapbox-map.component';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { UploadFormComponent } from './components/upload-form/upload-form.component';
-import { ActivityDetailContainerComponent } from './components/activity-detail/activity-detail-container.component';
 
 // Services
 import { ActivityService } from './core/activity.service';
@@ -28,28 +20,24 @@ import { ActivityService } from './core/activity.service';
 // Pipes
 import { PacePipe } from './pipes/pace.pipe';
 import { DurationPipe } from './pipes/duration.pipe';
+import { ActivityPreviewComponent } from './components/activity-preview/activity-preview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GoogleMapComponent,
-    ActivityListComponent,
-    ActivityDetailComponent,
-    ActivityDetailContainerComponent,
     PacePipe,
     DurationPipe,
     MapboxMapComponent,
-    NavBarComponent,
-    UploadFormComponent
+    UploadFormComponent,
+    ActivityPreviewComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     GoogleMapsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    NgbModule,
-    FontAwesomeModule
+    BrowserAnimationsModule
   ],
   providers: [
     ActivityService
