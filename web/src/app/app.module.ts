@@ -10,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 // Components
 import { AppComponent } from './app.component';
-import { GoogleMapComponent } from './components/google-map/google-map.component';
 import { MapboxMapComponent } from './components/mapbox-map/mapbox-map.component';
 import { UploadFormComponent } from './components/upload-form/upload-form.component';
 
@@ -25,7 +24,6 @@ import { ActivityPreviewComponent } from './components/activity-preview/activity
 @NgModule({
   declarations: [
     AppComponent,
-    GoogleMapComponent,
     PacePipe,
     DurationPipe,
     MapboxMapComponent,
