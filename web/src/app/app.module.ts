@@ -1,9 +1,10 @@
 // Core
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { GoogleMapsModule } from '@angular/google-maps';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -33,9 +34,10 @@ import { ActivityPreviewComponent } from './components/activity-preview/activity
   imports: [
     BrowserModule,
     AppRoutingModule,
-    GoogleMapsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ScrollingModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     ActivityService

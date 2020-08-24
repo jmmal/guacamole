@@ -16,7 +16,7 @@ export class ActivityService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllRuns(pageSize: number = 20, pageNumber: number = 1): Observable<GetAllResponse> {
+  getAllRuns(pageNumber: number = 1, pageSize: number = 5): Observable<GetAllResponse> {
     const url = environment.baseUrl + this.routes.activities;
 
     const params = new HttpParams()

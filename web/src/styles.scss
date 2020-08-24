@@ -13,9 +13,9 @@ $pallete: (
 );
 
 html, body { 
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
   font-size: 1rem;
+  margin: 0 auto;
 }
 
 p, h1, h2, h3 {

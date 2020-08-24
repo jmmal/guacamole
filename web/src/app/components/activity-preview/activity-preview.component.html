@@ -1,36 +1,39 @@
-<!-- <h1 class="total">{{ runs?.length }} activities</h1> -->
+<cdk-virtual-scroll-viewport [itemSize]="dataSource.total" class="scroll-viewport">
+  <div class="activity__list">
+    <ng-container *cdkVirtualFor="let run of dataSource">
+      <div *ngIf="run" class="activity__preview">
 
-<ng-container *ngFor="let run of runs">
-  <div class="activity__preview">
+        <div class="header">
+          <p class="date">{{ run?.startTime | date: "fullDate" }}</p>
+          <p class="title">{{ run?.title }}</p>
+        </div>
+        
+        <img
+          [src]="'data:image/png;base64,' + run?.image"
+          alt="Activity GPS preview"
+          class="map-image"
+        />
     
-    <div class="header">
-      <p class="date">{{ run?.startTime | date: "fullDate" }}</p>
-      <p class="title">{{ run?.title }}</p>
-    </div>
-    
-    <img
-      [src]="'data:image/png;base64,' + run?.image"
-      alt="Activity GPS preview"
-      class="map-image"
-    />
-
-    <div class="stats-footer">
-      <div class="col">
-        <p class="title">Distance</p>
-        <p class="value">{{ run?.distance / 1000 | number: "1.2-2" }}km</p>
+        <div class="stats-footer">
+          <div class="col">
+            <p class="title">Distance</p>
+            <p class="value">{{ run?.distance / 1000 | number: "1.2-2" }}km</p>
+          </div>
+          <div class="col">
+            <p class="title">Pace</p>
+            <p class="value">{{ run?.pace | pace }} min / km</p>
+          </div>
+          <div class="col">
+            <p class="title">Elevation</p>
+            <p class="value">{{ (run?.maxElevation - run?.minElevation) | number: "1.1-1" }} m</p>
+          </div>
+          <div class="col">
+            <p class="title">Elapsed Time</p>
+            <p class="value">{{ run?.elapsedTime | duration }}</p>
+          </div>
+        </div>
       </div>
-      <div class="col">
-        <p class="title">Pace</p>
-        <p class="value">{{ run?.pace | pace }} min / km</p>
-      </div>
-      <div class="col">
-        <p class="title">Elevation</p>
-        <p class="value">{{ (run?.maxElevation - run?.minElevation) | number: "1.1-1" }} m</p>
-      </div>
-      <div class="col">
-        <p class="title">Elapsed Time</p>
-        <p class="value">{{ run?.elapsedTime | duration }}</p>
-      </div>
-    </div>
+    </ng-container>
   </div>
-</ng-container>
+  <div *ngIf="dataSource.isLoading" class="spinner"></div>
+</cdk-virtual-scroll-viewport>
