@@ -22,7 +22,7 @@ export class UploadFormComponent {
   onSubmit(): void {
     this.service.createActivity(this.file).subscribe(
       (data) => {
-        this.router.navigate(['/activity', data.id]);
+        this.router.navigateByUrl('/');
       },
       (error) => {
         console.log(error);

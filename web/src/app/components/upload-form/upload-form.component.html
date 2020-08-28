@@ -1,20 +1,15 @@
-<div class="upload-wrapper">
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-    </div>
-    <div class="custom-file">
-      <input
-        type="file"
-        class="custom-file-input"
-        id="inputGroupFile01"
-        aria-describedby="inputGroupFileAddon01"
-        (change)="handleFileInput($event.target.files)"
-      >
-      <label class="custom-file-label" for="inputGroupFile01">{{
-        file?.name ? file.name : 'Choose file'
-      }}</label>
-    </div>
-    <button (click)="onSubmit()">Submit</button>
+<div class="upload-container">
+  <div class="upload">
+    <h1 id="inputGroupFileAddon01">Upload</h1>
+    
+    <input
+      type="file"
+      name="file"
+      id="file"
+      class="inputfile"
+      (change)="handleFileInput($event.target.files)"
+    />
+    
+    <button mat-raised-button (click)="onSubmit()">Submit</button>
   </div>
 </div>
