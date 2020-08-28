@@ -16,9 +16,13 @@ type Server struct {
 	router *mux.Router
 }
 
+type Config struct {
+	Database RepoConfig
+}
+
 // Setup the given router with the required routes for the ActivityController.
-func Setup(router *mux.Router) error {
-	repo := NewRepository()
+func Setup(router *mux.Router, config Config) error {
+	repo := NewRepository(config.Database)
 
 	router.Use(commonMiddleware)
 

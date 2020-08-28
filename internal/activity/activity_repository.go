@@ -1,11 +1,9 @@
 package activity
 
 import (
-	"os"
 	"time"
 	"log"
 	"context"
-	"gopkg.in/yaml.v3"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/bson"
@@ -55,40 +53,20 @@ type Repository struct {
 	activities *mongo.Collection
 }
 
-type config struct {
-	Database struct {
-		Username string `yaml:"username"`
-		Password string `yaml:"password"`
-		DbName string `yaml:"dbName"`
-		ConnectionString string `yaml:"connectionString"`
-	} `yaml:"database"`
+type RepoConfig struct {
+	Username 		 string `yaml:"username"`
+	Password 		 string `yaml:"password"`
+	DbName 			 string `yaml:"dbName"`
+	ConnectionString string `yaml:"connectionString"`
 }
 
-func readFile(cfg *config) {
-	f, err := os.Open("config.yaml")
-	
-	if err != nil {
-		log.Println("Failed to find configuration file")
-		return
-	}
-    defer f.Close()
-
-    decoder := yaml.NewDecoder(f)
-    err = decoder.Decode(cfg)
-    if err != nil {
-        log.Fatal("Failed to read configuration", err)
-    }
-} 
-
 // NewRepository returns a new instance of the Repository struct
-func NewRepository() *Repository {
-	var cfg config
-	readFile(&cfg)
-
+func NewRepository(config RepoConfig) *Repository {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(cfg.Database.ConnectionString))
 	
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(config.ConnectionString))
+
 	if err != nil {
 		log.Fatalln("Failed to make a connection with the database", err)
 	}
@@ -99,7 +77,7 @@ func NewRepository() *Repository {
 		log.Fatalln("Unable to ping the database", err)
 	}
 
-	collection := client.Database(cfg.Database.DbName).Collection("activities")
+	collection := client.Database(config.DbName).Collection("activities")
 
 	return &Repository{
 		client: client,
@@ -118,7 +96,7 @@ func (ar *Repository) GetAllActivities(r PageRequest) ([]DbActivity, int64, erro
 			"distance": bson.M{ "$gt": 0 },
 		},
 		options.Find().SetSkip(skip).SetLimit(r.PageSize).SetSort(bson.M{
-			"startTime": 1,
+			"startTime": -1,
 		}),
 	)
 
