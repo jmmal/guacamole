@@ -1,4 +1,4 @@
-package activity
+package reader
 
 import (
 	"math"
@@ -8,15 +8,16 @@ import (
 	"github.com/tkrajina/gpxgo/gpx"
 	"googlemaps.github.io/maps"
 	"github.com/jmmal/runs-api/internal/images"
+	"github.com/jmmal/runs-api/internal/mongo"
 )
 
-// GetActivityFromFile takes a filename as the argument and returns 
-// an activity object
-func GetActivityFromFile(bytes []byte, filename string) (DbActivity, error) {
+// GetActivityFromFile takes a byte[] representing a GPX file and attemps to create
+// a mongo.Activity from it. 
+func GetActivityFromFile(bytes []byte, filename string) (*mongo.Activity, error) {
 	gpx, err := getGPXBytes(bytes)
 
 	if err != nil {
-		return DbActivity{}, err
+		return &mongo.Activity{}, err
 	}
 
 	movingData := gpx.MovingData()
@@ -46,7 +47,7 @@ func GetActivityFromFile(bytes []byte, filename string) (DbActivity, error) {
 	polyline := maps.Encode(locations)
 	pace := getPace(dist, movingData.MovingTime)
 
-	dbActivity := DbActivity{
+	dbActivity := mongo.Activity{
 		Title: title,
 		UploadKey: filename,
 		Type: gpx.Tracks[0].Type,
@@ -59,7 +60,7 @@ func GetActivityFromFile(bytes []byte, filename string) (DbActivity, error) {
 		Polyline: polyline,
 		MinElevation: elBounds.MinElevation,
 		MaxElevation: elBounds.MaxElevation,
-		Bounds: Bounds{
+		Bounds: mongo.Bounds{
 			MinLat: mapBounds.MinLatitude,
 			MinLng: mapBounds.MinLongitude,
 			MaxLat: mapBounds.MaxLatitude,
@@ -69,7 +70,7 @@ func GetActivityFromFile(bytes []byte, filename string) (DbActivity, error) {
 		Image: image,
 	}
 
-	return dbActivity, nil
+	return &dbActivity, nil
 }
 
 func getDistance(p1, p2 gpx.GPXPoint) float64 {
@@ -111,23 +112,20 @@ func getGPXBytes(bytes []byte) (*gpx.GPX, error) {
 func getLocations(segment *gpx.GPXTrackSegment) []maps.LatLng {
 	points := segment.Points
 
-	// Create array of same size to store the LatLngs
 	locations := make([]maps.LatLng, len(points), len(points))
 
-	idx := 0
-	for  _, value := range points {
-		locations[idx] = maps.LatLng{ Lat: value.Latitude, Lng: value.Longitude }
-		idx++
+	for  i := 0; i < len(points); i++ {
+		locations[i] = maps.LatLng{ Lat: points[i].Latitude, Lng: points[i].Longitude }
 	}
 
 	return locations
 }
 
 // GetAllPoints combines all points in the given GPX into a single slice of points
-func GetAllPoints(gpx *gpx.GPX) []DbPoint {
+func GetAllPoints(gpx *gpx.GPX) []*mongo.Point {
 	gpx.ReduceGpxToSingleTrack()
 
-	points := []DbPoint{}
+	points := []*mongo.Point{}
 
 	if len(gpx.Tracks) < 1 || len(gpx.Tracks[0].Segments) < 1 || len(gpx.Tracks[0].Segments[0].Points) < 1 {
 		return points
@@ -147,11 +145,11 @@ func GetAllPoints(gpx *gpx.GPX) []DbPoint {
 				speed = 0
 			}
 
-			newPoint := DbPoint{
+			newPoint := &mongo.Point{
 				DistanceFromStart: totalDistance,
 				Pace: speed, // m/s
 				Elevation: point.Elevation.Value(),
-				LatLng: LatLng{
+				LatLng: mongo.LatLng{
 					Lat: point.Latitude,
 					Lng: point.Longitude,
 				},

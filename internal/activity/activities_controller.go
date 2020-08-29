@@ -8,26 +8,35 @@ import (
 	"net/http"
 	"encoding/json"
 	"github.com/gorilla/mux"
+	"github.com/jmmal/runs-api/internal/mongo"
+	"github.com/jmmal/runs-api/internal/reader"
 )
+
+type Activities interface {
+	Create(activity *mongo.Activity) error
+	WithID(id string) (*mongo.Activity, error)
+	GetPage(page, size int64) ([]*mongo.Activity, int64, error)
+}
 
 // Server - the API server
 type Server struct {
-	repository *Repository // Interface?? 
+	activities Activities
 	router *mux.Router
 }
 
 type Config struct {
-	Database RepoConfig
+	DbName 			 string `yaml:"dbName"`
+	ConnectionString string `yaml:"connectionString"`
 }
 
 // Setup the given router with the required routes for the ActivityController.
 func Setup(router *mux.Router, config Config) error {
-	repo := NewRepository(config.Database)
+	repo := mongo.NewRepository(config.DbName, config.ConnectionString)
 
 	router.Use(commonMiddleware)
 
 	s := &Server{
-		repository: repo,
+		activities: repo,
 		router: router,
 	}
 
@@ -78,7 +87,7 @@ func (s *Server) GetActivities() http.HandlerFunc {
 			request.SetPageSize(pageSize[0])
 		}
 
-		activities, count, err := s.repository.GetAllActivities(request)
+		activities, count, err := s.activities.GetPage(request.PageNumber, request.PageSize)
 
 		if err != nil {
 			log.Println("Failed to read all from DB")
@@ -86,10 +95,10 @@ func (s *Server) GetActivities() http.HandlerFunc {
 		}
 
 		// Another layer between controller/repository??
-		mapped := make([]Activity, len(activities))
+		mapped := make([]*Activity, len(activities))
 
 		for index, activity := range activities {
-			mapped[index] = activity.GetActivity()
+			mapped[index] = MapActivity(activity)
 		}
 
 		resp := GetAllResponse{
@@ -109,7 +118,9 @@ func (s *Server) GetActivity() http.HandlerFunc {
 		
 		id := mux.Vars(r)["id"]
 
-		result, err := s.repository.GetActivity(id)
+		result, err := s.activities.WithID(id)
+
+		mapped := MapActivity(result)
 
 		if err != nil {
 			log.Println("Failed to fetch activity")
@@ -117,7 +128,7 @@ func (s *Server) GetActivity() http.HandlerFunc {
 			return
 		}
 		
-		json.NewEncoder(w).Encode(result)
+		json.NewEncoder(w).Encode(mapped)
 		return
 	}
 }
@@ -144,7 +155,7 @@ func (s *Server) PostActivity() http.HandlerFunc {
 		io.Copy(&buf, file)
 		
 		contents := buf.Bytes()
-		activity, err := GetActivityFromFile(contents, header.Filename)
+		activity, err := reader.GetActivityFromFile(contents, header.Filename)
 		
 		if err != nil {
 			log.Println("Failed to parse GPX file correctly")
@@ -152,16 +163,14 @@ func (s *Server) PostActivity() http.HandlerFunc {
 			return
 		}
 
-		result, err := s.repository.InsertActivity(activity)
+		err = s.activities.Create(activity)
 
 		if err != nil {
-			log.Println("Failed to run activity to DB")
+			log.Printf("Failed to run activity to DB, err = %s", err)
 			w.WriteHeader(http.StatusInternalServerError)
 		}
 
-		// TODO: ID is only populated for already existing activities,
-		// this should be populated for all requests
-		json.NewEncoder(w).Encode(InsertResponse{ ID: result.Hex() })
+		w.WriteHeader(http.StatusCreated)
 		return
 	}
 }

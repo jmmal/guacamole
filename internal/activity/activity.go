@@ -3,6 +3,7 @@ package activity
 import (
 	"strconv"
 	"time"
+	"github.com/jmmal/runs-api/internal/mongo"
 )
 
 // PageRequest represents the structure of a request to retrieve a specific page of data
@@ -41,7 +42,7 @@ func atoiOrDefault(s string, def int64) int64 {
 type GetAllResponse struct {
 	// TODO: Add page data
 	TotalCount int64 `json:"totalCount"`
-	Results []Activity `json:"results"`
+	Results []*Activity `json:"results"`
 }
 
 // InsertResponse defines the response structure when a activity is inserted
@@ -49,9 +50,9 @@ type InsertResponse struct {
 	ID string `json:"id"`
 }
 
-// GetActivity converts from MongoActivity to Activity
-func (a *DbActivity) GetActivity() Activity {
-	return Activity{
+// MapActivity converts from mongo.Activity to Activity
+func MapActivity(a *mongo.Activity) *Activity {
+	return &Activity{
 		ID: a.ID.Hex(),
 		Title: a.Title,
 		Type: a.Type,
@@ -74,16 +75,19 @@ func (a *DbActivity) GetActivity() Activity {
 	}
 }
 
-func mapPoints(points []DbPoint) []Point {
-	result := make([]Point, len(points))
+func mapPoints(points []*mongo.Point) []*Point {
+	result := make([]*Point, len(points))
 
 	for i, p := range points {
-		result[i] = Point{
+		result[i] = &Point{
 			Time: p.Time,
 			DistanceFromStart: p.DistanceFromStart,
 			Pace: p.Pace,
 			Elevation: p.Elevation,
-			LatLng: p.LatLng,
+			LatLng: LatLng{
+				Lat: p.LatLng.Lat,
+				Lng: p.LatLng.Lng,
+			},
 		}
 	}
 
@@ -123,4 +127,9 @@ type Point struct {
 	Pace float64 `json:"pace"`
 	Elevation float64 `json:"elevation"`
 	LatLng LatLng `json:"latLng"`
+}
+
+type LatLng struct {
+	Lat float64 `bson:"latitude"`
+	Lng float64 `bson:"longitude"`
 }
