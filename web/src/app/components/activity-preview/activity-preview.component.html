@@ -9,7 +9,7 @@
       >Upload
         <img src="assets/img/cloud-upload.svg" alt="Upload new activity" title="Upload">
       </button>
-      <ng-container *cdkVirtualFor="let run of dataSource">
+      <ng-container *cdkVirtualFor="let run of dataSource; trackBy: trackById">
         <div *ngIf="run" class="activity__preview">
   
           <div class="header">

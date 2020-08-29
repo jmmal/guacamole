@@ -20,6 +20,13 @@ export class ActivityPreviewComponent {
   constructor(private activityService: ActivityService) {
     this.dataSource = new ActivityDataSource(activityService);
   }
+
+  /**
+   * Used by cdkVirtuaFor to track elements rendered on the screen.
+   */
+  trackById(index: number, activity: Activity): string {
+    return activity.id;
+  }
 }
 
 /**
