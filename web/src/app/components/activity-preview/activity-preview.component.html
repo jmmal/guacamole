@@ -1,7 +1,14 @@
 <cdk-virtual-scroll-viewport [itemSize]="dataSource.total" class="scroll-viewport">
   <div class="activity__list-wrapper">
     <div class="activity__list">
-      <button mat-raised-button color="accent" class="upload-btn" [routerLink]="'/upload'">Upload</button>
+      <button
+        *ngIf="!dataSource.isLoading"
+        type="button"
+        class="btn btn-outline-secondary upload-btn"
+        [routerLink]="'/upload'"
+      >Upload
+        <img src="/assets/img/cloud-upload.svg" alt="Upload new activity" title="Upload">
+      </button>
       <ng-container *cdkVirtualFor="let run of dataSource">
         <div *ngIf="run" class="activity__preview">
   
