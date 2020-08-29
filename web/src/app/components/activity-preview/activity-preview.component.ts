@@ -40,7 +40,7 @@ class ActivityDataSource extends DataSource<Activity | undefined> {
   private dataStream = new BehaviorSubject<(Activity | undefined)[]>(this.cachedActivities);
   private subscription = new Subscription();
 
-  private pageSize = 5;
+  private pageSize = 4;
   private lastPage = 0;
 
   total = 10;
