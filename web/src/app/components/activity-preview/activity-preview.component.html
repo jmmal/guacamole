@@ -13,8 +13,8 @@
         <div *ngIf="run" class="activity__preview">
   
           <div class="header">
-            <p class="date">{{ run?.startTime | date: "fullDate" }}</p>
-            <p class="title">{{ run?.title }}</p>
+            <h3 class="date mb-0">{{ run?.startTime | date: "fullDate" }}</h3>
+            <p class="title mb-0">{{ run?.title }}</p>
           </div>
           
           <img
@@ -26,19 +26,19 @@
           <div class="stats-footer">
             <div class="col">
               <p class="title">Distance</p>
-              <p class="value">{{ run?.distance / 1000 | number: "1.2-2" }}km</p>
+              <p class="value mb-0">{{ run?.distance / 1000 | number: "1.2-2" }}km</p>
             </div>
             <div class="col">
               <p class="title">Pace</p>
-              <p class="value">{{ run?.pace | pace }} min / km</p>
+              <p class="value mb-0">{{ run?.pace | pace }} min / km</p>
             </div>
             <div class="col">
               <p class="title">Elevation</p>
-              <p class="value">{{ (run?.maxElevation - run?.minElevation) | number: "1.1-1" }} m</p>
+              <p class="value mb-0">{{ (run?.maxElevation - run?.minElevation) | number: "1.1-1" }} m</p>
             </div>
             <div class="col">
               <p class="title">Elapsed Time</p>
-              <p class="value">{{ run?.elapsedTime | duration }}</p>
+              <p class="value mb-0">{{ run?.elapsedTime | duration }}</p>
             </div>
           </div>
         </div>
