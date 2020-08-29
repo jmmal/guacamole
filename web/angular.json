@@ -27,8 +27,8 @@
               "src/favicon.ico",
               "src/assets",
               {
-                "glob": "*",
-                "input": "./node_modules/bootstrap-icons/icons",
+                "glob": "cloud-upload.svg",
+                "input": "./node_modules/bootstrap-icons/icons/",
                 "output": "assets/img/"
               }
             ],
