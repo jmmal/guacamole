@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared/shared.module';
 
 // Components
 import { AppComponent } from './app.component';
@@ -39,7 +40,8 @@ import { ActivityPreviewComponent } from './components/activity-preview/activity
     BrowserAnimationsModule,
     ScrollingModule,
     MatProgressSpinnerModule,
-    MatButtonModule
+    MatButtonModule,
+    SharedModule
   ],
   providers: [
     ActivityService
