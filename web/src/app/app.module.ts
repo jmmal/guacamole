@@ -13,23 +13,15 @@ import { SharedModule } from './shared/shared.module';
 
 // Components
 import { AppComponent } from './app.component';
-import { MapboxMapComponent } from './components/mapbox-map/mapbox-map.component';
 import { UploadFormComponent } from './components/upload-form/upload-form.component';
+import { ActivityPreviewComponent } from './components/activity-preview/activity-preview.component';
 
 // Services
 import { ActivityService } from './core/activity.service';
 
-// Pipes
-import { PacePipe } from './pipes/pace.pipe';
-import { DurationPipe } from './pipes/duration.pipe';
-import { ActivityPreviewComponent } from './components/activity-preview/activity-preview.component';
-
 @NgModule({
   declarations: [
     AppComponent,
-    PacePipe,
-    DurationPipe,
-    MapboxMapComponent,
     UploadFormComponent,
     ActivityPreviewComponent
   ],
