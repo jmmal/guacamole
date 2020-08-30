@@ -24,14 +24,9 @@ type Server struct {
 	router *mux.Router
 }
 
-type Config struct {
-	DbName 			 string `yaml:"dbName"`
-	ConnectionString string `yaml:"connectionString"`
-}
-
 // Setup the given router with the required routes for the ActivityController.
-func Setup(router *mux.Router, config Config) error {
-	repo := mongo.NewRepository(config.DbName, config.ConnectionString)
+func Setup(router *mux.Router) error {
+	repo := mongo.NewRepository()
 
 	router.Use(commonMiddleware)
 

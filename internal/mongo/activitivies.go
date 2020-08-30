@@ -1,6 +1,7 @@
 package mongo
 
 import (
+	"os"
 	"time"
 	"log"
 	"context"
@@ -8,6 +9,11 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+)
+
+var (
+	collection = "activities"
+	databaseName = "runs"
 )
 
 // Activity represents an activity that can be stored in the database.
@@ -60,7 +66,10 @@ type ActivityRepository struct {
 }
 
 // NewRepository setups an ActivityRepository to provide access to the DB.
-func NewRepository(dbName, connectionString string) *ActivityRepository {
+func NewRepository() *ActivityRepository {
+	// TODO: Find a better approach than env variables...
+	connectionString := os.Getenv("MONGO_CONNECTION_STRING")
+	
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	
@@ -76,7 +85,7 @@ func NewRepository(dbName, connectionString string) *ActivityRepository {
 		log.Fatalln("Unable to ping the database", err)
 	}
 
-	collection := client.Database(dbName).Collection("activities")
+	collection := client.Database(databaseName).Collection(collection)
 
 	return &ActivityRepository{
 		client: client,
