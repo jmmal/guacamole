@@ -14,7 +14,7 @@ import * as polyline from '@mapbox/polyline';
 
 // App Imports
 import { environment } from 'src/environments/environment';
-import { Activity } from 'src/app/core/activity';
+import { Activity } from 'src/app/activities/activity';
 
 @Component({
   selector: 'app-mapbox-map',

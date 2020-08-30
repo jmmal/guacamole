@@ -1,8 +1,12 @@
+// Core
 import { Component, OnDestroy } from '@angular/core';
-import { ActivityService } from 'src/app/core/activity.service';
 import { Router } from '@angular/router';
 
+// Third Party
 import { SubSink } from 'subsink';
+
+// App
+import { ActivityService } from '../activity.service';
 
 @Component({
   selector: 'app-upload-form',

@@ -6,8 +6,8 @@ import { LoadingComponent } from './loading/loading.component';
 import { MapboxMapComponent } from './mapbox-map/mapbox-map.component';
 
 // Pipes
-import { PacePipe } from './pace.pipe';
-import { DurationPipe } from './duration.pipe';
+import { PacePipe } from './pipes/pace.pipe';
+import { DurationPipe } from './pipes/duration.pipe';
 
 @NgModule({
   declarations: [

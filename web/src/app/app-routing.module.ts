@@ -1,8 +1,10 @@
+// Core Imports
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router'; // CLI imports router
+import { Routes, RouterModule } from '@angular/router';
 
-import { UploadFormComponent } from './components/upload-form/upload-form.component';
-import { ActivityPreviewComponent } from './components/activity-preview/activity-preview.component';
+// App Imports
+import { UploadFormComponent } from './activities/upload-form/upload-form.component';
+import { ActivityPreviewComponent } from './activities/activity-preview/activity-preview.component';
 
 const routes: Routes = [
   { path: 'upload', component: UploadFormComponent },

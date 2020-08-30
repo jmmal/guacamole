@@ -2,10 +2,10 @@
   <div class="activity__list-wrapper">
     <div class="activity__list">
       <button
-        *ngIf="!dataSource.isLoading"
         type="button"
         class="btn btn-outline-secondary upload-btn"
         [routerLink]="'/upload'"
+        [disabled]="dataSource.isLoading ? true : null"
       >Upload
         <img src="assets/img/cloud-upload.svg" alt="Upload new activity" title="Upload">
       </button>

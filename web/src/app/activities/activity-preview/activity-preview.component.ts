@@ -6,8 +6,8 @@ import { DataSource, CollectionViewer } from '@angular/cdk/collections';
 import { BehaviorSubject, Subscription, Observable } from 'rxjs';
 
 // App Imports
-import { ActivityService } from '../../core/activity.service';
-import { Activity } from '../../core/activity';
+import { ActivityService } from '../activity.service';
+import { Activity } from '../activity';
 
 @Component({
   selector: 'app-activity-preview',
@@ -43,7 +43,6 @@ class ActivityDataSource extends DataSource<Activity | undefined> {
   private pageSize = 4;
   private lastPage = 0;
 
-  total = 10;
   isLoading = false;
 
   constructor(private activityService: ActivityService) {
@@ -73,7 +72,6 @@ class ActivityDataSource extends DataSource<Activity | undefined> {
     this.isLoading = true;
     this.activityService.getAllRuns(pageNumber, this.pageSize).subscribe(resp => {
       this.cachedActivities = this.cachedActivities.concat(resp.results);
-      this.total = resp.totalCount;
       this.dataStream.next(this.cachedActivities);
       this.isLoading = false;
     });

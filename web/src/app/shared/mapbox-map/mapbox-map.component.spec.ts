@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MapboxMapComponent } from './mapbox-map.component';
-import { Activity } from 'src/app/core/activity';
+import { Activity } from 'src/app/activities/activity';
 
 const activity: Activity = {
   id: '1234',
