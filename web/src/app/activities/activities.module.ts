@@ -14,11 +14,13 @@ import { ActivityListComponent } from './activity-list/activity-list.component';
 
 // Modules
 import { SharedModule } from '../shared/shared.module';
+import { ActivityPreviewComponent } from './activity-preview/activity-preview.component';
 
 @NgModule({
   declarations: [
     ActivityListComponent,
-    UploadFormComponent
+    UploadFormComponent,
+    ActivityPreviewComponent
   ],
   imports: [
     CommonModule,
