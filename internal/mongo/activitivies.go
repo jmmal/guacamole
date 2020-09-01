@@ -1,7 +1,6 @@
 package mongo
 
 import (
-	"os"
 	"time"
 	"log"
 	"context"
@@ -59,32 +58,26 @@ type LatLng struct {
 	Lng float64 `bson:"longitude"`
 }
 
+// PageRequest represents the structure of a request to retrieve a specific page of data
+type PageRequest struct {
+	PageNumber 	int64	`schema:"pageNumber"`
+	PageSize 	int64	`schema:"pageSize"`
+	Type 		string	`schema:"type"`
+}
+
+// DefaultPageRequest returns a PageRequest with the default values
+func DefaultPageRequest() PageRequest {
+	return PageRequest{ PageNumber: 1, PageSize: 20 }
+}
+
 // ActivityRepository provides access to MongoDB activities collection.
 type ActivityRepository struct {
 	client 		*mongo.Client
 	activities 	*mongo.Collection
 }
 
-// NewRepository setups an ActivityRepository to provide access to the DB.
-func NewRepository() *ActivityRepository {
-	// TODO: Find a better approach than env variables...
-	connectionString := os.Getenv("MONGO_CONNECTION_STRING")
-	
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-	
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(connectionString))
-
-	if err != nil {
-		log.Fatalln("Failed to make a connection with the database", err)
-	}
-	
-	err = client.Ping(context.TODO(), nil)
-
-	if err != nil {
-		log.Fatalln("Unable to ping the database", err)
-	}
-
+// NewActivityRepository setups an ActivityRepository to provide access to the DB.
+func NewActivityRepository(client *mongo.Client) *ActivityRepository {
 	collection := client.Database(databaseName).Collection(collection)
 
 	return &ActivityRepository{
@@ -94,16 +87,26 @@ func NewRepository() *ActivityRepository {
 }
 
 // GetPage returns an slice of activities based on the page and size paramters
-func (ar *ActivityRepository) GetPage(page, size int64) ([]*Activity, int64, error) {
+func (ar *ActivityRepository) GetPage(request PageRequest) ([]*Activity, int64, error) {
 	log.Println("ActivityRepository::GetAll")
-	skip := (page - 1) * size
+	skip := (request.PageNumber - 1) * request.PageSize
+
+	var filters bson.D
+
+	if request.Type != "" {
+		filters = append(filters, bson.E{ "type", request.Type })
+	}
+
+	filter := append(filters, bson.E{
+		"distance", bson.M{
+			"$gt": 0,
+		},
+	})
 
 	cursor, err := ar.activities.Find(
 		context.TODO(), 
-		bson.M{
-			"distance": bson.M{ "$gt": 0 },
-		},
-		options.Find().SetSkip(skip).SetLimit(size).SetSort(bson.M{
+		filter,
+		options.Find().SetSkip(skip).SetLimit(request.PageSize).SetSort(bson.M{
 			"startTime": -1,
 		}),
 	)
@@ -113,7 +116,7 @@ func (ar *ActivityRepository) GetPage(page, size int64) ([]*Activity, int64, err
 	}
 
 	result := []*Activity{}
-	count, err := ar.activities.CountDocuments(context.TODO(), bson.M{})
+	count, err := ar.activities.CountDocuments(context.TODO(), filter)
 
 	if err != nil {
 		log.Println("Failed to retrieve count of activities in DB")

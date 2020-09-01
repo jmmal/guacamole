@@ -1,42 +1,9 @@
 package activity
 
 import (
-	"strconv"
 	"time"
 	"github.com/jmmal/runs-api/internal/mongo"
 )
-
-// PageRequest represents the structure of a request to retrieve a specific page of data
-type PageRequest struct {
-	PageNumber int64
-	PageSize int64
-}
-
-// NewPageRequest returns a PageRequest with the default values
-func NewPageRequest() PageRequest {
-	return PageRequest{ PageNumber: 1, PageSize: 20 }
-}
-
-// SetPageNumber updates the PageRequest pageNumber with the interger value of
-// the parameter v. If it cannot be converted, it will use the default value
-func (r *PageRequest) SetPageNumber(v string) {
-	r.PageNumber = atoiOrDefault(v, r.PageNumber)
-}
-
-// SetPageSize updates the PageRequest pageSize with the interger value of
-// the parameter v. If it cannot be converted, it will use the default value
-func (r *PageRequest) SetPageSize(v string) {
-	r.PageSize = atoiOrDefault(v, r.PageSize)
-}
-
-// Attemps to convert s into a int64. If the conversion fails, return def
-func atoiOrDefault(s string, def int64) int64 {
-	if val, err := strconv.Atoi(s); err == nil {
-		return int64(val)
-	}
-	return def
-}
-
 
 // GetAllResponse defines the response structure for fetching multiple activities
 type GetAllResponse struct {
