@@ -1,24 +1,38 @@
 // Core Imports
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataSource, CollectionViewer } from '@angular/cdk/collections';
 
 // Third Party Imports
 import { BehaviorSubject, Subscription, Observable } from 'rxjs';
+import { SubSink } from 'subsink';
 
 // App Imports
 import { ActivityService } from '../activity.service';
-import { Activity } from '../activity';
+import { Activity, ActivityTypeAggregation } from '../activity';
 
 @Component({
   selector: 'app-activity-preview',
   templateUrl: './activity-preview.component.html',
   styleUrls: ['./activity-preview.component.scss']
 })
-export class ActivityPreviewComponent {
+export class ActivityPreviewComponent implements OnInit, OnDestroy {
+  private subs = new SubSink();
+
   dataSource: ActivityDataSource;
+  filters: ActivityTypeAggregation[];
 
   constructor(private activityService: ActivityService) {
     this.dataSource = new ActivityDataSource(activityService);
+  }
+
+  onChange(value: string): void {
+    this.dataSource.filterType = value;
+  }
+
+  ngOnInit(): void {
+    this.subs.sink = this.activityService.getFilters().subscribe(resp => {
+      this.filters = resp;
+    });
   }
 
   /**
@@ -26,6 +40,10 @@ export class ActivityPreviewComponent {
    */
   trackById(index: number, activity: Activity): string {
     return activity.id;
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }
 
@@ -42,8 +60,16 @@ class ActivityDataSource extends DataSource<Activity | undefined> {
 
   private pageSize = 4;
   private lastPage = 0;
+  private typeFilter = '';
 
   isLoading = false;
+
+  set filterType(v: string) {
+    this.typeFilter = v;
+    this.cachedActivities = [];
+    this.dataStream.next([]);
+    this.fetchPage(1);
+  }
 
   constructor(private activityService: ActivityService) {
     super();
@@ -70,7 +96,7 @@ class ActivityDataSource extends DataSource<Activity | undefined> {
 
   private fetchPage(pageNumber: number): void {
     this.isLoading = true;
-    this.activityService.getAllRuns(pageNumber, this.pageSize).subscribe(resp => {
+    this.activityService.getAllRuns(pageNumber, this.pageSize, this.typeFilter).subscribe(resp => {
       this.cachedActivities = this.cachedActivities.concat(resp.results);
       this.dataStream.next(this.cachedActivities);
       this.isLoading = false;

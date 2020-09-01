@@ -11,6 +11,16 @@
   justify-content: center;
 }
 
+.options {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  .type-filters {
+    max-width: 50%;
+  }
+}
+
 .activity__list {
   margin-top: 1.75rem;
   height: 100%;

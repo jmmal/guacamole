@@ -1,14 +1,22 @@
 <cdk-virtual-scroll-viewport [itemSize]="450" class="scroll-viewport">
   <div class="activity__list-wrapper">
     <div class="activity__list">
-      <button
-        type="button"
-        class="btn btn-outline-secondary upload-btn"
-        [routerLink]="'/upload'"
-        [disabled]="dataSource.isLoading ? true : null"
-      >Upload
-        <img src="assets/img/cloud-upload.svg" alt="Upload new activity" title="Upload">
-      </button>
+      <div class="options">
+        <button
+          type="button"
+          class="btn btn-outline-secondary upload-btn"
+          [routerLink]="'/upload'"
+          [disabled]="dataSource.isLoading ? true : null"
+        >Upload
+          <img src="assets/img/cloud-upload.svg" alt="Upload new activity" title="Upload">
+        </button>
+        <select class="form-select type-filters" aria-label="Default select example" (change)="onChange($event.target.value)">
+          <option selected value=''>Filter by: All</option>
+          <ng-container *ngFor="let filter of filters">
+            <option [value]="filter.Name">{{ filter.Name }} ({{ filter.Total }})</option>
+          </ng-container>
+        </select>
+      </div>
       <ng-container *cdkVirtualFor="let run of dataSource; trackBy: trackById">
         <div *ngIf="run" class="activity__preview">
   

@@ -1,9 +1,13 @@
+// Core Imports
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
+// Third Party Imports
 import { Observable } from 'rxjs';
+
+// App Imports
 import { environment } from 'src/environments/environment';
-import { GetAllResponse, Activity, InsertResponse } from './activity';
+import { GetAllResponse, Activity, InsertResponse, ActivityTypeAggregation } from './activity';
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +15,22 @@ import { GetAllResponse, Activity, InsertResponse } from './activity';
 export class ActivityService {
   private routes = {
     activities: '/activities',
-    upload: '/upload'
+    upload: '/upload',
+    filters: '/filters'
   };
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllRuns(pageNumber: number = 1, pageSize: number = 5): Observable<GetAllResponse> {
+  getAllRuns(pageNumber: number = 1, pageSize: number = 5, type: string = null): Observable<GetAllResponse> {
     const url = environment.baseUrl + this.routes.activities;
 
-    const params = new HttpParams()
+    let params = new HttpParams()
       .set('pageSize', pageSize.toString())
       .set('pageNumber', pageNumber.toString());
+
+    if (type && type !== '') {
+      params = params.append('type', type);
+    }
 
     return this
       .httpClient
@@ -42,5 +51,11 @@ export class ActivityService {
     formData.append('file', file, file.name);
 
     return this.httpClient.post<InsertResponse>(url, formData);
+  }
+
+  getFilters(): Observable<ActivityTypeAggregation[]> {
+    const url = environment.baseUrl + this.routes.filters;
+
+    return this.httpClient.get<ActivityTypeAggregation[]>(url);
   }
 }
