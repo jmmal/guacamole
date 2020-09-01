@@ -11,11 +11,11 @@ import { ActivityService } from '../activity.service';
 import { Activity, ActivityTypeAggregation } from '../activity';
 
 @Component({
-  selector: 'app-activity-preview',
-  templateUrl: './activity-preview.component.html',
-  styleUrls: ['./activity-preview.component.scss']
+  selector: 'app-activity-list',
+  templateUrl: './activity-list.component.html',
+  styleUrls: ['./activity-list.component.scss']
 })
-export class ActivityPreviewComponent implements OnInit, OnDestroy {
+export class ActivityListComponent implements OnInit, OnDestroy {
   private subs = new SubSink();
 
   dataSource: ActivityDataSource;

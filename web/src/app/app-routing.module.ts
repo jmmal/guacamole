@@ -4,11 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 // App Imports
 import { UploadFormComponent } from './activities/upload-form/upload-form.component';
-import { ActivityPreviewComponent } from './activities/activity-preview/activity-preview.component';
+import { ActivityListComponent } from './activities/activity-list/activity-list.component';
 
 const routes: Routes = [
   { path: 'upload', component: UploadFormComponent },
-  { path: '**', component: ActivityPreviewComponent }
+  { path: '**', component: ActivityListComponent }
 ];
 
 // configures NgModule imports and exports

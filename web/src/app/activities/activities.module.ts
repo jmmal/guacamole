@@ -10,14 +10,14 @@ import { ActivityService } from './activity.service';
 
 // Components
 import { UploadFormComponent } from './upload-form/upload-form.component';
-import { ActivityPreviewComponent } from './activity-preview/activity-preview.component';
+import { ActivityListComponent } from './activity-list/activity-list.component';
 
 // Modules
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
-    ActivityPreviewComponent,
+    ActivityListComponent,
     UploadFormComponent
   ],
   imports: [
@@ -31,7 +31,7 @@ import { SharedModule } from '../shared/shared.module';
     ActivityService
   ],
   exports: [
-    ActivityPreviewComponent
+    ActivityListComponent
   ]
 })
 export class ActivitiesModule { }
