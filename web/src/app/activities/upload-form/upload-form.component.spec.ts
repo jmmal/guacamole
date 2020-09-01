@@ -1,11 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UploadFormComponent } from './upload-form.component';
-import { ActivityService } from 'src/app/core/activity.service';
 import { Router } from '@angular/router';
+import { ActivityService } from '../activity.service';
 
 class ActivityServiceStub {
-
 }
 
 describe('UploadFormComponent', () => {
