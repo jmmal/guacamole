@@ -1,18 +1,18 @@
 package reader
 
 import (
-	"math"
-	"log"
-	"regexp"
-	"time"
-	"github.com/tkrajina/gpxgo/gpx"
-	"googlemaps.github.io/maps"
 	"github.com/jmmal/runs-api/internal/images"
 	"github.com/jmmal/runs-api/internal/mongo"
+	"github.com/tkrajina/gpxgo/gpx"
+	"googlemaps.github.io/maps"
+	"log"
+	"math"
+	"regexp"
+	"time"
 )
 
 // GetActivityFromFile takes a byte[] representing a GPX file and attemps to create
-// a mongo.Activity from it. 
+// a mongo.Activity from it.
 func GetActivityFromFile(bytes []byte, filename string) (*mongo.Activity, error) {
 	gpx, err := getGPXBytes(bytes)
 
@@ -33,31 +33,31 @@ func GetActivityFromFile(bytes []byte, filename string) (*mongo.Activity, error)
 	dist := gpx.Length2D()
 
 	locations := getLocations(&gpx.Tracks[0].Segments[0])
-	
+
 	var image string
 	if len(locations) > 0 {
 		image = images.GetImage(locations, images.Options{
 			MapStyle: images.OutdoorsV11,
-			Size: "1280x600",
+			Size:     "1280x600",
 		})
 	}
-	
+
 	points := GetAllPoints(gpx)
-	
+
 	polyline := maps.Encode(locations)
 	pace := getPace(dist, movingData.MovingTime)
 
 	dbActivity := mongo.Activity{
-		Title: title,
-		UploadKey: filename,
-		Type: gpx.Tracks[0].Type,
-		StartTime: timeBounds.StartTime,
-		EndTime: timeBounds.EndTime,
-		Pace: pace,
-		ElapsedTime: movingData.MovingTime + movingData.StoppedTime,
-		MovingTime: movingData.MovingTime,
-		Distance: dist,
-		Polyline: polyline,
+		Title:        title,
+		UploadKey:    filename,
+		Type:         gpx.Tracks[0].Type,
+		StartTime:    timeBounds.StartTime,
+		EndTime:      timeBounds.EndTime,
+		Pace:         pace,
+		ElapsedTime:  movingData.MovingTime + movingData.StoppedTime,
+		MovingTime:   movingData.MovingTime,
+		Distance:     dist,
+		Polyline:     polyline,
 		MinElevation: elBounds.MinElevation,
 		MaxElevation: elBounds.MaxElevation,
 		Bounds: mongo.Bounds{
@@ -67,7 +67,7 @@ func GetActivityFromFile(bytes []byte, filename string) (*mongo.Activity, error)
 			MaxLng: mapBounds.MaxLongitude,
 		},
 		Points: points,
-		Image: image,
+		Image:  image,
 	}
 
 	return &dbActivity, nil
@@ -81,9 +81,9 @@ func getDistance(p1, p2 gpx.GPXPoint) float64 {
 // Expects the format 2006-01-02_03-04-05, returns Zero Time if it doesn't match
 func ParseTimeFromFilename(filename string) time.Time {
 	r := regexp.MustCompile(`^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}`)
-	
+
 	res := r.FindString(filename)
-	
+
 	start, err := time.Parse("2006-01-02_03-04-05", res)
 
 	if err != nil {
@@ -100,7 +100,7 @@ func getPace(distance float64, time float64) float64 {
 
 func getGPXBytes(bytes []byte) (*gpx.GPX, error) {
 	gpxFile, err := gpx.ParseBytes(bytes)
-	
+
 	if err != nil {
 		log.Println("Failed to read file in as GPX")
 		return gpxFile, err
@@ -114,8 +114,8 @@ func getLocations(segment *gpx.GPXTrackSegment) []maps.LatLng {
 
 	locations := make([]maps.LatLng, len(points), len(points))
 
-	for  i := 0; i < len(points); i++ {
-		locations[i] = maps.LatLng{ Lat: points[i].Latitude, Lng: points[i].Longitude }
+	for i := 0; i < len(points); i++ {
+		locations[i] = maps.LatLng{Lat: points[i].Latitude, Lng: points[i].Longitude}
 	}
 
 	return locations
@@ -140,20 +140,20 @@ func GetAllPoints(gpx *gpx.GPX) []*mongo.Point {
 			totalDistance = totalDistance + getDistance(prev, point)
 
 			speed := prev.SpeedBetween(&point, false)
-			
+
 			if math.IsNaN(speed) {
 				speed = 0
 			}
 
 			newPoint := &mongo.Point{
-				DistanceFromStart: totalDistance,
-				Pace: speed, // m/s
+				Pace:      speed, // m/s
 				Elevation: point.Elevation.Value(),
+				Time:      point.Timestamp,
 				LatLng: mongo.LatLng{
 					Lat: point.Latitude,
 					Lng: point.Longitude,
 				},
-				Time: point.Timestamp,
+				DistanceFromStart: totalDistance,
 			}
 
 			prev = point

@@ -1,38 +1,38 @@
 package mongo
 
 import (
-	"time"
-	"log"
 	"context"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+	"log"
+	"time"
 )
 
 var (
-	collection = "activities"
+	collection   = "activities"
 	databaseName = "runs"
 )
 
 // Activity represents an activity that can be stored in the database.
 type Activity struct {
-	ID	 		 primitive.ObjectID `bson:"_id,omitempty"`
-	UploadKey	 string				`bson:"uploadKey"`
-	Title 		 string 			`bson:"title"`
-	Type 		 string				`bson:"type"`
-	Distance 	 float64 			`bson:"distance"`
-	StartTime 	 time.Time 			`bson:"startTime"`
-	EndTime 	 time.Time 			`bson:"endTime"`
-	Pace 		 float64 			`bson:"pace,omitempty"`
-	ElapsedTime  float64 			`bson:"elapsedTime"`
-	MovingTime 	 float64 			`bson:"movingTime"`
-	Polyline	 string				`bson:"polyline"`
-	MinElevation float64			`bson:"minElevation"`	
-	MaxElevation float64			`bson:"maxElevation"`
-	Bounds 		 Bounds 			`bson:"bounds"`
-	Points		 []*Point			`bson:"points"`
-	Image		 string 			`bson:"image"`
+	ID           primitive.ObjectID `bson:"_id,omitempty"`
+	UploadKey    string             `bson:"uploadKey"`
+	Title        string             `bson:"title"`
+	Type         string             `bson:"type"`
+	Distance     float64            `bson:"distance"`
+	StartTime    time.Time          `bson:"startTime"`
+	EndTime      time.Time          `bson:"endTime"`
+	Pace         float64            `bson:"pace,omitempty"`
+	ElapsedTime  float64            `bson:"elapsedTime"`
+	MovingTime   float64            `bson:"movingTime"`
+	Polyline     string             `bson:"polyline"`
+	MinElevation float64            `bson:"minElevation"`
+	MaxElevation float64            `bson:"maxElevation"`
+	Bounds       Bounds             `bson:"bounds"`
+	Points       []*Point           `bson:"points"`
+	Image        string             `bson:"image"`
 }
 
 // Bounds represents the NE and SW corners of an Activity that has GPS data.
@@ -45,11 +45,11 @@ type Bounds struct {
 
 // Point represents a single GPS point in time from an Activity.
 type Point struct {
-	Time 				time.Time 	`bson:"time"`
-	DistanceFromStart 	float64 	`bson:"distanceFromStart"`
-	Pace 				float64 	`bson:"pace"`
-	Elevation 			float64 	`bson:"elevation"`
-	LatLng 				LatLng 		`bson:"latLng"`
+	Time              time.Time `bson:"time"`
+	DistanceFromStart float64   `bson:"distanceFromStart"`
+	Pace              float64   `bson:"pace"`
+	Elevation         float64   `bson:"elevation"`
+	LatLng            LatLng    `bson:"latLng"`
 }
 
 // LatLng represents a Latitude/Longitude.
@@ -60,20 +60,20 @@ type LatLng struct {
 
 // PageRequest represents the structure of a request to retrieve a specific page of data
 type PageRequest struct {
-	PageNumber 	int64	`schema:"pageNumber"`
-	PageSize 	int64	`schema:"pageSize"`
-	Type 		string	`schema:"type"`
+	PageNumber int64  `schema:"pageNumber"`
+	PageSize   int64  `schema:"pageSize"`
+	Type       string `schema:"type"`
 }
 
 // DefaultPageRequest returns a PageRequest with the default values
 func DefaultPageRequest() PageRequest {
-	return PageRequest{ PageNumber: 1, PageSize: 20 }
+	return PageRequest{PageNumber: 1, PageSize: 20}
 }
 
 // ActivityRepository provides access to MongoDB activities collection.
 type ActivityRepository struct {
-	client 		*mongo.Client
-	activities 	*mongo.Collection
+	client     *mongo.Client
+	activities *mongo.Collection
 }
 
 // NewActivityRepository setups an ActivityRepository to provide access to the DB.
@@ -81,7 +81,7 @@ func NewActivityRepository(client *mongo.Client) *ActivityRepository {
 	collection := client.Database(databaseName).Collection(collection)
 
 	return &ActivityRepository{
-		client: client,
+		client:     client,
 		activities: collection,
 	}
 }
@@ -94,7 +94,7 @@ func (ar *ActivityRepository) GetPage(request PageRequest) ([]*Activity, int64, 
 	var filters bson.D
 
 	if request.Type != "" {
-		filters = append(filters, bson.E{ "type", request.Type })
+		filters = append(filters, bson.E{"type", request.Type})
 	}
 
 	filter := append(filters, bson.E{
@@ -104,7 +104,7 @@ func (ar *ActivityRepository) GetPage(request PageRequest) ([]*Activity, int64, 
 	})
 
 	cursor, err := ar.activities.Find(
-		context.TODO(), 
+		context.TODO(),
 		filter,
 		options.Find().SetSkip(skip).SetLimit(request.PageSize).SetSort(bson.M{
 			"startTime": -1,
@@ -134,7 +134,7 @@ func (ar *ActivityRepository) GetPage(request PageRequest) ([]*Activity, int64, 
 // WithID returns a single activity with the given ID
 func (ar *ActivityRepository) WithID(id string) (*Activity, error) {
 	log.Println("ActivityRepository::WithID", id)
-	
+
 	objID, _ := primitive.ObjectIDFromHex(id)
 	result := ar.activities.FindOne(context.TODO(), bson.M{
 		"_id": objID,
@@ -143,7 +143,7 @@ func (ar *ActivityRepository) WithID(id string) (*Activity, error) {
 	var activity Activity
 
 	result.Decode(&activity)
-	
+
 	return &activity, nil
 }
 
@@ -160,10 +160,10 @@ func (ar *ActivityRepository) Create(activity *Activity) error {
 
 	_, err = ar.activities.ReplaceOne(
 		context.TODO(),
-		bson.M{ "uploadKey": activity.UploadKey },
+		bson.M{"uploadKey": activity.UploadKey},
 		bsonVal,
 		options.Replace().SetUpsert(true),
 	)
-	
+
 	return err
 }

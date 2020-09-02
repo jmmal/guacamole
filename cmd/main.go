@@ -1,11 +1,11 @@
 package main
 
 import (
-	"log"
-	"os"
-	"net/http"
 	"github.com/gorilla/mux"
 	"github.com/jmmal/runs-api/internal/activity"
+	"log"
+	"net/http"
+	"os"
 )
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 	router := mux.NewRouter().StrictSlash(true)
 
 	activity.Setup(router)
-	
+
 	// Start server and wait
 	log.Fatal(http.ListenAndServe(":"+port, router))
 }

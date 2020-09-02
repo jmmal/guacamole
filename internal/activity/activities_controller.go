@@ -1,16 +1,16 @@
 package activity
 
 import (
-	"io"
-	"log"
 	"bytes"
-	"time"
-	"net/http"
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/schema"
 	"github.com/jmmal/runs-api/internal/mongo"
 	"github.com/jmmal/runs-api/internal/reader"
+	"io"
+	"log"
+	"net/http"
+	"time"
 )
 
 var decoder = schema.NewDecoder()
@@ -24,12 +24,12 @@ type Activities interface {
 // Server - the API server
 type Server struct {
 	activities Activities
-	filters *mongo.FiltersRepository
-	router *mux.Router
+	filters    *mongo.FiltersRepository
+	router     *mux.Router
 }
 
 // Setup the given router with the required routes for the ActivityController.
-func Setup(router *mux.Router) error {
+func Setup(router *mux.Router) {
 	client := mongo.GetClient()
 
 	activities := mongo.NewActivityRepository(client)
@@ -39,8 +39,8 @@ func Setup(router *mux.Router) error {
 
 	s := &Server{
 		activities: activities,
-		filters: filters,
-		router: router,
+		filters:    filters,
+		router:     router,
 	}
 
 	s.router.HandleFunc("/healthcheck", s.healthcheck())
@@ -48,12 +48,9 @@ func Setup(router *mux.Router) error {
 	s.router.HandleFunc("/activities/{id}", s.GetActivity())
 	s.router.HandleFunc("/upload", s.PostActivity())
 	s.router.HandleFunc("/filters", s.GetFilters())
-
-	return nil
 }
 
 func commonMiddleware(next http.Handler) http.Handler {
-	
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -73,11 +70,11 @@ func (s *Server) healthcheck() http.HandlerFunc {
 
 // GetActivities retrieves all activities for a user
 func (s *Server) GetActivities() http.HandlerFunc {
-	
+
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Println("Request - GET /activities")
 		log.Printf("Query Params: %s", r.URL.RawQuery)
-		
+
 		request := mongo.DefaultPageRequest()
 		err := decoder.Decode(&request, r.URL.Query())
 
@@ -104,7 +101,7 @@ func (s *Server) GetActivities() http.HandlerFunc {
 
 		resp := GetAllResponse{
 			TotalCount: count,
-			Results: mapped,
+			Results:    mapped,
 		}
 
 		json.NewEncoder(w).Encode(resp)
@@ -113,10 +110,10 @@ func (s *Server) GetActivities() http.HandlerFunc {
 
 // GetActivity returns a single activity for a user
 func (s *Server) GetActivity() http.HandlerFunc {
-	
+
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Println("Request - GET /activities/:id")
-		
+
 		id := mux.Vars(r)["id"]
 
 		result, err := s.activities.WithID(id)
@@ -128,7 +125,7 @@ func (s *Server) GetActivity() http.HandlerFunc {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
-		
+
 		json.NewEncoder(w).Encode(mapped)
 		return
 	}
@@ -136,14 +133,14 @@ func (s *Server) GetActivity() http.HandlerFunc {
 
 // PostActivity creates a new in the database
 func (s *Server) PostActivity() http.HandlerFunc {
-	
+
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Println("Request - POST /activities")
 
 		// Restrict file size
 		r.ParseMultipartForm(10 << 20)
 		file, header, err := r.FormFile("file")
-		
+
 		if err != nil {
 			log.Println("Failed to read file from the request body")
 			w.WriteHeader(http.StatusBadRequest)
@@ -151,13 +148,13 @@ func (s *Server) PostActivity() http.HandlerFunc {
 		}
 
 		defer file.Close()
-				
+
 		var buf bytes.Buffer
 		io.Copy(&buf, file)
-		
+
 		contents := buf.Bytes()
 		activity, err := reader.GetActivityFromFile(contents, header.Filename)
-		
+
 		if err != nil {
 			log.Println("Failed to parse GPX file correctly")
 			w.WriteHeader(http.StatusBadRequest)
@@ -178,7 +175,7 @@ func (s *Server) PostActivity() http.HandlerFunc {
 
 // GetFilters creates a new in the database
 func (s *Server) GetFilters() http.HandlerFunc {
-	
+
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Println("Request - GET /filters")
 

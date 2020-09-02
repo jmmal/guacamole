@@ -2,20 +2,20 @@ package images
 
 import (
 	"encoding/base64"
+	"fmt"
 	"googlemaps.github.io/maps"
-	"os"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
-	"fmt"
+	"os"
 )
 
 // Available map styles
 const (
-	LightV10 = "light-v10"
-	DarkV10 = "dark-v10"
-	StreetsV11 = "streets-v11"
+	LightV10    = "light-v10"
+	DarkV10     = "dark-v10"
+	StreetsV11  = "streets-v11"
 	OutdoorsV11 = "outdoors-v11"
 )
 
@@ -24,7 +24,7 @@ const (
 // Size of the image to get. Format of "WidthxHeight". Max width/height = 1280
 type Options struct {
 	MapStyle string
-	Size 	 string
+	Size     string
 	Polyline string
 }
 
@@ -46,9 +46,9 @@ func getURL(line []maps.LatLng, options Options) string {
 // PathOptions can be used to applied different styling to the path overlay
 // StrokeWidth is a postive number for the width of the stroke
 type PathOptions struct {
-	StrokeWidth 	string
-	StrokeColor 	string
-	StrokeOpacity 	string
+	StrokeWidth   string
+	StrokeColor   string
+	StrokeOpacity string
 }
 
 func getPathOverlay(points []maps.LatLng, options PathOptions) string {
@@ -66,7 +66,6 @@ func getPathOverlay(points []maps.LatLng, options PathOptions) string {
 	path = path + fmt.Sprintf("+%s", options.StrokeColor)
 	path = path + fmt.Sprintf("-%s", options.StrokeOpacity)
 	path = path + fmt.Sprintf("(%s)", polyline)
-
 
 	return path
 }
@@ -89,7 +88,7 @@ func GetImage(polyline []maps.LatLng, options Options) string {
 		log.Println(err)
 	}
 
-	return encodeImgToBase64(body)	
+	return encodeImgToBase64(body)
 }
 
 func encodeImgToBase64(imgBytes []byte) string {

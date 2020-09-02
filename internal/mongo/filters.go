@@ -1,55 +1,55 @@
 package mongo
 
 import (
-	"time"
-	"fmt"
-	"log"
 	"context"
+	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+	"log"
+	"time"
 )
 
 type FiltersRepository struct {
-	client 		*mongo.Client
-	activities 	*mongo.Collection
+	client     *mongo.Client
+	activities *mongo.Collection
 }
 
 type ActivityTypeAggregation struct {
-	Name 	string
-	Total 	int32
+	Name  string
+	Total int32
 }
 
 func NewFiltersRepository(client *mongo.Client) *FiltersRepository {
 	collection := client.Database("runs").Collection("activities")
 
 	return &FiltersRepository{
-		client: client,
+		client:     client,
 		activities: collection,
 	}
 }
 
 func (fr *FiltersRepository) ActivityTypes() []ActivityTypeAggregation {
 	matchStage := bson.D{
-		{ "$match", bson.D{
-			{ "distance", bson.D{
-				{ "$gt", 0 },
+		{"$match", bson.D{
+			{"distance", bson.D{
+				{"$gt", 0},
 			}},
 		}},
 	}
-	
+
 	groupStage := bson.D{
-		{ "$group", bson.D{
-			{ "_id", "$type" },
-			{ "total", bson.D{
-				{ "$sum", 1 },
+		{"$group", bson.D{
+			{"_id", "$type"},
+			{"total", bson.D{
+				{"$sum", 1},
 			}},
 		}},
 	}
 
 	sortStage := bson.D{
-		{ "$sort", bson.D{
-			{ "total", -1 },
+		{"$sort", bson.D{
+			{"total", -1},
 		}},
 	}
 
@@ -77,7 +77,7 @@ func (fr *FiltersRepository) ActivityTypes() []ActivityTypeAggregation {
 	aggs := make([]ActivityTypeAggregation, len(results))
 	for i, value := range results {
 		aggs[i] = ActivityTypeAggregation{
-			Name: fmt.Sprintf("%s", value["_id"]),
+			Name:  fmt.Sprintf("%s", value["_id"]),
 			Total: value["total"].(int32),
 		}
 	}
