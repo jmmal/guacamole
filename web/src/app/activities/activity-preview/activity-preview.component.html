@@ -1,4 +1,4 @@
-<div *ngIf="run" class="activity__preview">
+<div *ngIf="run" class="activity__preview" (click)="onClick()">
   
   <div class="header">
     <h3 class="date mb-0">{{ run?.startTime | date: "fullDate" }}</h3>

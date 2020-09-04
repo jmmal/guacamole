@@ -9,6 +9,7 @@ import { SubSink } from 'subsink';
 // App Imports
 import { ActivityService } from '../activity.service';
 import { Activity, ActivityTypeAggregation } from '../activity';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-activity-list',
@@ -21,7 +22,10 @@ export class ActivityListComponent implements OnInit, OnDestroy {
   dataSource: ActivityDataSource;
   filters: ActivityTypeAggregation[];
 
-  constructor(private activityService: ActivityService) {
+  constructor(
+    private activityService: ActivityService,
+    private router: Router
+  ) {
     this.dataSource = new ActivityDataSource(activityService);
   }
 
@@ -33,6 +37,10 @@ export class ActivityListComponent implements OnInit, OnDestroy {
     this.subs.sink = this.activityService.getFilters().subscribe(resp => {
       this.filters = resp;
     });
+  }
+
+  onActivityClick(activity: Activity): void {
+    this.router.navigate(['/activities', activity.id]);
   }
 
   /**

@@ -18,7 +18,7 @@
         </select>
       </div>
       <ng-container *cdkVirtualFor="let run of dataSource; trackBy: trackById">
-        <app-activity-preview *ngIf="run" [run]="run"></app-activity-preview>
+        <app-activity-preview *ngIf="run" [run]="run" (activityClick)="onActivityClick(run)"></app-activity-preview>
       </ng-container>
     </div>
   </div>
