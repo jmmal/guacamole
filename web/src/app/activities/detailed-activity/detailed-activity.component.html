@@ -1,0 +1,13 @@
+<div class="activity-component">
+  <div class="header">
+    <button type="button" class="btn btn-outline-dark btn-sm" [routerLink]="'/activities'"><img src="assets/img/chevron-left.svg"> Activities</button>
+    <h4 class="activity-type mb-0">{{ activity?.type }}</h4>
+  </div>
+  
+  <div *ngIf="activity" class="detail-activity">
+    <p class="lead">{{ activity.startTime | date: 'HH:mm'}} on {{ activity.startTime | date: 'EEEE, MMMM d, y' }}</p>
+    <app-mapbox-map
+    [activity]="activity"
+    ></app-mapbox-map>
+  </div>
+</div>

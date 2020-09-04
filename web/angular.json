@@ -30,6 +30,11 @@
                 "glob": "cloud-upload.svg",
                 "input": "./node_modules/bootstrap-icons/icons/",
                 "output": "assets/img/"
+              },
+              {
+                "glob": "chevron-left.svg",
+                "input": "./node_modules/bootstrap-icons/icons/",
+                "output": "assets/img/"
               }
             ],
             "styles": [
