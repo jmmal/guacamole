@@ -38,31 +38,18 @@ export class DetailedActivityComponent implements OnInit {
   }
 
   private processPoints(points: Point[]): void {
-    const seriesData = [];
-
-    // let lastDistance = 0;
-    points.forEach((point, i) => {
-      seriesData.push({
-        name: 'Elevation',
-        value: [point.distanceFromStart / 1000, point.elevation ]
-      });
-    });
-
-    console.log(seriesData);
-
     this.elevations = {
       xAxis: {
-        splitLine: {
-          show: false
-        }
+        type: 'category',
+        data: points.map(point => Math.floor(point.distanceFromStart))
       },
       yAxis: {
         type: 'value'
       },
       series: [
         {
-          data: seriesData,
-          type: 'line'
+          data: points.map(point => point.elevation),
+          type: 'bar'
         }
       ]
     };
