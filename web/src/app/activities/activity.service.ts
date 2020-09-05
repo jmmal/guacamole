@@ -7,21 +7,32 @@ import { Observable } from 'rxjs';
 
 // App Imports
 import { environment } from 'src/environments/environment';
-import { GetAllResponse, Activity, InsertResponse, ActivityTypeAggregation } from './activity';
+import {
+  GetAllResponse,
+  Activity,
+  InsertResponse,
+  ActivityTypeAggregation,
+  PointResponse,
+} from './activity';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ActivityService {
   private routes = {
     activities: '/activities',
     upload: '/upload',
-    filters: '/filters'
+    filters: '/filters',
+    points: '/points'
   };
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
-  getAllRuns(pageNumber: number = 1, pageSize: number = 5, type: string = null): Observable<GetAllResponse> {
+  getAllRuns(
+    pageNumber: number = 1,
+    pageSize: number = 5,
+    type: string = null
+  ): Observable<GetAllResponse> {
     const url = environment.baseUrl + this.routes.activities;
 
     let params = new HttpParams()
@@ -32,17 +43,13 @@ export class ActivityService {
       params = params.append('type', type);
     }
 
-    return this
-      .httpClient
-      .get<GetAllResponse>(url, { params });
+    return this.httpClient.get<GetAllResponse>(url, { params });
   }
 
   getRun(id: string): Observable<Activity> {
     const url = environment.baseUrl + this.routes.activities + '/' + id;
 
-    return this
-      .httpClient
-      .get<Activity>(url);
+    return this.httpClient.get<Activity>(url);
   }
 
   createActivity(file: File): Observable<InsertResponse> {
@@ -57,5 +64,16 @@ export class ActivityService {
     const url = environment.baseUrl + this.routes.filters;
 
     return this.httpClient.get<ActivityTypeAggregation[]>(url);
+  }
+
+  getPoints(id: string): Observable<PointResponse> {
+    const url =
+      environment.baseUrl +
+      this.routes.activities +
+      '/' +
+      id +
+      this.routes.points;
+
+    return this.httpClient.get<PointResponse>(url);
   }
 }

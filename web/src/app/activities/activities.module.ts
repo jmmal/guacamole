@@ -16,6 +16,7 @@ import { ActivityListComponent } from './activity-list/activity-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { ActivityPreviewComponent } from './activity-preview/activity-preview.component';
 import { DetailedActivityComponent } from './detailed-activity/detailed-activity.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,10 @@ import { DetailedActivityComponent } from './detailed-activity/detailed-activity
     ScrollingModule,
     RouterModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'), // or import('./path-to-my-custom-echarts')
+    }),
   ],
   providers: [
     ActivityService

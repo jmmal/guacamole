@@ -37,8 +37,27 @@ export interface LatLng {
   lng: number;
 }
 
+export interface Point {
+  time: Date;
+
+  /** Represents the distance in meters since the beginning of the activity */
+  distanceFromStart: number;
+
+  /** Represents the pace in m/s for the particular point */
+  pace: number;
+
+  /** The elevation at the given point (relative to sea level (??)) */
+  elevation: number;
+  latLng: LatLng;
+}
+
+export interface PointResponse {
+  id: string;
+  points: Point[];
+}
+
 export interface ActivityTypeAggregation {
-  // TODO: Convert to lower case once JSON is updated
+  // TODO(me): Convert to lower case once JSON is updated
   Name: string;
   Total: number;
 }

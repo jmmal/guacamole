@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { SubSink } from 'subsink';
+import { EChartOption } from 'echarts';
 
 import { ActivityService } from '../activity.service';
-import { Activity } from '../activity';
+import { Activity, Point } from '../activity';
 
 @Component({
   selector: 'app-detailed-activity',
@@ -17,6 +18,8 @@ export class DetailedActivityComponent implements OnInit {
 
   activity: Activity;
 
+  elevations: EChartOption;
+
   constructor(
     private route: ActivatedRoute,
     private activityService: ActivityService
@@ -28,5 +31,40 @@ export class DetailedActivityComponent implements OnInit {
     this.subs.sink = this.activityService.getRun(this.id).subscribe(resp => {
       this.activity = resp;
     });
+
+    this.subs.sink = this.activityService.getPoints(this.id).subscribe(resp => {
+      this.processPoints(resp.points);
+    });
+  }
+
+  private processPoints(points: Point[]): void {
+    const seriesData = [];
+
+    // let lastDistance = 0;
+    points.forEach((point, i) => {
+      seriesData.push({
+        name: 'Elevation',
+        value: [point.distanceFromStart / 1000, point.elevation ]
+      });
+    });
+
+    console.log(seriesData);
+
+    this.elevations = {
+      xAxis: {
+        splitLine: {
+          show: false
+        }
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          data: seriesData,
+          type: 'line'
+        }
+      ]
+    };
   }
 }
