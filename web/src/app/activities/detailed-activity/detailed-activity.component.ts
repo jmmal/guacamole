@@ -17,7 +17,8 @@ export class DetailedActivityComponent implements OnInit {
 
   activity: Activity;
 
-  seriesData: any[] = [];
+  elevationData: any[] = [];
+  paceData: any[] = [];
   legend = false;
   showLabels = true;
   animations = true;
@@ -32,6 +33,10 @@ export class DetailedActivityComponent implements OnInit {
 
   colorScheme = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
+  };
+
+  colorSchemePace = {
+    domain: ['']
   };
 
   constructor(
@@ -59,8 +64,20 @@ export class DetailedActivityComponent implements OnInit {
     return `${v} m`;
   }
 
+  metresPerSecondToMinutesPerKm(metersPerSec: number): number {
+    if (metersPerSec === 0) {
+      return 0;
+    }
+
+    const secondsPerKm = 1000 / metersPerSec;
+
+    console.log(secondsPerKm / 60);
+    return secondsPerKm / 60;
+  }
+
   private processPoints(points: Point[]): void {
     const data = [];
+    const paces = [];
 
     points.forEach((point, i) => {
       data.push({
@@ -69,15 +86,27 @@ export class DetailedActivityComponent implements OnInit {
         value: point.elevation
       });
 
+      paces.push({
+        name: `${point.distanceFromStart / 1000}`,
+        value: point.pace
+      });
+
       if (point.elevation < this.yScaleMin) {
         this.yScaleMin = point.elevation - 2;
       }
     });
 
-    this.seriesData = [
+    this.elevationData = [
       {
         name: `Elevations`,
         series: data
+      }
+    ];
+
+    this.paceData = [
+      {
+        name: 'Pace',
+        series: paces
       }
     ];
   }

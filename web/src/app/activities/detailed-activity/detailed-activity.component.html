@@ -1,7 +1,7 @@
 <div class="activity-component">
   <div class="header">
     <button type="button" class="btn btn-outline-dark btn-sm" [routerLink]="'/activities'"><img src="assets/img/chevron-left.svg"> Activities</button>
-    <h4 class="activity-type mb-0">{{ activity?.type }}</h4>
+    <h4 class="activity-type mb-0">{{ activity?.type ? activity.type : 'Loading' }}</h4>
   </div>
   
   <div *ngIf="activity" class="detail-activity">
@@ -9,9 +9,9 @@
     <app-mapbox-map
     [activity]="activity"
     ></app-mapbox-map>
-    <h3 class="el-text mt-3">Elevation:</h3>
+    <h3 class="el-text mt-3">Elevation</h3>
     
-    <div class="elevation-profile" *ngIf="seriesData.length > 0">
+    <div class="elevation-profile" *ngIf="elevationData.length > 0">
       <!-- TODO(me): How to reduce xAxis ticks to per/km??  -->
       <ngx-charts-area-chart
         [animations]="false"
@@ -24,11 +24,29 @@
         [xAxisLabel]="xAxisLabel"
         [yAxisLabel]="yAxisLabel"
         [timeline]="timeline"
-        [results]="seriesData"
+        [results]="elevationData"
         [yScaleMin]="yScaleMin"
         [showGridLines]="false"
         [xAxisTickFormatting]="formatXAxis"
         [yAxisTickFormatting]="formatYAxis"
+      ></ngx-charts-area-chart>  
+    </div>
+
+    <h3 class="el-text mt-3">Pace</h3>
+    <div class="pace-profile" *ngIf="paceData.length > 0">
+      <!-- TODO(me): How to reduce xAxis ticks to per/km??  -->
+      <ngx-charts-area-chart
+        [animations]="false"
+        [scheme]="colorSchemePace"
+        [legend]="legend"
+        [showXAxisLabel]="false"
+        [xAxis]="xAxis"
+        [yAxis]="false"
+        [xAxisLabel]="xAxisLabel"
+        [timeline]="timeline"
+        [results]="paceData"
+        [showGridLines]="false"
+        [xAxisTickFormatting]="formatXAxis"
       ></ngx-charts-area-chart>  
     </div>
   </div>

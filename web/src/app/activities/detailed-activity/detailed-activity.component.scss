@@ -48,12 +48,10 @@
   height: 400px;
 }
 
-.elevation-profile {
+.elevation-profile, .pace-profile {
   height: 20rem;
 }
 
-@media (min-width: 600px) {
-  .el-text {
-    padding-left: 1rem;
-  }
+.el-text {
+  padding-left: 1rem;
 }
