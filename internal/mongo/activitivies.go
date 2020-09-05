@@ -1,6 +1,7 @@
 package mongo
 
 import (
+	"errors"
 	"context"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -63,6 +64,11 @@ type PageRequest struct {
 	PageNumber int64  `schema:"pageNumber"`
 	PageSize   int64  `schema:"pageSize"`
 	Type       string `schema:"type"`
+}
+
+type PointsResponse struct {
+	ID           primitive.ObjectID `bson:"_id,omitempty"`
+	Points       []*Point           `bson:"points"`
 }
 
 // DefaultPageRequest returns a PageRequest with the default values
@@ -166,4 +172,38 @@ func (ar *ActivityRepository) Create(activity *Activity) error {
 	)
 
 	return err
+}
+
+// GetPointsForID returns the list of GPS points for the given activity
+func (ar *ActivityRepository) GetPointsForID(id string) (*PointsResponse, error) {
+	log.Println("ActivityRepository::GetPointsForId", id)
+
+	projection := options.FindOne().SetProjection(bson.M{
+		"points": 1,
+	})
+
+	objID, _ := primitive.ObjectIDFromHex(id)
+	result := ar.activities.FindOne(
+		context.TODO(),
+		bson.M{
+			"_id": objID,
+		},
+		projection,
+	)
+
+	if result.Err() != nil {
+		log.Println("Failed to fetch points for activity", result.Err())
+		return nil, errors.New("Unable to fetch points")
+	}
+
+	
+	var points *PointsResponse
+	
+	result.Decode(&points)
+
+	// for _, point := range points {
+	// 	fmt.Println(point)
+	// }
+
+	return points, nil
 }

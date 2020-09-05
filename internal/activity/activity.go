@@ -17,6 +17,11 @@ type InsertResponse struct {
 	ID string `json:"id"`
 }
 
+type PointsResponse struct {
+	ID     string   `json:"id"`
+	Points []*Point `json:"points"`
+}
+
 // MapActivity converts from mongo.Activity to Activity
 func MapActivity(a *mongo.Activity) *Activity {
 	return &Activity{

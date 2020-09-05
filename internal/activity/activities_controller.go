@@ -19,6 +19,7 @@ type Activities interface {
 	Create(activity *mongo.Activity) error
 	WithID(id string) (*mongo.Activity, error)
 	GetPage(request mongo.PageRequest) ([]*mongo.Activity, int64, error)
+	GetPointsForID(id string) (*mongo.PointsResponse, error)
 }
 
 // Server - the API server
@@ -46,6 +47,7 @@ func Setup(router *mux.Router) {
 	s.router.HandleFunc("/healthcheck", s.healthcheck())
 	s.router.HandleFunc("/activities", s.GetActivities())
 	s.router.HandleFunc("/activities/{id}", s.GetActivity())
+	s.router.HandleFunc("/activities/{id}/points", s.GetActivityPoints())
 	s.router.HandleFunc("/upload", s.PostActivity())
 	s.router.HandleFunc("/filters", s.GetFilters())
 }
@@ -183,6 +185,47 @@ func (s *Server) GetFilters() http.HandlerFunc {
 
 		json.NewEncoder(w).Encode(types)
 
+		return
+	}
+}
+
+// GetActivityPoints returns the list of elevations for a given activity.
+func (s *Server) GetActivityPoints() http.HandlerFunc {
+
+	return func(w http.ResponseWriter, r *http.Request) {
+		log.Println("Request - GET /activities/:id/points")
+
+		id := mux.Vars(r)["id"]
+
+		mongoResult, err := s.activities.GetPointsForID(id)
+
+		if err != nil {
+			log.Println("Failed to fetch activity")
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+		points := make([]*Point, len(mongoResult.Points))
+
+		for i, point := range mongoResult.Points {
+			points[i] = &Point{
+				Time: point.Time,
+				DistanceFromStart: point.DistanceFromStart,
+				Pace: point.Pace,
+				Elevation: point.Elevation,
+				LatLng: LatLng{
+					Lat: point.LatLng.Lat,
+					Lng: point.LatLng.Lng,
+				},
+			}
+		}
+
+		response := PointsResponse{
+			ID: mongoResult.ID.Hex(),
+			Points: points,
+		}
+
+		json.NewEncoder(w).Encode(response)
 		return
 	}
 }
