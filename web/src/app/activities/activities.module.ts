@@ -16,7 +16,8 @@ import { ActivityListComponent } from './activity-list/activity-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { ActivityPreviewComponent } from './activity-preview/activity-preview.component';
 import { DetailedActivityComponent } from './detailed-activity/detailed-activity.component';
-import { NgxEchartsModule } from 'ngx-echarts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -30,10 +31,9 @@ import { NgxEchartsModule } from 'ngx-echarts';
     ScrollingModule,
     RouterModule,
     SharedModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    NgxEchartsModule.forRoot({
-      echarts: () => import('echarts'), // or import('./path-to-my-custom-echarts')
-    }),
+    NgxChartsModule
   ],
   providers: [
     ActivityService

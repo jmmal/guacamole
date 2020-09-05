@@ -9,7 +9,27 @@
     <app-mapbox-map
     [activity]="activity"
     ></app-mapbox-map>
-    <h3 class="mt-3">Elevation:</h3>
-    <div echarts [options]="elevations" class="demo-chart"></div>
+    <h3 class="el-text mt-3">Elevation:</h3>
+    
+    <div class="elevation-profile" *ngIf="seriesData.length > 0">
+      <!-- TODO(me): How to reduce xAxis ticks to per/km??  -->
+      <ngx-charts-area-chart
+        [animations]="false"
+        [scheme]="colorScheme"
+        [legend]="legend"
+        [showXAxisLabel]="false"
+        [showYAxisLabel]="false"
+        [xAxis]="xAxis"
+        [yAxis]="yAxis"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [timeline]="timeline"
+        [results]="seriesData"
+        [yScaleMin]="yScaleMin"
+        [showGridLines]="false"
+        [xAxisTickFormatting]="formatXAxis"
+        [yAxisTickFormatting]="formatYAxis"
+      ></ngx-charts-area-chart>  
+    </div>
   </div>
 </div>
