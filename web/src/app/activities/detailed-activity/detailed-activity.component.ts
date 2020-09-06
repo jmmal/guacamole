@@ -15,6 +15,7 @@ export class DetailedActivityComponent implements OnInit {
   private id: string;
   private subs = new SubSink();
 
+  loading = true;
   activity: Activity;
 
   elevationData: any[] = [];
@@ -49,6 +50,7 @@ export class DetailedActivityComponent implements OnInit {
     console.log(this.id);
     this.subs.sink = this.activityService.getRun(this.id).subscribe(resp => {
       this.activity = resp;
+      this.loading = false;
     });
 
     this.subs.sink = this.activityService.getPoints(this.id).subscribe(resp => {

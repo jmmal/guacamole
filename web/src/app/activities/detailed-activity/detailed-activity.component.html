@@ -4,7 +4,7 @@
     <h4 class="activity-type mb-0">{{ activity?.type ? activity.type : 'Loading' }}</h4>
   </div>
   
-  <div *ngIf="activity" class="detail-activity">
+  <div *ngIf="activity; else showLoading" class="detail-activity">
     <p class="lead">{{ activity.startTime | date: 'HH:mm'}} on {{ activity.startTime | date: 'EEEE, MMMM d, y' }}</p>
     <app-mapbox-map
     [activity]="activity"
@@ -50,4 +50,9 @@
       ></ngx-charts-area-chart>  
     </div>
   </div>
+  <ng-template #showLoading>
+    <div class="loading">
+      <app-loading></app-loading>
+    </div>
+  </ng-template>
 </div>
