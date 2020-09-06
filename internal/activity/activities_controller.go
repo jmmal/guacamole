@@ -7,6 +7,7 @@ import (
 	"github.com/gorilla/schema"
 	"github.com/jmmal/runs-api/internal/mongo"
 	"github.com/jmmal/runs-api/internal/reader"
+	"github.com/patrickmn/go-cache"
 	"io"
 	"log"
 	"net/http"
@@ -27,11 +28,13 @@ type Server struct {
 	activities Activities
 	filters    *mongo.FiltersRepository
 	router     *mux.Router
+	cache      *cache.Cache
 }
 
 // Setup the given router with the required routes for the ActivityController.
 func Setup(router *mux.Router) {
 	client := mongo.GetClient()
+	cache := cache.New(cache.NoExpiration, 0)
 
 	activities := mongo.NewActivityRepository(client)
 	filters := mongo.NewFiltersRepository(client)
@@ -42,6 +45,7 @@ func Setup(router *mux.Router) {
 		activities: activities,
 		filters:    filters,
 		router:     router,
+		cache:      cache,
 	}
 
 	s.router.HandleFunc("/healthcheck", s.healthcheck())
@@ -86,27 +90,14 @@ func (s *Server) GetActivities() http.HandlerFunc {
 			return
 		}
 
-		activities, count, err := s.activities.GetPage(request)
+		response, err := s.getOrCreate(request)
 
 		if err != nil {
-			log.Println("Failed to read all from DB")
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
 
-		// Another layer between controller/repository??
-		mapped := make([]*Activity, len(activities))
-
-		for index, activity := range activities {
-			mapped[index] = MapActivity(activity)
-		}
-
-		resp := GetAllResponse{
-			TotalCount: count,
-			Results:    mapped,
-		}
-
-		json.NewEncoder(w).Encode(resp)
+		json.NewEncoder(w).Encode(response)
 	}
 }
 
@@ -170,6 +161,9 @@ func (s *Server) PostActivity() http.HandlerFunc {
 			w.WriteHeader(http.StatusInternalServerError)
 		}
 
+		// If add new activity is added, page1 cache entry should be invalided
+		s.cache.Delete("page1")
+
 		w.WriteHeader(http.StatusCreated)
 		return
 	}
@@ -228,4 +222,54 @@ func (s *Server) GetActivityPoints() http.HandlerFunc {
 		json.NewEncoder(w).Encode(response)
 		return
 	}
+}
+
+// getOrCreate 
+func (s *Server) getOrCreate(request mongo.PageRequest) (*GetAllResponse, error) {
+	// Only page 1 gets cached
+	if request.PageNumber != 1 {
+		log.Println("Skipping cache")
+		return s.getPageFromDB(request)
+	}
+
+	data, found := s.cache.Get("page1")
+
+	if found {
+		log.Println("Page 1 found in the cache.")
+		return data.(*GetAllResponse), nil
+	}
+
+	log.Println("Page 1 not found, fetching from the DB")
+	
+	resp, err := s.getPageFromDB(request)
+
+	if err != nil {
+		return resp, err
+	}
+
+	s.cache.Set("page1", resp, cache.NoExpiration)
+
+	return resp, nil
+}
+
+func (s *Server) getPageFromDB(request mongo.PageRequest) (*GetAllResponse, error) {
+	activities, count, err := s.activities.GetPage(request)
+
+	if err != nil {
+		log.Println("Failed to read all from DB")
+		
+		return &GetAllResponse{}, err
+	}
+
+	// Another layer between controller/repository??
+	mapped := make([]*Activity, len(activities))
+
+	for index, activity := range activities {
+		mapped[index] = MapActivity(activity)
+	}
+
+	return &GetAllResponse{
+		TotalCount: count,
+		Results:    mapped,
+	}, nil
 }
