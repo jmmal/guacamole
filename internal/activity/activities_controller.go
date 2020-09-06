@@ -54,6 +54,7 @@ func Setup(router *mux.Router) {
 	s.router.HandleFunc("/activities/{id}/points", s.GetActivityPoints())
 	s.router.HandleFunc("/upload", s.PostActivity())
 	s.router.HandleFunc("/filters", s.GetFilters())
+	s.router.HandleFunc("/stats", s.GetStats())
 }
 
 func commonMiddleware(next http.Handler) http.Handler {
@@ -220,6 +221,19 @@ func (s *Server) GetActivityPoints() http.HandlerFunc {
 		}
 
 		json.NewEncoder(w).Encode(response)
+		return
+	}
+}
+
+// GetStats returns the list of elevations for a given activity.
+func (s *Server) GetStats() http.HandlerFunc {
+
+	return func(w http.ResponseWriter, r *http.Request) {
+		log.Println("Request - GET /stats")
+
+		result := s.filters.WeekStats()
+
+		json.NewEncoder(w).Encode(result)		
 		return
 	}
 }

@@ -10,6 +10,10 @@ import (
 	"time"
 )
 
+const (
+	hrsPerWeek = 168
+)
+
 type FiltersRepository struct {
 	client     *mongo.Client
 	activities *mongo.Collection
@@ -18,6 +22,19 @@ type FiltersRepository struct {
 type ActivityTypeAggregation struct {
 	Name  string
 	Total int32
+}
+
+type WeekAggregation struct {
+	StartDate    time.Time
+	Distance     float64
+	ElapsedTime  float64
+	ActivityCount int
+}
+
+type WeekProjection struct {
+	Distance     float64
+	ElapsedTime  float64
+	StartTime    time.Time
 }
 
 func NewFiltersRepository(client *mongo.Client) *FiltersRepository {
@@ -83,4 +100,64 @@ func (fr *FiltersRepository) ActivityTypes() []ActivityTypeAggregation {
 	}
 
 	return aggs
+}
+
+// WeekStatus returns an array of Stats for activities over the last 12 weeks.
+// Each items represents a week of data.
+//
+// TODO: Investigate if aggregations can be done with MongoDB
+func (fr *FiltersRepository) WeekStats() [12]WeekAggregation {
+	start := getStartOfWeek(-11)
+
+	filter := bson.D{
+		{"distance", bson.M{"$gt": 0}},
+		{"startTime", bson.M{"$gte": start}},
+		{"type", "Running"},
+	}
+
+	opts := options.Find().
+		SetProjection(bson.M{
+			"distance": 1 ,
+			"elapsedTime": 1,
+			"startTime": 1,
+		}).SetSort(bson.M{
+			"startTime": -1,
+		})
+
+	cursor, err := fr.activities.Find(context.TODO(), filter, opts)
+
+	if err != nil {
+		log.Println("Failed to fetch week stats from DB")
+	}
+
+	var result [12]WeekAggregation
+
+	for cursor.Next(context.TODO()) {
+		var decoded WeekProjection
+		cursor.Decode(&decoded)
+
+		index := int(decoded.StartTime.Sub(start).Hours() / hrsPerWeek)
+		if index < 0 {
+			index = 0
+		}
+		result[index].Distance = result[index].Distance + decoded.Distance
+		result[index].ActivityCount = result[index].ActivityCount + 1
+		result[index].ElapsedTime = result[index].ElapsedTime + decoded.ElapsedTime
+	}
+
+	return result
+}
+
+func getStartOfWeek(numberOfWeeks int) time.Time {
+	today := time.Now()
+	
+	start := today.AddDate(0, 0, 7 * numberOfWeeks) // Go back x weeks
+
+	// Walk back to monday
+	for start.Weekday() != time.Monday {
+		start = start.AddDate(0, 0, -1)
+	}
+
+	// Reset to zeroth hour
+	return time.Date(start.Year(), start.Month(), start.Day(), 0, 0, 0, 0, today.Location())
 }
