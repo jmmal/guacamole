@@ -11,7 +11,7 @@
     ></app-mapbox-map>
     <h3 class="el-text mt-3">Elevation</h3>
     
-    <div class="elevation-profile" *ngIf="elevationData.length > 0">
+    <div class="elevation-profile profile" *ngIf="elevationData.length > 0">
       <!-- TODO(me): How to reduce xAxis ticks to per/km??  -->
       <ngx-charts-area-chart
         [animations]="false"
@@ -33,7 +33,7 @@
     </div>
 
     <h3 class="el-text mt-3">Pace</h3>
-    <div class="pace-profile" *ngIf="paceData.length > 0">
+    <div class="pace-profile profile" *ngIf="paceData.length > 0">
       <!-- TODO(me): How to reduce xAxis ticks to per/km??  -->
       <ngx-charts-area-chart
         [animations]="false"
@@ -48,6 +48,24 @@
         [showGridLines]="false"
         [xAxisTickFormatting]="formatXAxis"
       ></ngx-charts-area-chart>  
+    </div>
+
+    <h3 class="el-text mt-3">Splits</h3>
+    <div class="splits-profile profile" *ngIf="splitsData.length > 0">
+      <ngx-charts-bar-vertical
+        [animations]="false"
+        [scheme]="colorSchemeSplits"
+        [legend]="legend"
+        [showXAxisLabel]="false"
+        [xAxis]="xAxis"
+        [yAxis]="true"
+        [yScaleMax]="yScaleMaxPace"
+        [xAxisLabel]="xAxisLabel"
+        [results]="splitsData"
+        [showGridLines]="false"
+        [yAxisTickFormatting]="formatPce"
+      >
+      </ngx-charts-bar-vertical>
     </div>
   </div>
   <ng-template #showLoading>

@@ -18,8 +18,13 @@ export class DetailedActivityComponent implements OnInit {
   loading = true;
   activity: Activity;
 
+  // Chart data
+  // TODO(me): Separate/common component
   elevationData: any[] = [];
   paceData: any[] = [];
+  splitsData: any[] = [];
+
+  // Chart optiosn
   legend = false;
   showLabels = true;
   animations = true;
@@ -31,6 +36,7 @@ export class DetailedActivityComponent implements OnInit {
   yAxisLabel = 'Elevation';
   timeline = true;
   yScaleMin = Number.MAX_SAFE_INTEGER;
+  yScaleMaxPace = 3;
 
   colorScheme = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
@@ -39,6 +45,10 @@ export class DetailedActivityComponent implements OnInit {
   colorSchemePace = {
     domain: ['']
   };
+
+  colorSchemeSplits = {
+    domain: ['#4baeeb']
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -64,6 +74,18 @@ export class DetailedActivityComponent implements OnInit {
 
   formatYAxis(v: any): string {
     return `${v} m`;
+  }
+
+  formatPce(metersPerSec: any): string {
+    if (metersPerSec === 0) {
+      return `0`;
+    }
+
+    const secondsPerKm = 1000 / metersPerSec;
+
+    const minutes = Math.floor(secondsPerKm / 60);
+    const seconds = secondsPerKm - (minutes * 60);
+    return `${minutes}:${Number(seconds).toFixed(0).padStart(2, '0' )} / km`;
   }
 
   metresPerSecondToMinutesPerKm(metersPerSec: number): number {
@@ -111,5 +133,49 @@ export class DetailedActivityComponent implements OnInit {
         series: paces
       }
     ];
+
+    this.splitsData = this.buildSplits(points);
+  }
+
+  private buildSplits(points: Point[]): any[] {
+    const data = [];
+
+    let currentSplit = 1; // 1st KM
+    let startTime = points[0].time;
+
+    points.forEach((point, index) => {
+      if (point.distanceFromStart < (currentSplit * 1000)) {
+        return;
+      }
+
+      const seconds = (new Date(point.time).getTime() - new Date(startTime).getTime()) / 1000;
+
+      console.log('Split:', currentSplit);
+      console.log('Total seconds', seconds);
+      data.push({
+        name: `${currentSplit}km`,
+        value: 1000 / seconds
+      });
+      currentSplit++;
+      startTime = point.time;
+    });
+
+    const lastPoint = points[points.length - 1];
+    const seconds = (new Date(lastPoint.time).getTime() - new Date(startTime).getTime()) / 1000;
+
+    const dist = lastPoint.distanceFromStart - (1000 * (currentSplit - 1));
+
+    // If the last split is less than 100m, ignore it
+    if (dist < 100) {
+      return data;
+    }
+
+    data.push({
+      name: `${currentSplit}km`,
+      value: seconds / dist
+    });
+
+
+    return data;
   }
 }
