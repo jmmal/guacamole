@@ -1,4 +1,4 @@
-export const Pipes = {
+export const Helpers = {
   /**
    * Converts value (representing a duration in seconds) into a string formatted 
    * as hh mm ss

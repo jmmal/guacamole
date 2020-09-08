@@ -1,20 +1,29 @@
 import React from 'react';
 
 import { Activity } from './models';
-import { Pipes } from './pipes';
+import { Helpers } from '../Shared';
 import '../styles/styles.scss'
+import { useHistory } from 'react-router-dom';
 
 type ActivityPreviewProps = {
   activity: Activity;
 }
 
 export const ActivityPreview = ({ activity }: ActivityPreviewProps) => {
-  const openActivity = () => {
-    console.log('open');
+  const history = useHistory();
+
+  function openActivity() {
+    history.push(`/activities/${activity.id}`);
+  }
+
+  function handleKeyDown(event: React.KeyboardEvent) {
+    if (event.key === "ENTER") {
+      openActivity()
+    }
   }
 
   return (
-    <div className="activity__preview" onClick={openActivity}>
+    <div className="activity__preview focusable" tabIndex={0} onClick={openActivity} onKeyDown={handleKeyDown}>
       <div className="header">
         <h3 className="date mb-0">{ activity.startTime.toDateString() }</h3>
         <p className="title mb-0">{ activity.title }</p>
@@ -27,23 +36,25 @@ export const ActivityPreview = ({ activity }: ActivityPreviewProps) => {
       />
 
       <div className="stats-footer">
-        <div className="col">
-          <p className="title">Distance</p>
-          <p className="value mb-0">{ Number(activity.distance / 1000).toFixed(2) }km</p>
-        </div>
-        <div className="col">
-          <p className="title">Pace</p>
-          <p className="value mb-0">{ Pipes.pace(activity.pace) } min / km</p>
-        </div>
-        <div className="col">
-          <p className="title">Elevation</p>
-          <p className="value mb-0">{ (activity.maxElevation - activity.minElevation) } m</p>
-        </div>
-        <div className="col">
-          <p className="title">Elapsed Time</p>
-          <p className="value mb-0">{ Pipes.duration(activity.elapsedTime) }</p>
-        </div>
+        <FooterColumn title='Distance' value={ `${Number(activity.distance / 1000).toFixed(2)} km`} />
+        <FooterColumn title='Pace' value={ `${Helpers.pace(activity.pace) } min / km`} />
+        <FooterColumn title='Elevation' value={`${activity.maxElevation - activity.minElevation} m`} />
+        <FooterColumn title='Elapsed Time' value={ Helpers.duration(activity.elapsedTime)} />
       </div>
+    </div>
+  )
+}
+
+type FooterColumnProps = {
+  title: string;
+  value: string;
+}
+
+const FooterColumn = ({title, value}: FooterColumnProps) => {
+  return (
+    <div className="col">
+      <p className="title">{ title }</p>
+      <p className="value mb-0">{ value }</p>
     </div>
   )
 }

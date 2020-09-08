@@ -57,7 +57,7 @@ export class DetailedActivityComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    console.log(this.id);
+
     this.subs.sink = this.activityService.getRun(this.id).subscribe(resp => {
       this.activity = resp;
       this.loading = false;
@@ -95,7 +95,6 @@ export class DetailedActivityComponent implements OnInit {
 
     const secondsPerKm = 1000 / metersPerSec;
 
-    console.log(secondsPerKm / 60);
     return secondsPerKm / 60;
   }
 
@@ -150,8 +149,6 @@ export class DetailedActivityComponent implements OnInit {
 
       const seconds = (new Date(point.time).getTime() - new Date(startTime).getTime()) / 1000;
 
-      console.log('Split:', currentSplit);
-      console.log('Total seconds', seconds);
       data.push({
         name: `${currentSplit}km`,
         value: 1000 / seconds
