@@ -1,9 +1,11 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { format } from 'date-fns';
 
 import { Activity } from './models';
 import { Helpers } from '../Shared';
 import '../styles/styles.scss'
-import { useHistory } from 'react-router-dom';
 
 type ActivityPreviewProps = {
   activity: Activity;
@@ -25,7 +27,7 @@ export const ActivityPreview = ({ activity }: ActivityPreviewProps) => {
   return (
     <div className="activity__preview focusable" tabIndex={0} onClick={openActivity} onKeyDown={handleKeyDown}>
       <div className="header">
-        <h3 className="date mb-0">{ activity.startTime.toDateString() }</h3>
+        <h3 className="date mb-0">{ format(new Date(activity.startTime), "EEEE, LLLL d, yyyy") }</h3>
         <p className="title mb-0">{ activity.title }</p>
       </div>
       

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { ActivityService } from './ActivityService';
+import { useHistory } from 'react-router-dom';
 
 export const Upload = () => {
+  const history = useHistory();
   const [file, setFile] = useState<File>();
 
   function handleFileInput(event: React.ChangeEvent<HTMLInputElement>) {
@@ -12,17 +15,14 @@ export const Upload = () => {
   }
 
   function handleSubmit(): void {
-    console.log('uploading...');
-    // this.subs.sink = this.service.createActivity(this.file).subscribe(
-    //   (data) => {
-    //     this.router.navigateByUrl('/');
-    //     this.loading = true;
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //     this.loading = true;
-    //   }
-    // );
+    if (file) {
+      ActivityService
+        .upload(file)
+        .then(resp => {
+          history.push('/activities');
+        })
+
+    }
   }
 
   return (
@@ -54,11 +54,13 @@ export const Upload = () => {
           <button
             type="button"
             className="btn btn-outline-secondary back"
+            onClick={() => history.push('/activities')}
           >Go Back</button>
           <button
             type="button"
             className="btn btn-success"
             onClick={handleSubmit}
+            disabled={!!!file}
           >Submit</button>
         </div>
       </div>

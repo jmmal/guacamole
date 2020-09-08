@@ -261,7 +261,7 @@ func (s *Server) getOrCreate(request mongo.PageRequest) (*GetAllResponse, error)
 		return resp, err
 	}
 
-	s.cache.Set("page1", resp, cache.NoExpiration)
+	// s.cache.Set("page1", resp, cache.NoExpiration)
 
 	return resp, nil
 }

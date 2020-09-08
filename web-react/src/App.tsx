@@ -37,11 +37,11 @@ const Activities = () => {
       <Route exact path={path}>
         <ActivityList />
       </Route>
-      <Route path={`${path}/:activityId`}>
-        <DetailedActivity />
-      </Route>
       <Route path={`${path}/upload`}>
         <Upload />
+      </Route>
+      <Route path={`${path}/:activityId`}>
+        <DetailedActivity />
       </Route>
     </Switch>
   )
