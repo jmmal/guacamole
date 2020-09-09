@@ -6,7 +6,7 @@ import {
 } from 'bootstrap-icons/icons/chevron-left.svg';
 import { format } from 'date-fns';
 
-import { Mapbox } from '../Mapbox/Mapbox';
+import { Mapbox } from '../Shared';
 import { ActivityService } from './ActivityService';
 import { Activity } from './models';
 import { Loading } from '../Shared';
