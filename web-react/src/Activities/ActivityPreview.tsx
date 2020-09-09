@@ -40,7 +40,7 @@ export const ActivityPreview = ({ activity }: ActivityPreviewProps) => {
       <div className="stats-footer">
         <FooterColumn title='Distance' value={ `${Number(activity.distance / 1000).toFixed(2)} km`} />
         <FooterColumn title='Pace' value={ `${Helpers.pace(activity.pace) } min / km`} />
-        <FooterColumn title='Elevation' value={`${activity.maxElevation - activity.minElevation} m`} />
+        <FooterColumn title='Elevation' value={`${Number(activity.maxElevation - activity.minElevation).toFixed(1)} m`} />
         <FooterColumn title='Elapsed Time' value={ Helpers.duration(activity.elapsedTime)} />
       </div>
     </div>
