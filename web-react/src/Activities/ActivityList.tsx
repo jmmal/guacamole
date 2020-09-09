@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEvent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { ReactComponent as CloudIcon } from 'bootstrap-icons/icons/cloud-upload.svg';
@@ -7,7 +7,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { ActivityPreview } from './ActivityPreview';
 import { ActivityService } from './ActivityService';
 
-import { Activity, ActivityTypeAggregation } from './models';
+import { Activity } from './models';
 import { Loading } from '../Shared';
 
 export const ActivityList = () => {
@@ -15,15 +15,10 @@ export const ActivityList = () => {
   const [activities, setActivities] = useState<Array<Activity>>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [page, setPage] = useState(1);
-  const [filters, setFilters] = useState<Array<ActivityTypeAggregation>>([]);
 
   useEffect(() => {
     getActivities(page, null).then(resp => {
       updateActivities(resp.data.results, resp.data.totalCount)
-    })
-
-    ActivityService.getFilters().then(resp => {
-      setFilters(resp.data);
     })
   }, []);
 
@@ -34,10 +29,6 @@ export const ActivityList = () => {
 
   function getActivities(pageNumber: number = 1, filter: string | null) {
     return ActivityService.getAllActivities(pageNumber, 3, filter);
-  }
-
-  function handleFilterChange(event: ChangeEvent<HTMLSelectElement>) {
-    const filter = event.target.value;
   }
 
   function loadNext() {

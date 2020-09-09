@@ -18,9 +18,12 @@ import {
 function App() {
   return (
     <div className="content-wrapper">
-      <Router>
+      <Router basename='/'>
         <Switch>
           <Route path='/activities'>
+            <Activities />
+          </Route>
+          <Route path='/'>
             <Activities />
           </Route>
         </Switch>

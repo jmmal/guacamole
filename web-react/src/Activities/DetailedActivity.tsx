@@ -8,7 +8,7 @@ import { format } from 'date-fns';
 
 import { Mapbox } from '../Shared';
 import { ActivityService } from './ActivityService';
-import { Activity, PointResponse, Point } from './models';
+import { Activity, Point } from './models';
 import { Loading } from '../Shared';
 import { ElevationChart, PaceChart, SplitsChart } from '../Charts';
 
