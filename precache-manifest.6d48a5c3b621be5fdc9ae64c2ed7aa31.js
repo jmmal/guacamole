@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d855ae5d4be8c5f2d42e273ea9363525",
+    "revision": "dc216b7923211a736ca24cfa1c037edb",
     "url": "/guacamole/index.html"
   },
   {
-    "revision": "6ee8ad88bb878290afc4",
+    "revision": "da541bd3a0f9305e988d",
     "url": "/guacamole/static/css/2.ea6b7726.chunk.css"
   },
   {
-    "revision": "5999d6247e8dc657a1b6",
+    "revision": "b3cf1f9adc771d575f29",
     "url": "/guacamole/static/css/main.9ac7f03d.chunk.css"
   },
   {
-    "revision": "6ee8ad88bb878290afc4",
-    "url": "/guacamole/static/js/2.ca1455d4.chunk.js"
+    "revision": "da541bd3a0f9305e988d",
+    "url": "/guacamole/static/js/2.9d6c86ed.chunk.js"
   },
   {
     "revision": "ca3cfcda77dc9f4f71fda9fdfcf14fb0",
-    "url": "/guacamole/static/js/2.ca1455d4.chunk.js.LICENSE.txt"
+    "url": "/guacamole/static/js/2.9d6c86ed.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "5999d6247e8dc657a1b6",
-    "url": "/guacamole/static/js/main.3a444027.chunk.js"
+    "revision": "b3cf1f9adc771d575f29",
+    "url": "/guacamole/static/js/main.310ee288.chunk.js"
   },
   {
     "revision": "a8ccc81d4302bf1e4ecd",
