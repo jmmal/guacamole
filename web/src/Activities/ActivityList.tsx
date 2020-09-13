@@ -22,6 +22,7 @@ export const ActivityList = () => {
     getActivities(page, filter).then(resp => {
       updateActivities(resp.data.results, resp.data.totalCount)
     })
+    // eslint-disable-next-line
   }, [filter]);
 
   useEffect(() => {
