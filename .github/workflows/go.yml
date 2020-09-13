@@ -35,8 +35,6 @@ jobs:
 
   web:
     runs-on: ubuntu-latest
-    env:
-      NG_CLI_ANALYTICS: "ci"
     defaults:
       run:
         working-directory: web
@@ -62,11 +60,5 @@ jobs:
       - name: Install node_modules
         run: npm ci
 
-      - name: Run Linting
-        run: npm run lint
-
-      - name: Run unit tests
-        run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI 
-
       - name: Build project        
-        run: npm run build -- --prod
+        run: npm run build
