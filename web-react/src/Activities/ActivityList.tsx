@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { ReactComponent as CloudIcon } from 'bootstrap-icons/icons/cloud-upload.svg';
@@ -7,7 +7,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { ActivityPreview } from './ActivityPreview';
 import { ActivityService } from './ActivityService';
 
-import { Activity } from './models';
+import { Activity, ActivityTypeAggregation } from './models';
 import { Loading } from '../Shared';
 
 export const ActivityList = () => {
@@ -15,10 +15,18 @@ export const ActivityList = () => {
   const [activities, setActivities] = useState<Array<Activity>>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [page, setPage] = useState(1);
+  const [filters, setFilters] = useState<ActivityTypeAggregation[]>([]);
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    getActivities(page, null).then(resp => {
+    getActivities(page, filter).then(resp => {
       updateActivities(resp.data.results, resp.data.totalCount)
+    })
+  }, [filter]);
+
+  useEffect(() => {
+    ActivityService.getFilters().then(resp => {
+      setFilters(resp.data);
     })
   }, []);
 
@@ -31,18 +39,22 @@ export const ActivityList = () => {
     return ActivityService.getAllActivities(pageNumber, 3, filter);
   }
 
-  function loadNext() {
-    getActivities(page + 1, null).then(resp => {
-      updateActivities([
-        ...activities,
-        ...resp.data.results
-      ], resp.data.totalCount);
-      setPage(page + 1);
-    })
+  async function loadNext() {
+    const response = await getActivities(page + 1, filter);
+
+    setPage(page + 1);
+    updateActivities([
+      ...activities,
+      ...response.data.results
+    ], response.data.totalCount);
   }
 
   function onUploadClick() {
     history.push('/activities/upload')
+  }
+
+  function handleFilterChange($event: FormEvent<HTMLSelectElement>) {
+    setFilter($event.currentTarget.value);
   }
 
   return (
@@ -55,7 +67,7 @@ export const ActivityList = () => {
             onClick={onUploadClick}
           >Upload <CloudIcon />
           </button>
-          {/* <select
+          <select
             className="form-select type-filters"
             aria-label="Default select example"
             onChange={handleFilterChange}
@@ -64,7 +76,7 @@ export const ActivityList = () => {
             { filters && filters.map(filter => (
               <option key={filter.Name} value={filter.Name}>{ filter.Name } ({filter.Total})</option>
             ))}
-          </select> */}
+          </select>
         </div>
         <InfiniteScroll
           dataLength={activities.length}
@@ -79,6 +91,9 @@ export const ActivityList = () => {
             />
           ))}
         </InfiniteScroll>
+        { activities.length === 0 && (
+          <Loading />
+        )}
       </div>
     </div>
   )

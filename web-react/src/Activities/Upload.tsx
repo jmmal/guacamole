@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { ActivityService } from './ActivityService';
 import { useHistory } from 'react-router-dom';
+
+import { ActivityService } from './ActivityService';
+import { Loading } from '../Shared';
 
 export const Upload = () => {
   const history = useHistory();
+  
+  const [loading, setLoading] = useState<boolean>(false);
   const [file, setFile] = useState<File>();
 
   function handleFileInput(event: React.ChangeEvent<HTMLInputElement>) {
@@ -14,21 +18,19 @@ export const Upload = () => {
     }
   }
 
-  function handleSubmit(): void {
+  async function handleSubmit() {
     if (file) {
-      ActivityService
-        .upload(file)
-        .then(resp => {
-          history.push('/activities');
-        })
-
+      setLoading(true);
+      await ActivityService.upload(file);
+      setLoading(false);
+      history.push('/activities');
     }
   }
 
   return (
     <div className="upload-container">
       <div className="upload">
-        <h2 id="inputGroupFileAddon01">Upload</h2>
+        <p id="inputGroupFileAddon01" className="h2">Upload</p>
         
         <p>Accepted file types: '.gpx'</p>
         <div className="form-file">
@@ -60,9 +62,10 @@ export const Upload = () => {
             type="button"
             className="btn btn-success"
             onClick={handleSubmit}
-            disabled={!!!file}
+            disabled={!file}
           >Submit</button>
         </div>
+        { loading && <Loading /> }
       </div>
     </div>
   )

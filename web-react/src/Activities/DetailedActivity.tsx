@@ -12,27 +12,34 @@ import { Activity, Point } from './models';
 import { Loading } from '../Shared';
 import { ElevationChart, PaceChart, SplitsChart } from '../Charts';
 
+interface DetailedActivityParams {
+  activityId: string;
+}
+
 export const DetailedActivity = () => {
   const history = useHistory();
-  const { activityId } = useParams();
+  const { activityId } = useParams<DetailedActivityParams>();
 
   const [ activity, setActivity ] = useState<Activity>();
   const [ points, setPoints ] = useState<Point[]>([]);
 
   useEffect(() => {
-    ActivityService
-      .getActivity(activityId)
-      .then(response => {
-        setActivity(response.data)
-      });
+    loadActivities(activityId);
   }, [ activityId ]);
 
   useEffect(() => {
-    ActivityService.getPoints(activityId)
-      .then(response => {
-        setPoints(response.data.points);
-      })
+    loadPoints(activityId);
   }, [activityId]);
+
+  async function loadActivities(id: string) {
+    const response = await ActivityService.getActivity(id);
+    setActivity(response.data);
+  }
+
+  async function loadPoints(id: string) {
+    const response = await ActivityService.getPoints(id);
+    setPoints(response.data.points);
+  }
 
   function goBack() {
     history.goBack();

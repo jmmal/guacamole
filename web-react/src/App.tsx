@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  useRouteMatch
+  useRouteMatch,
+  HashRouter
 } from 'react-router-dom';
 
 import './App.scss';
@@ -17,18 +17,18 @@ import {
 
 function App() {
   return (
-    <div className="content-wrapper">
-      <Router basename='/'>
+    <HashRouter>
+      <div className="content-wrapper">
         <Switch>
           <Route path='/activities'>
             <Activities />
           </Route>
-          <Route path='/'>
+          <Route path='/' exact>
             <Activities />
           </Route>
         </Switch>
-      </Router>
-    </div>
+      </div>
+    </HashRouter>
   );
 }
 
