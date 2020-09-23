@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a1e73e11ba27f63d29b29d8dadf553e2",
+    "revision": "45beaae6ac7dd48583ac6935556ea37d",
     "url": "/guacamole/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/guacamole/static/css/2.ea6b7726.chunk.css"
   },
   {
-    "revision": "8ca945b92fe933e190c4",
+    "revision": "2d3573b735c5c4b6a47c",
     "url": "/guacamole/static/css/main.9ac7f03d.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/guacamole/static/js/2.9d6c86ed.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "8ca945b92fe933e190c4",
-    "url": "/guacamole/static/js/main.fa01bf8f.chunk.js"
+    "revision": "2d3573b735c5c4b6a47c",
+    "url": "/guacamole/static/js/main.402c4b52.chunk.js"
   },
   {
     "revision": "a8ccc81d4302bf1e4ecd",
