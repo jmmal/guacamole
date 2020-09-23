@@ -55,6 +55,7 @@ export const ActivityList = () => {
   }
 
   function handleFilterChange($event: FormEvent<HTMLSelectElement>) {
+    setPage(1);
     setFilter($event.currentTarget.value);
   }
 

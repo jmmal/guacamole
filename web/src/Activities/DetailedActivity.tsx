@@ -16,7 +16,7 @@ interface DetailedActivityParams {
   activityId: string;
 }
 
-export const DetailedActivity = () => {
+const DetailedActivityContainer = () => {
   const history = useHistory();
   const { activityId } = useParams<DetailedActivityParams>();
 
@@ -30,7 +30,7 @@ export const DetailedActivity = () => {
   useEffect(() => {
     loadPoints(activityId);
   }, [activityId]);
-
+  
   async function loadActivities(id: string) {
     const response = await ActivityService.getActivity(id);
     setActivity(response.data);
@@ -44,11 +44,27 @@ export const DetailedActivity = () => {
   function goBack() {
     history.goBack();
   }
-  
+
+  return (
+    <DetailedActivity
+      points={points}
+      activity={activity}
+      handleGoBack={goBack}
+    />
+  )
+}
+
+type DetailedActivityProps = {
+  points?: Point[];
+  activity?: Activity;
+  handleGoBack(): void;
+}
+
+const DetailedActivity = ({ points, activity, handleGoBack }: DetailedActivityProps) => { 
   return (
     <div className="activity-component">
       <div className="header-detail">
-        <button type="button" className="btn btn-outline-dark btn-sm" onClick={goBack}><ChevronLeft /> Activities</button>
+        <button type="button" className="btn btn-outline-dark btn-sm" onClick={handleGoBack}><ChevronLeft /> Activities</button>
         <h4 className="activity-type mb-0">{ activity?.type ? activity.type : 'Loading' }</h4>
       </div>
        
@@ -70,3 +86,5 @@ export const DetailedActivity = () => {
     </div>
   )
 }
+
+export { DetailedActivityContainer as DetailedActivity };

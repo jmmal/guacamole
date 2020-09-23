@@ -3,7 +3,7 @@ import { GetAllResponse, PointResponse, ActivityTypeAggregation, Activity } from
 
 
 export const ActivityService = {
-  baseUrl: 'http://localhost:8080',
+  baseUrl: process.env.REACT_APP_BASE_API_URL,
 
   getAllActivities(pageNumber: number, pageSize: number, filter: string | null = null) {
     const filerVal = filter === 'All' ? null : filter;
