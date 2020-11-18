@@ -13,8 +13,8 @@ import (
 
 // GetActivityFromFile takes a byte[] representing a GPX file and attemps to create
 // a mongo.Activity from it.
-func GetActivityFromFile(bytes []byte, filename string) (*mongo.Activity, error) {
-	gpx, err := getGPXBytes(bytes)
+func GetActivityFromFile(data []byte, filename string) (*mongo.Activity, error) {
+	gpx, err := getGPXBytes(data)
 
 	if err != nil {
 		return &mongo.Activity{}, err
@@ -34,13 +34,10 @@ func GetActivityFromFile(bytes []byte, filename string) (*mongo.Activity, error)
 
 	locations := getLocations(&gpx.Tracks[0].Segments[0])
 
-	var image string
-	if len(locations) > 0 {
-		image = images.GetImage(locations, images.Options{
-			MapStyle: images.OutdoorsV11,
-			Size:     "1280x600",
-		})
-	}
+	imageURL := images.GetImage(locations, images.Options{
+		MapStyle: images.OutdoorsV11,
+		Size:     "1280x600",
+	}, filename)
 
 	points := GetAllPoints(gpx)
 
@@ -67,7 +64,7 @@ func GetActivityFromFile(bytes []byte, filename string) (*mongo.Activity, error)
 			MaxLng: mapBounds.MaxLongitude,
 		},
 		Points: points,
-		Image:  image,
+		Image: imageURL,
 	}
 
 	return &dbActivity, nil

@@ -1,7 +1,9 @@
 package images
 
 import (
-	"encoding/base64"
+	"bytes"
+	"strings"
+	"github.com/jmmal/runs-api/internal/storage"
 	"fmt"
 	"googlemaps.github.io/maps"
 	"io/ioutil"
@@ -71,28 +73,34 @@ func getPathOverlay(points []maps.LatLng, options PathOptions) string {
 }
 
 // GetImage fetches a static image from the given polyline and returns the base64 representation
-func GetImage(polyline []maps.LatLng, options Options) string {
+func GetImage(polyline []maps.LatLng, options Options, filename string) string {
 	url := getURL(polyline, options)
 
 	resp, err := http.Get(url)
 
-	if err != nil {
-		log.Println(err)
+	if err != nil || resp.StatusCode != 200 {
+		log.Println("Error fetching map from mapbox", err)
+		return ""
 	}
 
 	defer resp.Body.Close()
 
+	imageURL := strings.Replace(filename, ".gpx", ".png", 1)
 	body, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
-		log.Println(err)
+		log.Println("Failed to read body", err)
+		return ""
 	}
 
-	return encodeImgToBase64(body)
-}
+	imageReader := bytes.NewReader(body)
 
-func encodeImgToBase64(imgBytes []byte) string {
-	encoded := base64.StdEncoding.EncodeToString(imgBytes)
+	storage.UploadFile(storage.Maps, imageURL, imageReader)
 
-	return encoded
+	if err != nil {
+		log.Println(err)
+		return ""
+	}
+
+	return fmt.Sprintf("https://storage.googleapis.com/activity_maps/%s", imageURL)
 }

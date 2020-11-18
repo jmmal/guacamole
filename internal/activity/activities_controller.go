@@ -1,6 +1,7 @@
 package activity
 
 import (
+	"github.com/jmmal/runs-api/internal/storage"
 	"bytes"
 	"encoding/json"
 	"github.com/gorilla/mux"
@@ -156,9 +157,10 @@ func (s *Server) PostActivity() http.HandlerFunc {
 		}
 
 		err = s.activities.Create(activity)
+		storage.UploadFile(storage.Files, header.Filename, file)
 
 		if err != nil {
-			log.Printf("Failed to run activity to DB, err = %s", err)
+			log.Printf("Failed to write activity to DB, err = %s", err)
 			w.WriteHeader(http.StatusInternalServerError)
 		}
 
