@@ -32,7 +32,7 @@ export const ActivityPreview = ({ activity }: ActivityPreviewProps) => {
       </div>
       
       <img
-        src={'data:image/png;base64,' + activity.image}
+        src={activity.image}
         alt="Activity GPS preview"
         className="map-image"
       />
