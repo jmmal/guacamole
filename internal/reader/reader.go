@@ -64,7 +64,7 @@ func GetActivityFromFile(data []byte, filename string) (*mongo.Activity, error) 
 			MaxLng: mapBounds.MaxLongitude,
 		},
 		Points: points,
-		Image: imageURL,
+		Image:  imageURL,
 	}
 
 	return &dbActivity, nil

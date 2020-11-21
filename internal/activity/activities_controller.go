@@ -1,13 +1,13 @@
 package activity
 
 import (
-	"github.com/jmmal/runs-api/internal/storage"
 	"bytes"
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/schema"
 	"github.com/jmmal/runs-api/internal/mongo"
 	"github.com/jmmal/runs-api/internal/reader"
+	"github.com/jmmal/runs-api/internal/storage"
 	"github.com/patrickmn/go-cache"
 	"io"
 	"log"
@@ -206,10 +206,10 @@ func (s *Server) GetActivityPoints() http.HandlerFunc {
 
 		for i, point := range mongoResult.Points {
 			points[i] = &Point{
-				Time: point.Time,
+				Time:              point.Time,
 				DistanceFromStart: point.DistanceFromStart,
-				Pace: point.Pace,
-				Elevation: point.Elevation,
+				Pace:              point.Pace,
+				Elevation:         point.Elevation,
 				LatLng: LatLng{
 					Lat: point.LatLng.Lat,
 					Lng: point.LatLng.Lng,
@@ -218,7 +218,7 @@ func (s *Server) GetActivityPoints() http.HandlerFunc {
 		}
 
 		response := PointsResponse{
-			ID: mongoResult.ID.Hex(),
+			ID:     mongoResult.ID.Hex(),
 			Points: points,
 		}
 
@@ -235,12 +235,11 @@ func (s *Server) GetStats() http.HandlerFunc {
 
 		result := s.filters.WeekStats()
 
-		json.NewEncoder(w).Encode(result)		
+		json.NewEncoder(w).Encode(result)
 		return
 	}
 }
 
-// getOrCreate 
 func (s *Server) getOrCreate(request mongo.PageRequest) (*GetAllResponse, error) {
 	// Only page 1 gets cached
 	if request.PageNumber != 1 {
@@ -256,7 +255,7 @@ func (s *Server) getOrCreate(request mongo.PageRequest) (*GetAllResponse, error)
 	}
 
 	log.Println("Page 1 not found, fetching from the DB")
-	
+
 	resp, err := s.getPageFromDB(request)
 
 	if err != nil {
@@ -273,7 +272,7 @@ func (s *Server) getPageFromDB(request mongo.PageRequest) (*GetAllResponse, erro
 
 	if err != nil {
 		log.Println("Failed to read all from DB")
-		
+
 		return &GetAllResponse{}, err
 	}
 

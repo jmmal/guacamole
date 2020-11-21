@@ -1,8 +1,8 @@
 package mongo
 
 import (
-	"errors"
 	"context"
+	"errors"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -67,8 +67,8 @@ type PageRequest struct {
 }
 
 type PointsResponse struct {
-	ID           primitive.ObjectID `bson:"_id,omitempty"`
-	Points       []*Point           `bson:"points"`
+	ID     primitive.ObjectID `bson:"_id,omitempty"`
+	Points []*Point           `bson:"points"`
 }
 
 // DefaultPageRequest returns a PageRequest with the default values
@@ -196,9 +196,8 @@ func (ar *ActivityRepository) GetPointsForID(id string) (*PointsResponse, error)
 		return nil, errors.New("Unable to fetch points")
 	}
 
-	
 	var points *PointsResponse
-	
+
 	result.Decode(&points)
 
 	// for _, point := range points {

@@ -2,15 +2,15 @@ package images
 
 import (
 	"bytes"
-	"strings"
-	"github.com/jmmal/runs-api/internal/storage"
 	"fmt"
+	"github.com/jmmal/runs-api/internal/storage"
 	"googlemaps.github.io/maps"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
 	"os"
+	"strings"
 )
 
 // Available map styles

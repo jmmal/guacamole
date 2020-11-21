@@ -25,16 +25,16 @@ type ActivityTypeAggregation struct {
 }
 
 type WeekAggregation struct {
-	StartDate    time.Time
-	Distance     float64
-	ElapsedTime  float64
+	StartDate     time.Time
+	Distance      float64
+	ElapsedTime   float64
 	ActivityCount int
 }
 
 type WeekProjection struct {
-	Distance     float64
-	ElapsedTime  float64
-	StartTime    time.Time
+	Distance    float64
+	ElapsedTime float64
+	StartTime   time.Time
 }
 
 func NewFiltersRepository(client *mongo.Client) *FiltersRepository {
@@ -117,12 +117,12 @@ func (fr *FiltersRepository) WeekStats() [12]WeekAggregation {
 
 	opts := options.Find().
 		SetProjection(bson.M{
-			"distance": 1 ,
+			"distance":    1,
 			"elapsedTime": 1,
-			"startTime": 1,
+			"startTime":   1,
 		}).SetSort(bson.M{
-			"startTime": -1,
-		})
+		"startTime": -1,
+	})
 
 	cursor, err := fr.activities.Find(context.TODO(), filter, opts)
 
@@ -150,8 +150,8 @@ func (fr *FiltersRepository) WeekStats() [12]WeekAggregation {
 
 func getStartOfWeek(numberOfWeeks int) time.Time {
 	today := time.Now()
-	
-	start := today.AddDate(0, 0, 7 * numberOfWeeks) // Go back x weeks
+
+	start := today.AddDate(0, 0, 7*numberOfWeeks) // Go back x weeks
 
 	// Walk back to monday
 	for start.Weekday() != time.Monday {
