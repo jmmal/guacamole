@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { GetAllResponse, PointResponse, ActivityTypeAggregation, Activity } from './models';
 
-
 export const ActivityService = {
   baseUrl: process.env.REACT_APP_BASE_API_URL,
 
