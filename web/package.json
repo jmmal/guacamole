@@ -15,7 +15,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
     "@types/recharts": "^1.8.15",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "bootstrap": "^5.0.0-alpha1",
     "bootstrap-icons": "^1.0.0",
     "date-fns": "^2.16.1",
