@@ -1,8 +1,9 @@
-const { readFile } = require('./readFile');
-const { writeActivity } = require('./mongo');
-const { mapFileToActivity } = require('./mapActivity');
+import { readFile } from './readFile';
+import { writeActivity } from './mongo';
+import { mapFileToActivity } from './mapActivity';
+import { S3Event } from 'aws-lambda';
 
-exports.handler = async (event, context) => {
+const handler = async (event: S3Event, _: unknown) => {
   const bucket = event.Records[0].s3.bucket.name;
   const key = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, ' '));
   const params = {
@@ -15,10 +16,14 @@ exports.handler = async (event, context) => {
   try {
     const activity = await mapFileToActivity(key, file.Body.toString('utf8'));
     
-    const result = await writeActivity(activity);
+    await writeActivity(activity);
 
-    return result;
+    return 'Success';
   } catch (err) {
     console.log(err);
   }
+};
+
+export {
+  handler
 };

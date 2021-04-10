@@ -1,10 +1,10 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
-const { mapFileToActivity } = require('./index');
+import { mapFileToActivity } from './index';
 
 test('Can map an gpx file to an activity', async () => {
-  const eventFile = fs.readFileSync(path.resolve(path.resolve(), 'test.gpx'), 'utf8');
+  const eventFile = fs.readFileSync(path.resolve(path.resolve('samples'), 'test.gpx'), 'utf8');
 
   const result = await mapFileToActivity('test.gpx', eventFile);
 
