@@ -1,4 +1,6 @@
-import { MongoClient, Db } from "mongodb";
+import { MongoClient, Db, InsertOneWriteOpResult, WithId } from "mongodb";
+import { Activity } from "../mapActivity";
+
 const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_ACTIVITIES_COLLECTION = process.env.MONGODB_ACTIVITIES_COLLECTION;
 const DB_NAME = process.env.DB_NAME;
@@ -16,11 +18,11 @@ function connectToDatabase (uri: string) {
     });
 }
 
-const writeActivity = async (activity: unknown) => {
+const writeActivity = async (activity: Activity): Promise<InsertOneWriteOpResult<WithId<Activity>>> => {
   const db = await connectToDatabase(MONGODB_URI);
 
   return db.collection(MONGODB_ACTIVITIES_COLLECTION).insertOne(activity);
-}
+};
 
 export {
   writeActivity
