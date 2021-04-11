@@ -11,7 +11,8 @@ module.exports = (env) => {
     mode: "production",
     entry: {
       getActivitiesRequest: './src/getActivities/index.ts',
-      processActivityFileUpload: './src/processActivityUpload/index.ts'
+      processActivityFileUpload: './src/processActivityUpload/index.ts',
+      getActivityByIdRequest: './src/getActivityById/index.ts'
     },
     target: 'node',
     resolve: {
@@ -28,7 +29,7 @@ module.exports = (env) => {
     },
     output: {
       libraryTarget: "commonjs2",
-      path: path.join(__dirname, "dist"),
+      path: path.resolve(__dirname, "dist"),
       filename: "[name].js",
     },
     plugins

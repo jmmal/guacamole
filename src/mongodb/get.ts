@@ -1,6 +1,6 @@
 import { connectToDatabase } from './connect';
 import { Activity } from '../common/types';
-import { FindOneOptions } from 'mongodb';
+import { FindOneOptions, ObjectId } from 'mongodb';
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
@@ -23,6 +23,17 @@ const getActivities = async (page = 1, pageSize = 10): Promise<Activity[]> => {
   return cursor.toArray();
 };
 
+const getById = async (id: string): Promise<Activity> => {
+  const db = await connectToDatabase(MONGODB_URI);
+
+  const query = {
+    _id: new ObjectId(id)
+  };
+
+  return db.collection<Activity>('activities_v2').findOne(query);
+};
+
 export {
-  getActivities
+  getActivities,
+  getById
 };

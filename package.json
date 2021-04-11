@@ -42,6 +42,6 @@
     "test:watch": "jest --watch",
     "build": "webpack --config webpack.config.js",
     "build:stats": "webpack --env stats=true --config webpack.config.js --json > stats.json",
-    "deploy": "yarn typecheck && yarn test && yarn build && ./zip.sh"
+    "deploy": "yarn typecheck && yarn test && yarn build && ./build/deploy-functions.sh"
   }
 }
