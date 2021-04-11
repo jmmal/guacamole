@@ -9,7 +9,10 @@ module.exports = (env) => {
 
   return {
     mode: "production",
-    entry: './src/processActivityUpload/index.ts',
+    entry: {
+      getActivitiesRequest: './src/getActivities/index.ts',
+      processActivityFileUpload: './src/processActivityUpload/index.ts'
+    },
     target: 'node',
     resolve: {
       extensions: [".js", ".json", ".ts"],
@@ -26,8 +29,8 @@ module.exports = (env) => {
     output: {
       libraryTarget: "commonjs2",
       path: path.join(__dirname, "dist"),
-      filename: "index.js",
+      filename: "[name].js",
     },
     plugins
-  }
+  };
 };
