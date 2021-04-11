@@ -1,5 +1,5 @@
 import { readFile } from "./readFile";
-import { writeActivity } from "./mongo";
+import { writeActivity } from "../mongodb/write";
 import { mapFileToActivity } from "./mapActivity";
 import { S3Event } from "aws-lambda";
 

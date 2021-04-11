@@ -2,45 +2,8 @@ import { SportsLib } from "@sports-alliance/sports-lib";
 import polyline from "@mapbox/polyline";
 import { DOMParser } from "xmldom";
 import { ActivityInterface } from "@sports-alliance/sports-lib/lib/activities/activity.interface";
+import { Activity } from "../../common/types";
 import { DataPositionInterface } from "@sports-alliance/sports-lib/lib/data/data.position.interface";
-
-type GPSPoint = {
-  latitudeDegrees: number;
-  longitudeDegrees: number;
-}
-
-type HeartRate = {
-  min: StatValue;
-  max: StatValue;
-  avg: StatValue;
-}
-
-type DataStreamPoint = {
-  [type: number]: {
-      [type: string]: number;
-  };
-}
-
-type StatValue = string | number | boolean | DataPositionInterface | string[];
-
-export type Activity = {
-  objectKey: string;
-  title: string;
-  type: string;
-  startTime: Date;
-  endTime: Date;
-  pace: StatValue;
-  elapsedTime: number;
-  movingTime: number;
-  polyline: string;
-  minElevation: StatValue;
-  maxElevation: StatValue;
-  distance: number;
-  duration: number;
-  points: GPSPoint[];
-  heartRate: HeartRate;
-  streamData: DataStreamPoint;
-};
 
 const mapFileToActivity = async (key: string, file: string): Promise<Activity> => {
   const event = await SportsLib.importFromGPX(file, DOMParser);
