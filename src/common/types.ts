@@ -5,7 +5,7 @@ export type GPSPoint = {
   longitudeDegrees: number;
 }
 
-export type HeartRate = {
+export type MinMaxAvg = {
   min: StatValue;
   max: StatValue;
   avg: StatValue;
@@ -25,16 +25,18 @@ export type Activity = {
   type: string;
   startTime: Date;
   endTime: Date;
-  pace: StatValue;
+  pace: MinMaxAvg;
+  calories: StatValue;
   elapsedTime: number;
   movingTime: number;
   polyline: string;
-  minElevation: StatValue;
-  maxElevation: StatValue;
+  elevation: MinMaxAvg;
+  ascent: StatValue;
+  descent: StatValue;
   distance: number;
   duration: number;
   points: GPSPoint[];
-  heartRate: HeartRate;
+  heartRate: MinMaxAvg;
   streamData: DataStreamPoint;
   imageURL: string;
 };

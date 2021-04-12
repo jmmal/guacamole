@@ -47,19 +47,29 @@ const mapFileToActivity = async (filename: string, file: string): Promise<Activi
     imageName = S3_URL + filename.replace(/\.(?:gpx|tcx)$/, '.png');
     await uploadToBucket(imageName, imageBuffer);
   }
-  
+
   return {
     objectKey: filename,
     title: activity.name,
     type: activity.type,
     startTime: event.startDate,
     endTime: event.endDate,
-    pace: getStatOrNull(activity, "Average Speed"),
+    pace: {
+      avg: getStatOrNull(activity, "Average Pace"),
+      min: getStatOrNull(activity, "Minimum Pace"),
+      max: getStatOrNull(activity, "Maximum Pace"),
+    },
     elapsedTime: (movingTime ?? 0) + (pauseTime ?? 0),
     movingTime: movingTime,
     polyline: getPolyline(positionData),
-    minElevation: getStatOrNull(activity, "Minimum Altitude"),
-    maxElevation: getStatOrNull(activity, "Maximum Altitude"),
+    elevation: {
+      min: getStatOrNull(activity, "Minimum Altitude"),
+      max: getStatOrNull(activity, "Maximum Altitude"),
+      avg: getStatOrNull(activity, "Average Altitude"),
+    },
+    calories: getStatOrNull(activity, 'Energy'),
+    ascent: getStatOrNull(activity, 'Ascent'),
+    descent: getStatOrNull(activity, 'Descent'),
     distance,
     duration,
     points: positionData,
