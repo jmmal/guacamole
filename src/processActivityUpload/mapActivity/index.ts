@@ -6,11 +6,26 @@ import { Activity } from "../../common/types";
 import { DataPositionInterface } from "@sports-alliance/sports-lib/lib/data/data.position.interface";
 import { getImage } from "../../imageGenerator";
 import { uploadToBucket } from "../../storage";
+import { EventInterface } from "@sports-alliance/sports-lib/lib/events/event.interface";
 
 const S3_URL = process.env.S3_URL;
 
-const mapFileToActivity = async (key: string, file: string): Promise<Activity> => {
-  const event = await SportsLib.importFromGPX(file, DOMParser);
+
+const mapFileToActivity = async (filename: string, file: string): Promise<Activity> => {
+  let event: EventInterface;
+
+  try {
+    if (filename.match(".gpx$")) {
+      event = await SportsLib.importFromGPX(file, DOMParser); 
+    } else if (filename.match(".tcx$")) {
+      event = await SportsLib.importFromTCX((new DOMParser()).parseFromString(file, 'application/xml'));
+    } else {
+      return null;
+    }
+  } catch {
+    return null;
+  }
+
 
   const distance = event.getDistance().getValue();
   const duration = event.getDuration().getValue();
@@ -20,18 +35,21 @@ const mapFileToActivity = async (key: string, file: string): Promise<Activity> =
 
   const pauseTime = getStatOrNull(activity, "Pause Time") as number;
   const movingTime = getStatOrNull(activity, "Moving time") as number;
-  const positionData = activity.getPositionData();
+  const positionData = activity.hasPositionData() ? activity.getPositionData() : [];
   const streamData = activity.getStreamDataTypesBasedOnTime(["Heart Rate", "Altitude", "Cadence", "Distance", "Speed", "Grade", "Grade Adjusted Speed", "Speed in meters per minute"]);
 
-  const imageBuffer = await getImage(positionData);
-  const imageName = key.replace('.gpx', '.png');
-
+  let imageBuffer: Buffer;
+  let imageName: string;
+  if (positionData.length > 0) {
+    imageBuffer = await getImage(positionData);
+  }
   if (imageBuffer) {
+    imageName = S3_URL + filename.replace(/\.(?:gpx|tcx)$/, '.png');
     await uploadToBucket(imageName, imageBuffer);
   }
   
   return {
-    objectKey: key,
+    objectKey: filename,
     title: activity.name,
     type: activity.type,
     startTime: event.startDate,
@@ -51,7 +69,7 @@ const mapFileToActivity = async (key: string, file: string): Promise<Activity> =
       avg: getStatOrNull(activity, "Average Heart Rate"),
     },
     streamData,
-    imageURL: S3_URL + imageName
+    imageURL: imageName
   };
 };
 
