@@ -4,6 +4,10 @@ import { DOMParser } from "xmldom";
 import { ActivityInterface } from "@sports-alliance/sports-lib/lib/activities/activity.interface";
 import { Activity } from "../../common/types";
 import { DataPositionInterface } from "@sports-alliance/sports-lib/lib/data/data.position.interface";
+import { getImage } from "../../imageGenerator";
+import { uploadToBucket } from "../../storage";
+
+const S3_URL = process.env.S3_URL;
 
 const mapFileToActivity = async (key: string, file: string): Promise<Activity> => {
   const event = await SportsLib.importFromGPX(file, DOMParser);
@@ -18,6 +22,13 @@ const mapFileToActivity = async (key: string, file: string): Promise<Activity> =
   const movingTime = getStatOrNull(activity, "Moving time") as number;
   const positionData = activity.getPositionData();
   const streamData = activity.getStreamDataTypesBasedOnTime(["Heart Rate", "Altitude", "Cadence", "Distance", "Speed", "Grade", "Grade Adjusted Speed", "Speed in meters per minute"]);
+
+  const imageBuffer = await getImage(positionData);
+  const imageName = key.replace('.gpx', '.png');
+
+  if (imageBuffer) {
+    await uploadToBucket(imageName, imageBuffer);
+  }
   
   return {
     objectKey: key,
@@ -39,7 +50,8 @@ const mapFileToActivity = async (key: string, file: string): Promise<Activity> =
       min: getStatOrNull(activity, "Minimum Heart Rate"),
       avg: getStatOrNull(activity, "Average Heart Rate"),
     },
-    streamData 
+    streamData,
+    imageURL: S3_URL + imageName
   };
 };
 

@@ -18,6 +18,7 @@ module.exports = (env) => {
     resolve: {
       extensions: [".js", ".json", ".ts"],
     },
+    externals: [ 'electron' ],
     module: {
       rules: [
         {

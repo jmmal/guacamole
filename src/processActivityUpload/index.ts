@@ -15,7 +15,7 @@ const handler = async (event: S3Event): Promise<string> => {
 
   try {
     const activity = await mapFileToActivity(key, file.Body.toString("utf8"));
-    
+
     await writeActivity(activity);
 
     return "Success";

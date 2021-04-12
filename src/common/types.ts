@@ -36,4 +36,5 @@ export type Activity = {
   points: GPSPoint[];
   heartRate: HeartRate;
   streamData: DataStreamPoint;
+  imageURL: string;
 };
