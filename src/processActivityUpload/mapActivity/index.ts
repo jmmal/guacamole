@@ -44,7 +44,7 @@ const mapFileToActivity = async (filename: string, file: string): Promise<Activi
     imageBuffer = await getImage(positionData);
   }
   if (imageBuffer) {
-    imageName = S3_URL + filename.replace(/\.(?:gpx|tcx)$/, '.png');
+    imageName =  filename.replace(/\.(?:gpx|tcx)$/, '.png');
     await uploadToBucket(imageName, imageBuffer);
   }
 
@@ -79,7 +79,7 @@ const mapFileToActivity = async (filename: string, file: string): Promise<Activi
       avg: getStatOrNull(activity, "Average Heart Rate"),
     },
     streamData,
-    imageURL: imageName
+    imageURL: S3_URL + imageName
   };
 };
 
