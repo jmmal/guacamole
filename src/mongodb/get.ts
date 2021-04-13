@@ -30,7 +30,14 @@ const getById = async (id: string): Promise<Activity> => {
     _id: new ObjectId(id)
   };
 
-  return db.collection<Activity>('activities_v2').findOne(query);
+  const options: FindOneOptions<Activity> = {
+    projection: {
+      simplePolyline: 0,
+      points: 0
+    }
+  };
+
+  return db.collection<Activity>('activities_v2').findOne(query, options);
 };
 
 export {
