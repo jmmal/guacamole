@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { Activity } from "../../common/types";
 
-import { mapFileToActivity } from "./index";
+import { generateTitle, mapFileToActivity } from "./index";
 
 const printWithoutStreamData = (activity) => {
   const printer: Activity = {
@@ -16,7 +16,7 @@ const printWithoutStreamData = (activity) => {
 
 describe('mapActivity()', () => {
   test("should map an gpx file with GPS data to an activity", async () => {
-    const eventFile = fs.readFileSync(path.resolve(path.resolve("samples"), "gpx-with-points.gpx"), "utf8");
+    const eventFile = fs.readFileSync(path.resolve(path.resolve("samples"), "gpx-with-points.gpx"));
   
     const result = await mapFileToActivity("gpx-with-points.gpx", eventFile);
   
@@ -46,12 +46,12 @@ describe('mapActivity()', () => {
   });
   
   test("should map an tcx file with GPS data to an activity", async () => {
-    const fileString = fs.readFileSync(path.resolve(path.resolve("samples"), "tcx-with-points.tcx"), "utf8");
+    const file = fs.readFileSync(path.resolve(path.resolve("samples"), "tcx-with-points.tcx"));
   
-    const result = await mapFileToActivity("tcx-with-points.tcx", fileString);
+    const result = await mapFileToActivity("tcx-with-points.tcx", file);
 
     expect(result.objectKey).toBe("tcx-with-points.tcx");
-    expect(result.title).toBe("");
+    expect(result.title).toBe("Morning Run");
     expect(result.type).toBe("Running");
     expect(result.distance).toBe(8589.537999999999);
     expect(result.duration).toBe(3695.0050000000006);
@@ -76,20 +76,20 @@ describe('mapActivity()', () => {
   });
 
   test("should not map an gpx file with no GPS data", async () => {
-    const fileString = fs.readFileSync(path.resolve(path.resolve("samples"), "no-points.gpx"), "utf8");
+    const file = fs.readFileSync(path.resolve(path.resolve("samples"), "no-points.gpx"));
   
-    const result = await mapFileToActivity("no-points.gpx", fileString);
+    const result = await mapFileToActivity("no-points.gpx", file);
   
     expect(result).toBeNull();
   });
 
   test("should map an tcx file with no GPS data", async () => {
-    const fileString = fs.readFileSync(path.resolve(path.resolve("samples"), "tcx-no-points.tcx"), "utf8");
+    const file = fs.readFileSync(path.resolve(path.resolve("samples"), "tcx-no-points.tcx"));
   
-    const result = await mapFileToActivity("tcx-no-points.tcx", fileString);
+    const result = await mapFileToActivity("tcx-no-points.tcx", file);
 
     expect(result.objectKey).toBe("tcx-no-points.tcx");
-    expect(result.title).toBe("");
+    expect(result.title).toBe("Morning Workout");
     expect(result.type).toBe("Other");
     expect(result.distance).toBe(0);
     expect(result.duration).toBe(1873.114);
@@ -111,5 +111,71 @@ describe('mapActivity()', () => {
     expect(result.calories).toBe(476);
     expect(result.ascent).toBeNull();
     expect(result.descent).toBeNull();
+  });
+  test("should map an fit file with GPS data", async () => {
+    const file = fs.readFileSync(path.resolve(path.resolve("samples"), "fit-with-points.fit"), null);
+  
+    const result = await mapFileToActivity("fit-with-points.fit", file);
+
+    expect(result.objectKey).toBe("fit-with-points.fit");
+    expect(result.title).toBe("Morning Run");
+    expect(result.type).toBe("Running");
+    expect(result.distance).toBe(8589.54);
+    expect(result.duration).toBe(3704.396);
+    expect(result.startTime.toISOString()).toBe("2021-04-10T01:12:56.000Z");
+    expect(result.endTime.toISOString()).toBe("2021-04-10T02:15:28.000Z");
+    expect(result.pace.avg).toBe(431.22035360069);
+    expect(result.pace.max).toBe(181.68604651162792);
+    expect(result.pace.min).toBe(Infinity);
+    expect(result.elapsedTime).toBe(3384.083);
+    expect(result.movingTime).toBe(3336.396);
+    expect(result.polyline).toMatch("lpanEyrqy[BABABABABABABA");
+    expect(result.elevation.min).toBe(2.8);
+    expect(result.elevation.max).toBe(11.6);
+    expect(result.elevation.avg).toBe(6.173380129589637);
+    expect(result.points.length).toBe(3753);
+    expect(result.heartRate.max).toBe(186);
+    expect(result.heartRate.min).toBe(111);
+    expect(result.heartRate.avg).toBe(175);
+    expect(result.calories).toBe(819);
+    expect(result.ascent).toBe(22);
+    expect(result.descent).toBe(50);
+  });
+  test("should map an fit file with no GPS data", async () => {
+    const file = fs.readFileSync(path.resolve(path.resolve("samples"), "fit-no-points.fit"), null);
+  
+    const result = await mapFileToActivity("fit-no-points.fit", file);
+
+    expect(result.objectKey).toBe("fit-no-points.fit");
+    expect(result.title).toBe("Morning Workout");
+    expect(result.type).toBe("Fitness Equipment");
+    expect(result.distance).toBe(965.46);
+    expect(result.duration).toBe(882.303);
+    expect(result.startTime.toISOString()).toBe("2021-04-01T22:10:52.000Z");
+    expect(result.endTime.toISOString()).toBe("2021-04-01T22:25:35.000Z");
+    expect(result.pace.avg).toBe(914.0767824497257);
+    expect(result.pace.max).toBe(Infinity);
+    expect(result.pace.min).toBeNull();
+    expect(result.elapsedTime).toBe(0);
+    expect(result.movingTime).toBeNull();
+    expect(result.polyline).toMatch("");
+    expect(result.elevation.min).toBeNull();
+    expect(result.elevation.max).toBeNull();
+    expect(result.elevation.avg).toBeNull();
+    expect(result.points.length).toBe(0);
+    expect(result.heartRate.max).toBe(187);
+    expect(result.heartRate.min).toBe(106);
+    expect(result.heartRate.avg).toBe(162);
+    expect(result.calories).toBe(181);
+    expect(result.ascent).toBeNull();
+    expect(result.descent).toBeNull();
+  });
+});
+
+describe('generateTitle()', () => {
+  test('should correctly generate a title string', () => {
+    const result = generateTitle(new Date(2020, 1, 1, 6, 0, 0), 'Running');
+
+    expect(result).toBe('Morning Run');
   });
 });

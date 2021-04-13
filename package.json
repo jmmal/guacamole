@@ -44,7 +44,7 @@
     "typecheck": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
-    "build": "yarn typecheck && yarn test && webpack --config webpack.config.js",
+    "build": "yarn typecheck && webpack --config webpack.config.js",
     "build:stats": "webpack --env stats=true --config webpack.config.js --json > stats.json",
     "deploy": "yarn build && ./build/deploy-functions.sh"
   }

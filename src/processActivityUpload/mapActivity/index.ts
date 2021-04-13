@@ -11,14 +11,17 @@ import { EventInterface } from "@sports-alliance/sports-lib/lib/events/event.int
 const S3_URL = process.env.S3_URL;
 
 
-const mapFileToActivity = async (filename: string, file: string): Promise<Activity> => {
+const mapFileToActivity = async (filename: string, file: Buffer): Promise<Activity> => {
   let event: EventInterface;
+  const filestring = file.toString();
 
   try {
-    if (filename.match(".gpx$")) {
-      event = await SportsLib.importFromGPX(file, DOMParser); 
+    if (filename.match(".fit$")) {
+      event = await SportsLib.importFromFit(file);
+    } else if (filename.match(".gpx$")) {
+      event = await SportsLib.importFromGPX(filestring, DOMParser); 
     } else if (filename.match(".tcx$")) {
-      event = await SportsLib.importFromTCX((new DOMParser()).parseFromString(file, 'application/xml'));
+      event = await SportsLib.importFromTCX((new DOMParser()).parseFromString(filestring, 'application/xml'));
     } else {
       return null;
     }
@@ -50,7 +53,7 @@ const mapFileToActivity = async (filename: string, file: string): Promise<Activi
 
   return {
     objectKey: filename,
-    title: activity.name,
+    title: activity.name === '' ? generateTitle(activity.startDate, activity.type) : activity.name, 
     type: activity.type,
     startTime: event.startDate,
     endTime: event.endDate,
@@ -99,6 +102,31 @@ const getStatOrNull = (activity: ActivityInterface, type: string) => {
   return stat ? stat.getValue() : null;
 };
 
+const ActivityTypeMap: Map<string, string> = new Map([
+  ['Running', 'Run' ],
+  ['Cycling', 'Ride'],
+  ['Hiking' , 'Hike'],
+]);
+
+const generateTitle = (start: Date, type: string): string => {
+  const hourOfDay = start.getHours();
+  let timeOfDayString = 'Morning';
+  if (hourOfDay >= 12) {
+    timeOfDayString = 'Lunch';
+  } else if (hourOfDay >= 14) {
+    timeOfDayString = 'Afternoon';
+  } else if (hourOfDay >= 16) {
+    timeOfDayString = 'Evening';
+  } else if (hourOfDay >= 21) {
+    timeOfDayString = 'Night';
+  }
+
+  const activityString = ActivityTypeMap.get(type) ?? 'Workout';
+
+  return `${timeOfDayString} ${activityString}`;
+};
+
 export {
-  mapFileToActivity
+  mapFileToActivity,
+  generateTitle
 };

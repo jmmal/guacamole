@@ -14,7 +14,7 @@ const handler = async (event: S3Event): Promise<string> => {
   const file = await readFile(params);
 
   try {
-    const activity = await mapFileToActivity(key, file.Body.toString("utf8"));
+    const activity = await mapFileToActivity(key, file.Body as Buffer);
 
     await writeActivity(activity);
 
