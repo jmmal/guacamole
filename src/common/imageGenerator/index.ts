@@ -1,6 +1,6 @@
 import { MapiResponse } from '@mapbox/mapbox-sdk/lib/classes/mapi-response';
 import staticImageClient, { PathOverlay } from '@mapbox/mapbox-sdk/services/static';
-import { GPSPoint } from '../common/types';
+import { GPSPoint } from '../types';
 import fetch from 'node-fetch';
 
 const API_KEY = process.env.MAPBOX_API_KEY;

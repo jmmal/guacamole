@@ -1,4 +1,4 @@
-import { GPSPoint } from "../common/types";
+import { GPSPoint } from "../types";
 
 export const points: GPSPoint[] = [
   { latitudeDegrees: -33.9279514, longitudeDegrees: 151.1558485 },

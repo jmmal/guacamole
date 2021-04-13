@@ -1,7 +1,7 @@
 import { connectToDatabase } from './connect';
-import { Activity } from '../common/types';
+import { Activity } from '../types';
 import { FindOneOptions, ObjectId } from 'mongodb';
-import { everyNthElement } from '../common/utils';
+import { everyNthElement } from '../utils';
 
 const MONGODB_URI = process.env.MONGODB_URI;
 

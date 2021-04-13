@@ -1,8 +1,8 @@
 import { SportsLib } from "@sports-alliance/sports-lib";
 import { DOMParser } from "xmldom";
 import { Activity } from "../../common/types";
-import { getImage } from "../../imageGenerator";
-import { uploadToBucket } from "../../storage";
+import { getImage } from "../../common/imageGenerator";
+import { uploadToBucket } from "../../common/storage";
 import { EventInterface } from "@sports-alliance/sports-lib/lib/events/event.interface";
 import { generateTitle, getPolyline, getStatOrNull, getStreamData } from "./utils";
 

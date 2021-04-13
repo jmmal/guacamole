@@ -1,4 +1,4 @@
-import { getById } from '../mongodb/get';
+import { getById } from '../common/mongodb/get';
 
 import { APIGatewayProxyEvent } from 'aws-lambda';
 

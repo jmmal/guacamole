@@ -1,5 +1,5 @@
 import { ReplaceOneOptions, ReplaceWriteOpResult } from "mongodb";
-import { Activity } from "../common/types";
+import { Activity } from "../types";
 import { connectToDatabase } from "./connect";
 
 const MONGODB_URI = process.env.MONGODB_URI;

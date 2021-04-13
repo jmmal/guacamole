@@ -1,4 +1,4 @@
-import { getActivities } from '../mongodb/get';
+import { getActivities } from '../common/mongodb/get';
 
 import { APIGatewayProxyEvent } from 'aws-lambda';
 
