@@ -1,12 +1,10 @@
 import { SportsLib } from "@sports-alliance/sports-lib";
-import polyline from "@mapbox/polyline";
 import { DOMParser } from "xmldom";
-import { ActivityInterface } from "@sports-alliance/sports-lib/lib/activities/activity.interface";
 import { Activity } from "../../common/types";
-import { DataPositionInterface } from "@sports-alliance/sports-lib/lib/data/data.position.interface";
 import { getImage } from "../../imageGenerator";
 import { uploadToBucket } from "../../storage";
 import { EventInterface } from "@sports-alliance/sports-lib/lib/events/event.interface";
+import { generateTitle, getPolyline, getStatOrNull, getStreamData } from "./utils";
 
 const S3_URL = process.env.S3_URL;
 
@@ -39,7 +37,7 @@ const mapFileToActivity = async (filename: string, file: Buffer): Promise<Activi
   const pauseTime = getStatOrNull(activity, "Pause Time") as number;
   const movingTime = getStatOrNull(activity, "Moving time") as number;
   const positionData = activity.hasPositionData() ? activity.getPositionData() : [];
-  const streamData = activity.getStreamDataTypesBasedOnTime(["Heart Rate", "Altitude", "Cadence", "Distance", "Speed", "Grade", "Grade Adjusted Speed", "Speed in meters per minute"]);
+  const streamData = getStreamData(activity);
 
   let imageBuffer: Buffer;
   let imageName: string;
@@ -65,6 +63,7 @@ const mapFileToActivity = async (filename: string, file: Buffer): Promise<Activi
     elapsedTime: (movingTime ?? 0) + (pauseTime ?? 0),
     movingTime: movingTime,
     polyline: getPolyline(positionData),
+    simplePolyline: getPolyline(positionData, true),
     elevation: {
       min: getStatOrNull(activity, "Minimum Altitude"),
       max: getStatOrNull(activity, "Maximum Altitude"),
@@ -86,47 +85,6 @@ const mapFileToActivity = async (filename: string, file: Buffer): Promise<Activi
   };
 };
 
-function getPolyline(data: DataPositionInterface[]) {
-  const points = data
-    .filter(Boolean)
-    .map(({ latitudeDegrees, longitudeDegrees }) => {
-      return [latitudeDegrees, longitudeDegrees];
-    });
-
-   return polyline.encode(points as [number, number][]);
-}
-
-const getStatOrNull = (activity: ActivityInterface, type: string) => {
-  const stat = activity.getStat(type);
-
-  return stat ? stat.getValue() : null;
-};
-
-const ActivityTypeMap: Map<string, string> = new Map([
-  ['Running', 'Run' ],
-  ['Cycling', 'Ride'],
-  ['Hiking' , 'Hike'],
-]);
-
-const generateTitle = (start: Date, type: string): string => {
-  const hourOfDay = start.getHours();
-  let timeOfDayString = 'Morning';
-  if (hourOfDay >= 12) {
-    timeOfDayString = 'Lunch';
-  } else if (hourOfDay >= 14) {
-    timeOfDayString = 'Afternoon';
-  } else if (hourOfDay >= 16) {
-    timeOfDayString = 'Evening';
-  } else if (hourOfDay >= 21) {
-    timeOfDayString = 'Night';
-  }
-
-  const activityString = ActivityTypeMap.get(type) ?? 'Workout';
-
-  return `${timeOfDayString} ${activityString}`;
-};
-
 export {
-  mapFileToActivity,
-  generateTitle
+  mapFileToActivity
 };

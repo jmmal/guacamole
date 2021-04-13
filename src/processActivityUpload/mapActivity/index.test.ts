@@ -2,7 +2,8 @@ import fs from "fs";
 import path from "path";
 import { Activity } from "../../common/types";
 
-import { generateTitle, mapFileToActivity } from "./index";
+import { mapFileToActivity } from "./index";
+import { generateTitle } from "./utils";
 
 const printWithoutStreamData = (activity) => {
   const printer: Activity = {
@@ -33,6 +34,7 @@ describe('mapActivity()', () => {
     expect(result.elapsedTime).toBe(3751);
     expect(result.movingTime).toBe(3751);
     expect(result.polyline).toMatch("lpanEyrqy[BABABABABABABABABADA");
+    expect(result.simplePolyline).toMatch("lpanEyrqy[JEJEJELGJEJGJGLGJELG");
     expect(result.elevation.min).toBe(2.9);
     expect(result.elevation.max).toBe(11.6);
     expect(result.elevation.avg).toBe(6.176835853131734);
@@ -63,6 +65,7 @@ describe('mapActivity()', () => {
     expect(result.elapsedTime).toBe(3695.0050000000006);
     expect(result.movingTime).toBe(3695.0050000000006);
     expect(result.polyline).toMatch("lpanEyrqy[BABABABABABABABABADA");
+    expect(result.simplePolyline).toMatch("tpanE}rqy[JEJELGJEJGJEJGLGJGLE");
     expect(result.elevation.min).toBe(2.85);
     expect(result.elevation.max).toBe(11.628);
     expect(result.elevation.avg).toBe(6.176718128025823);
@@ -101,6 +104,7 @@ describe('mapActivity()', () => {
     expect(result.elapsedTime).toBe(0);
     expect(result.movingTime).toBeNull();
     expect(result.polyline).toMatch("");
+    expect(result.simplePolyline).toMatch("");
     expect(result.elevation.min).toBeNull();
     expect(result.elevation.max).toBeNull();
     expect(result.elevation.avg).toBeNull();
@@ -130,6 +134,7 @@ describe('mapActivity()', () => {
     expect(result.elapsedTime).toBe(3384.083);
     expect(result.movingTime).toBe(3336.396);
     expect(result.polyline).toMatch("lpanEyrqy[BABABABABABABA");
+    expect(result.simplePolyline).toMatch("tpanE}rqy[JEJELGJEJGJEJGLGJGLE");
     expect(result.elevation.min).toBe(2.8);
     expect(result.elevation.max).toBe(11.6);
     expect(result.elevation.avg).toBe(6.173380129589637);
@@ -159,6 +164,7 @@ describe('mapActivity()', () => {
     expect(result.elapsedTime).toBe(0);
     expect(result.movingTime).toBeNull();
     expect(result.polyline).toMatch("");
+    expect(result.simplePolyline).toMatch("");
     expect(result.elevation.min).toBeNull();
     expect(result.elevation.max).toBeNull();
     expect(result.elevation.avg).toBeNull();

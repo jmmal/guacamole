@@ -12,9 +12,7 @@ export type MinMaxAvg = {
 }
 
 export type DataStreamPoint = {
-  [type: number]: {
-      [type: string]: number;
-  };
+  [type: string]: number | Date;
 }
 
 export type StatValue = string | number | boolean | DataPositionInterface | string[];
@@ -30,6 +28,7 @@ export type Activity = {
   elapsedTime: number;
   movingTime: number;
   polyline: string;
+  simplePolyline: string;
   elevation: MinMaxAvg;
   ascent: StatValue;
   descent: StatValue;
@@ -37,6 +36,6 @@ export type Activity = {
   duration: number;
   points: GPSPoint[];
   heartRate: MinMaxAvg;
-  streamData: DataStreamPoint;
+  streamData: DataStreamPoint[];
   imageURL: string;
 };
