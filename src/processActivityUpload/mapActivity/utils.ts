@@ -68,15 +68,18 @@ const ActivityTypeMap: Map<string, string> = new Map([
 ]);
 
 const generateTitle = (start: Date, type: string): string => {
-  const hourOfDay = start.getHours();
+  const hourOfDay = start.getUTCHours();
   let timeOfDayString = 'Morning';
   if (hourOfDay >= 12) {
     timeOfDayString = 'Lunch';
-  } else if (hourOfDay >= 14) {
+  }
+  if (hourOfDay >= 14) {
     timeOfDayString = 'Afternoon';
-  } else if (hourOfDay >= 16) {
+  }
+  if (hourOfDay >= 16) {
     timeOfDayString = 'Evening';
-  } else if (hourOfDay >= 21) {
+  }
+  if (hourOfDay >= 21) {
     timeOfDayString = 'Night';
   }
 

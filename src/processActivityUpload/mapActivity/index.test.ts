@@ -178,10 +178,17 @@ describe('mapActivity()', () => {
   });
 });
 
-describe('generateTitle()', () => {
-  test('should correctly generate a title string', () => {
-    const result = generateTitle(new Date(2020, 1, 1, 6, 0, 0), 'Running');
-
-    expect(result).toBe('Morning Run');
+describe.only('generateTitle()', () => {
+  [
+    { date: new Date("2020-01-12T19:52:33Z"), type: "Running", expected: "Evening Run" },
+    { date: new Date("2020-01-12T19:52:33Z"), type: "Cycling", expected: "Evening Ride" },
+    { date: new Date("2020-01-12T19:52:33Z"), type: "Hiking", expected: "Evening Hike" },
+    { date: new Date("2020-01-12T19:52:33"), type: "Running", expected: "Evening Run" },
+  ].forEach(testCase => {
+    test('should correctly generate a title string', () => {
+      const result = generateTitle(testCase.date, testCase.type);
+  
+      expect(result).toBe(testCase.expected);
+    });
   });
 });
