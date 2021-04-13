@@ -8,7 +8,6 @@ import { generateTitle, getPolyline, getStatOrNull, getStreamData } from "./util
 
 const S3_URL = process.env.S3_URL;
 
-
 const mapFileToActivity = async (filename: string, file: Buffer): Promise<Activity> => {
   let event: EventInterface;
   const filestring = file.toString();
