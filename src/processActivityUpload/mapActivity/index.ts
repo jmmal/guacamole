@@ -45,7 +45,7 @@ const mapFileToActivity = async (filename: string, file: Buffer): Promise<Activi
     imageBuffer = await getImage(positionData);
   }
   if (imageBuffer) {
-    imageName =  filename.replace(/\.(?:gpx|tcx|fit)$/, '.png');
+    imageName = filename.replace(/\.(?:gpx|tcx|fit)$/, '.png');
     await uploadToBucket(imageName, imageBuffer);
   }
 

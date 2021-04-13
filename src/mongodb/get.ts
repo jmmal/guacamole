@@ -1,6 +1,7 @@
 import { connectToDatabase } from './connect';
 import { Activity } from '../common/types';
 import { FindOneOptions, ObjectId } from 'mongodb';
+import { everyNthElement } from '../common/utils';
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
@@ -37,7 +38,10 @@ const getById = async (id: string): Promise<Activity> => {
     }
   };
 
-  return db.collection<Activity>('activities_v2').findOne(query, options);
+  const activity = await db.collection<Activity>('activities_v2').findOne(query, options);
+  activity.streamData = everyNthElement(activity.streamData, 4);
+
+  return activity;
 };
 
 export {

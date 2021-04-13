@@ -1,6 +1,7 @@
 import polyline from "@mapbox/polyline";
 import { ActivityInterface } from "@sports-alliance/sports-lib/lib/activities/activity.interface";
 import { DataPositionInterface } from "@sports-alliance/sports-lib/lib/data/data.position.interface";
+import { everyNthElement } from "../../common/utils";
 
 import { DataStreamPoint, StatValue } from "../../common/types";
 
@@ -39,11 +40,7 @@ const getStreamData = (activity: ActivityInterface): DataStreamPoint[] => {
 
 const getPolyline = (data: DataPositionInterface[], reduced?: boolean): string => {
   if (reduced) {
-    const newData = [];
-    for(let i = 0; i < data.length; i += 3) {
-      newData.push(data[i]);
-    }
-    data = newData;
+    data = everyNthElement(data, 3);
   }
 
   const points = data
