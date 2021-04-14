@@ -9,19 +9,24 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { Point } from '../Activities/models';
+import { DataPoint, Point } from '../Activities/models';
 
 type PaceChartProps = {
-  points: Point[]
+  points: DataPoint[];
 }
 
 export const PaceChart = ({ points }: PaceChartProps) => {
-  const data = points.map(point => {
-    return {
-      distance: Number(point.distanceFromStart / 1000).toFixed(1),
-      pace: Number(point.pace).toFixed(2)
-    };
-  })
+  const data = points
+    .filter(point => {
+      return point.distance && point.speed;
+    })
+    .map(point => {
+      return {
+        distance: Number((point.distance as number) / 1000).toFixed(1),
+        pace: Number(point.speed)
+      };
+    });
+
   return (
     <ResponsiveContainer height={250} width='100%'>
       <AreaChart

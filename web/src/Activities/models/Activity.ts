@@ -47,6 +47,6 @@ export interface ActivityV2 {
   streamData?: DataPoint[];
 }
 
-type DataPoint = {
+export type DataPoint = {
   [type: string]: number | Date | null;
 }

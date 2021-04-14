@@ -9,18 +9,23 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { Point } from '../Activities/models';
+import { DataPoint } from '../Activities/models';
 
 type ElevationChartProps = {
-  points: Point[]
+  points: DataPoint[]
 }
 
 export const ElevationChart = ({ points }: ElevationChartProps) => {
-  const data = points.map(point => {
+  const data = points.filter(point => {
+    return point.altitude && point.distance;
+  }).map(point => {
+    const elevation = point.altitude as number;
+    const distance = point.distance as number;
+
     return {
       // TODO: Maybe be better to label with time
-      distance: Number(point.distanceFromStart / 1000).toFixed(1),
-      elevation: Number(point.elevation).toFixed(1)
+      distance: Number(distance / 1000).toFixed(1),
+      elevation: Number(elevation).toFixed(1)
     };
   });
 

@@ -26,7 +26,7 @@ export const ActivityService = {
   },
 
   getFilters() {
-    const url = this.baseUrl + '/filters';
+    const url = '/filters';
 
     return axios.get<ActivityTypeAggregation[]>(url);
   },

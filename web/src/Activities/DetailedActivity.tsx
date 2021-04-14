@@ -11,7 +11,6 @@ import { ActivityV2 } from './models';
 import { Loading } from '../Shared';
 import { ElevationChart, PaceChart, SplitsChart } from '../Charts';
 import * as mapboxPoly from '@mapbox/polyline';
-import geojsonExtent from '@mapbox/geojson-extent';
 
 interface DetailedActivityParams {
   activityId: string;
@@ -64,14 +63,14 @@ const DetailedActivity = ({ activity, handleGoBack }: DetailedActivityProps) => 
           <p className="lead">{ `${format(new Date(activity.startTime), 'HH:mm')} on ${format(new Date(activity.startTime), 'EEEE, LLLL d, yyyy')}`}</p>
           { activity.polyline && <Mapbox polyline={ activity.polyline } />}
 
-          {/* <h3 className="el-text mt-3">Elevation</h3>
-          <ElevationChart points={points} />
+          <h3 className="el-text mt-3">Elevation</h3>
+          <ElevationChart points={activity.streamData} />
 
           <h3 className="el-text mt-3">Pace</h3>
-          <PaceChart points={points} />   
+          <PaceChart points={activity.streamData} />   
 
           <h3 className="el-text mt-3">Splits</h3>
-          <SplitsChart points={points} />         */}
+          <SplitsChart points={activity.streamData} />
         </div>
       ) : <Loading />}
     </div>
