@@ -7,10 +7,11 @@ import {
 import { format } from 'date-fns';
 
 import { Mapbox } from '../Shared';
-import { ActivityService } from './ActivityService';
-import { Activity, Point } from './models';
+import { ActivityV2 } from './models';
 import { Loading } from '../Shared';
 import { ElevationChart, PaceChart, SplitsChart } from '../Charts';
+import * as mapboxPoly from '@mapbox/polyline';
+import geojsonExtent from '@mapbox/geojson-extent';
 
 interface DetailedActivityParams {
   activityId: string;
@@ -20,25 +21,17 @@ const DetailedActivityContainer = () => {
   const history = useHistory();
   const { activityId } = useParams<DetailedActivityParams>();
 
-  const [ activity, setActivity ] = useState<Activity>();
-  const [ points, setPoints ] = useState<Point[]>([]);
+  const [ activity, setActivity ] = useState<ActivityV2>();
 
   useEffect(() => {
     loadActivities(activityId);
   }, [ activityId ]);
 
-  useEffect(() => {
-    loadPoints(activityId);
-  }, [activityId]);
-  
   async function loadActivities(id: string) {
-    const response = await ActivityService.getActivity(id);
-    setActivity(response.data);
-  }
+    const response = await fetch('/activities/' + id);
+    const json = await response.json();
 
-  async function loadPoints(id: string) {
-    const response = await ActivityService.getPoints(id);
-    setPoints(response.data.points);
+    setActivity(json);
   }
 
   function goBack() {
@@ -47,7 +40,6 @@ const DetailedActivityContainer = () => {
 
   return (
     <DetailedActivity
-      points={points}
       activity={activity}
       handleGoBack={goBack}
     />
@@ -55,12 +47,11 @@ const DetailedActivityContainer = () => {
 }
 
 type DetailedActivityProps = {
-  points?: Point[];
-  activity?: Activity;
+  activity?: ActivityV2;
   handleGoBack(): void;
 }
 
-const DetailedActivity = ({ points, activity, handleGoBack }: DetailedActivityProps) => { 
+const DetailedActivity = ({ activity, handleGoBack }: DetailedActivityProps) => { 
   return (
     <div className="activity-component">
       <div className="header-detail">
@@ -68,19 +59,19 @@ const DetailedActivity = ({ points, activity, handleGoBack }: DetailedActivityPr
         <h4 className="activity-type mb-0">{ activity?.type ? activity.type : 'Loading' }</h4>
       </div>
        
-      { (activity && points) ? (
+      { (activity && activity.streamData) ? (
         <div className="detail-activity">
           <p className="lead">{ `${format(new Date(activity.startTime), 'HH:mm')} on ${format(new Date(activity.startTime), 'EEEE, LLLL d, yyyy')}`}</p>
-          <Mapbox bounds={ activity.bounds } polyline={ activity.polyline } />
+          { activity.polyline && <Mapbox polyline={ activity.polyline } />}
 
-          <h3 className="el-text mt-3">Elevation</h3>
+          {/* <h3 className="el-text mt-3">Elevation</h3>
           <ElevationChart points={points} />
 
           <h3 className="el-text mt-3">Pace</h3>
           <PaceChart points={points} />   
 
           <h3 className="el-text mt-3">Splits</h3>
-          <SplitsChart points={points} />        
+          <SplitsChart points={points} />         */}
         </div>
       ) : <Loading />}
     </div>

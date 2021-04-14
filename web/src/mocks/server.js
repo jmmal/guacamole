@@ -1,10 +1,13 @@
 import { createServer } from "miragejs";
-import { activities } from "./data/activities_v2";
-import { filters } from './data/filters';
+import { activities, filters, activity } from "./data";
 
 createServer({
   routes() {
+    this.get("/activities/:id", () => activity);
     this.get("/activities", () => activities);
     this.get("/filters", () => filters);
+
+    this.passthrough("https://api.mapbox.com/**");
+    this.passthrough("https://events.mapbox.com/**");
   },
 });

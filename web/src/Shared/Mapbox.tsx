@@ -3,14 +3,30 @@ import React, { useEffect, useRef } from 'react';
 import * as mapboxgl from 'mapbox-gl';
 import * as mapboxPoly from '@mapbox/polyline';
 
-import { Bounds } from '../Activities/models';
+const getBoundingBox = (coords: any[]) => {
+  const bbox = [
+    Number.POSITIVE_INFINITY,
+    Number.POSITIVE_INFINITY,
+    Number.NEGATIVE_INFINITY,
+    Number.NEGATIVE_INFINITY,
+  ];
+
+  return coords.reduce((prev, coord) => {
+    return [
+      Math.min(coord[0], prev[0]),
+      Math.min(coord[1], prev[1]),
+      Math.max(coord[0], prev[2]),
+      Math.max(coord[1], prev[3]),
+    ]
+  }, bbox);
+};
+
 
 type MapboxProps = {
-  bounds: Bounds;
   polyline: string;
 }
 
-export const Mapbox = ({ bounds, polyline }: MapboxProps) => {
+export const Mapbox = ({ polyline }: MapboxProps) => {
   const mapContainer = useRef(null);
 
   useEffect(() => {
@@ -18,19 +34,13 @@ export const Mapbox = ({ bounds, polyline }: MapboxProps) => {
   });
 
   const setupMap = (): void => {
+    const geojson = mapboxPoly.toGeoJSON(polyline);
+    const bounds = getBoundingBox(geojson.coordinates);
+
     const map = new mapboxgl.Map({
       container: mapContainer.current || '',
       style: 'mapbox://styles/mapbox/outdoors-v11',
-      bounds: new mapboxgl.LngLatBounds(
-        new mapboxgl.LngLat(
-          bounds.minLng,
-          bounds.minLat
-        ),
-        new mapboxgl.LngLat(
-          bounds.maxLng,
-          bounds.maxLat
-        )
-      ),
+      bounds: new mapboxgl.LngLatBounds(bounds),
       fitBoundsOptions: {
         padding: {
           top: 40,
@@ -45,8 +55,6 @@ export const Mapbox = ({ bounds, polyline }: MapboxProps) => {
     // Add map controls
     map.addControl(new mapboxgl.NavigationControl());
 
-    const coords = mapboxPoly.toGeoJSON(polyline);
-
     map.on('load', () => {
       map.addSource('route', {
         type: 'geojson',
@@ -55,7 +63,7 @@ export const Mapbox = ({ bounds, polyline }: MapboxProps) => {
           properties: {},
           geometry: {
             type: 'LineString',
-            coordinates: coords.coordinates,
+            coordinates: geojson.coordinates,
           },
         },
       });

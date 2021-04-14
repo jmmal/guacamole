@@ -3,19 +3,19 @@ import { useHistory } from 'react-router-dom';
 
 import { format } from 'date-fns';
 
-import { Activity } from './models';
+import { ActivityV2 } from './models';
 import { Helpers } from '../Shared';
 import '../styles/styles.scss'
 
 type ActivityPreviewProps = {
-  activity: Activity;
+  activity: ActivityV2;
 }
 
 export const ActivityPreview = ({ activity }: ActivityPreviewProps) => {
   const history = useHistory();
 
   function openActivity() {
-    history.push(`/activities/${activity.id}`);
+    history.push(`/activities/${activity._id}`);
   }
 
   function handleKeyDown(event: React.KeyboardEvent) {
@@ -32,15 +32,15 @@ export const ActivityPreview = ({ activity }: ActivityPreviewProps) => {
       </div>
       
       <img
-        src={activity.image}
+        src={activity.imageURL}
         alt="Activity GPS preview"
         className="map-image"
       />
 
       <div className="stats-footer">
         <FooterColumn title='Distance' value={ `${Number(activity.distance / 1000).toFixed(2)} km`} />
-        <FooterColumn title='Pace' value={ `${Helpers.pace(activity.pace) } min / km`} />
-        <FooterColumn title='Elevation' value={`${Number(activity.maxElevation - activity.minElevation).toFixed(1)} m`} />
+        <FooterColumn title='Pace' value={ `${Helpers.pace(activity.pace.avg) } min / km`} />
+        <FooterColumn title='Elevation' value={`${Number(activity.elevation.max - activity.elevation.min).toFixed(1)} m`} />
         <FooterColumn title='Elapsed Time' value={ Helpers.duration(activity.elapsedTime)} />
       </div>
     </div>
