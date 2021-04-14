@@ -24,6 +24,12 @@ const getActivities = async (page = 1, pageSize = 10): Promise<Activity[]> => {
   return cursor.toArray();
 };
 
+const getCount = async (): Promise<number> => {
+  const db = await connectToDatabase(MONGODB_URI);
+
+  return db.collection<Activity>('activities_v2').countDocuments();
+};
+
 const getById = async (id: string): Promise<Activity> => {
   const db = await connectToDatabase(MONGODB_URI);
 
@@ -85,5 +91,6 @@ const getActivityTypeAggregations = async (): Promise<ActivityTypeAggregation[]>
 export {
   getActivities,
   getById,
-  getActivityTypeAggregations
+  getActivityTypeAggregations,
+  getCount
 };

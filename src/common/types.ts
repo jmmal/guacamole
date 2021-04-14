@@ -39,3 +39,8 @@ export type Activity = {
   streamData: DataStreamPoint[];
   imageURL: string;
 };
+
+export type GetActivitiesResponse = {
+  total: number;
+  data: Activity[];
+};
