@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GetAllResponse, PointResponse, ActivityTypeAggregation, Activity } from './models';
+import { GetAllResponse, ActivityTypeAggregation, Activity } from './models';
 
 export const ActivityService = {
   baseUrl: process.env.REACT_APP_BASE_API_URL,
@@ -29,11 +29,5 @@ export const ActivityService = {
     const url = '/filters';
 
     return axios.get<ActivityTypeAggregation[]>(url);
-  },
-
-  getPoints(id: string) {
-    const url = this.baseUrl + '/activities/' + id + '/points';
-
-    return axios.get<PointResponse>(url);
   }
 }

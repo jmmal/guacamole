@@ -1,11 +1,13 @@
-export const activities: unknown[] = [
+import { Activity } from "../../Activities/models";
+
+export const activities: Activity[] = [
   {
     _id: '607577b942e1610416ea6490',
     objectKey: '2021-04-10_11-12-56_hk_1618017176.fit',
     title: 'Morning Run',
     type: 'Running',
-    startTime: '2021-04-10T01:12:56.000Z',
-    endTime: '2021-04-10T02:15:28.000Z',
+    startTime: new Date('2021-04-10T01:12:56.000Z'),
+    endTime: new Date('2021-04-10T02:15:28.000Z'),
     pace: {
       avg: 431.22035360069,
       min: null,
@@ -38,8 +40,8 @@ export const activities: unknown[] = [
     objectKey: '2021-04-07_17-27-28_hk_1617780448.fit',
     title: 'Morning Run',
     type: 'Running',
-    startTime: '2021-04-07T07:27:28.000Z',
-    endTime: '2021-04-07T07:39:02.000Z',
+    startTime: new Date('2021-04-07T07:27:28.000Z'),
+    endTime: new Date('2021-04-07T07:39:02.000Z'),
     pace: {
       avg: 339.67391304347825,
       min: 591.7159763313609,
@@ -72,8 +74,8 @@ export const activities: unknown[] = [
     objectKey: '2021-04-05_10-54-05_hk_1617584045.fit',
     title: 'Morning Run',
     type: 'Running',
-    startTime: '2021-04-05T00:54:05.000Z',
-    endTime: '2021-04-05T01:31:46.000Z',
+    startTime: new Date('2021-04-05T00:54:05.000Z'),
+    endTime: new Date('2021-04-05T01:31:46.000Z'),
     pace: {
       avg: 441.696113074205,
       min: 1394.700139470014,
@@ -106,8 +108,8 @@ export const activities: unknown[] = [
     objectKey: '2021-04-03_15-51-15_hk_1617425475.fit',
     title: 'Morning Run',
     type: 'Running',
-    startTime: '2021-04-03T04:51:15.000Z',
-    endTime: '2021-04-03T05:13:10.000Z',
+    startTime: new Date('2021-04-03T04:51:15.000Z'),
+    endTime: new Date('2021-04-03T05:13:10.000Z'),
     pace: {
       avg: 408.32993058391185,
       min: 2857.1428571428573,
@@ -140,8 +142,8 @@ export const activities: unknown[] = [
     objectKey: '2021-04-02_09-10-52_hk_1617315052.fit',
     title: 'Night Workout',
     type: 'Fitness Equipment',
-    startTime: '2021-04-01T22:10:52.000Z',
-    endTime: '2021-04-01T22:25:35.000Z',
+    startTime: new Date('2021-04-01T22:10:52.000Z'),
+    endTime: new Date('2021-04-01T22:25:35.000Z'),
     pace: {
       avg: 914.0767824497257,
       min: null,
@@ -172,8 +174,8 @@ export const activities: unknown[] = [
     objectKey: '2021-03-25_15-53-24_hk_1616649804.fit',
     title: 'Morning Workout',
     type: 'Walking',
-    startTime: '2021-03-25T05:23:24.000Z',
-    endTime: '2021-03-25T05:48:17.000Z',
+    startTime: new Date('2021-03-25T05:23:24.000Z'),
+    endTime: new Date('2021-03-25T05:48:17.000Z'),
     pace: {
       avg: 978.4735812133072,
       min: 37037.03703703704,
@@ -206,8 +208,8 @@ export const activities: unknown[] = [
     objectKey: '2021-03-19_07-15-34_hk_1616098534.fit',
     title: 'Evening Run',
     type: 'Running',
-    startTime: '2021-03-18T20:15:34.000Z',
-    endTime: '2021-03-18T20:38:15.000Z',
+    startTime: new Date('2021-03-18T20:15:34.000Z'),
+    endTime: new Date('2021-03-18T20:38:15.000Z'),
     pace: {
       avg: 426.2574595055413,
       min: 977.5171065493647,
@@ -240,8 +242,8 @@ export const activities: unknown[] = [
     objectKey: '2021-03-17_07-28-25_hk_1615926505.fit',
     title: 'Evening Run',
     type: 'Running',
-    startTime: '2021-03-16T20:28:25.000Z',
-    endTime: '2021-03-16T20:50:23.000Z',
+    startTime: new Date('2021-03-16T20:28:25.000Z'),
+    endTime: new Date('2021-03-16T20:50:23.000Z'),
     pace: {
       avg: 426.2574595055413,
       min: 1037.344398340249,
@@ -274,8 +276,8 @@ export const activities: unknown[] = [
     objectKey: '2021-03-16_07-36-28_hk_1615840588.fit',
     title: 'Evening Run',
     type: 'Running',
-    startTime: '2021-03-15T20:36:28.000Z',
-    endTime: '2021-03-15T20:59:19.000Z',
+    startTime: new Date('2021-03-15T20:36:28.000Z'),
+    endTime: new Date('2021-03-15T20:59:19.000Z'),
     pace: {
       avg: 425.8943781942079,
       min: 939.8496240601503,
@@ -308,8 +310,8 @@ export const activities: unknown[] = [
     objectKey: '2021-03-13_09-14-28_hk_1615587268.fit',
     title: 'Night Workout',
     type: 'Generic',
-    startTime: '2021-03-12T22:14:28.000Z',
-    endTime: '2021-03-13T00:05:54.000Z',
+    startTime: new Date('2021-03-12T22:14:28.000Z'),
+    endTime: new Date('2021-03-13T00:05:54.000Z'),
     pace: {
       avg: null,
       min: null,
@@ -340,8 +342,8 @@ export const activities: unknown[] = [
     objectKey: '2021-03-08_08-09-04_hk_1615151344.fit',
     title: 'Night Workout',
     type: 'Walking',
-    startTime: '2021-03-07T21:09:04.000Z',
-    endTime: '2021-03-07T21:33:15.000Z',
+    startTime: new Date('2021-03-07T21:09:04.000Z'),
+    endTime: new Date('2021-03-07T21:33:15.000Z'),
     pace: {
       avg: 809.0614886731391,
       min: 4950.49504950495,
@@ -374,8 +376,8 @@ export const activities: unknown[] = [
     objectKey: '2021-03-07_18-23-35_hk_1615101815.fit',
     title: 'Morning Workout',
     type: 'Fitness Equipment',
-    startTime: '2021-03-07T07:23:35.000Z',
-    endTime: '2021-03-07T07:44:10.000Z',
+    startTime: new Date('2021-03-07T07:23:35.000Z'),
+    endTime: new Date('2021-03-07T07:44:10.000Z'),
     pace: {
       avg: 701.7543859649122,
       min: null,
@@ -406,8 +408,8 @@ export const activities: unknown[] = [
     objectKey: '2021-03-06_16-03-03_hk_1615006983.fit',
     title: 'Morning Workout',
     type: 'Fitness Equipment',
-    startTime: '2021-03-06T05:03:03.000Z',
-    endTime: '2021-03-06T05:23:25.000Z',
+    startTime: new Date('2021-03-06T05:03:03.000Z'),
+    endTime: new Date('2021-03-06T05:23:25.000Z'),
     pace: {
       avg: 1051.5247108307046,
       min: null,
@@ -438,8 +440,8 @@ export const activities: unknown[] = [
     objectKey: '2021-02-10_17-39-36_hk_1612939176.fit',
     title: 'Morning Run',
     type: 'Running',
-    startTime: '2021-02-10T06:39:36.000Z',
-    endTime: '2021-02-10T07:07:19.000Z',
+    startTime: new Date('2021-02-10T06:39:36.000Z'),
+    endTime: new Date('2021-02-10T07:07:19.000Z'),
     pace: {
       avg: 390.625,
       min: 936.3295880149813,
@@ -472,8 +474,8 @@ export const activities: unknown[] = [
     objectKey: '2021-02-09_07-38-27_hk_1612816707.fit',
     title: 'Evening Run',
     type: 'Running',
-    startTime: '2021-02-08T20:38:27.000Z',
-    endTime: '2021-02-08T21:04:47.000Z',
+    startTime: new Date('2021-02-08T20:38:27.000Z'),
+    endTime: new Date('2021-02-08T21:04:47.000Z'),
     pace: {
       avg: 388.8024883359253,
       min: 615.3846153846154,
@@ -506,8 +508,8 @@ export const activities: unknown[] = [
     objectKey: '2021-02-07_09-22-57_hk_1612650177.fit',
     title: 'Night Run',
     type: 'Running',
-    startTime: '2021-02-06T22:22:57.000Z',
-    endTime: '2021-02-06T23:05:10.000Z',
+    startTime: new Date('2021-02-06T22:22:57.000Z'),
+    endTime: new Date('2021-02-06T23:05:10.000Z'),
     pace: {
       avg: 420.52144659377626,
       min: 807.1025020177561,
@@ -540,8 +542,8 @@ export const activities: unknown[] = [
     objectKey: '2021-02-06_07-21-29_hk_1612556489.fit',
     title: 'Evening Run',
     type: 'Running',
-    startTime: '2021-02-05T20:21:29.000Z',
-    endTime: '2021-02-05T20:56:59.000Z',
+    startTime: new Date('2021-02-05T20:21:29.000Z'),
+    endTime: new Date('2021-02-05T20:56:59.000Z'),
     pace: {
       avg: 416.3197335553705,
       min: 666.6666666666666,
@@ -574,8 +576,8 @@ export const activities: unknown[] = [
     objectKey: '2021-01-30_09-50-39_hk_1611960639.fit',
     title: 'Night Run',
     type: 'Running',
-    startTime: '2021-01-29T22:50:39.000Z',
-    endTime: '2021-01-29T23:57:49.000Z',
+    startTime: new Date('2021-01-29T22:50:39.000Z'),
+    endTime: new Date('2021-01-29T23:57:49.000Z'),
     pace: {
       avg: 436.4906154517678,
       min: 9900.9900990099,
@@ -608,8 +610,8 @@ export const activities: unknown[] = [
     objectKey: '2021-01-29_17-20-33_hk_1611901233.fit',
     title: 'Morning Run',
     type: 'Running',
-    startTime: '2021-01-29T06:20:33.000Z',
-    endTime: '2021-01-29T06:41:39.000Z',
+    startTime: new Date('2021-01-29T06:20:33.000Z'),
+    endTime: new Date('2021-01-29T06:41:39.000Z'),
     pace: {
       avg: 373.8317757009346,
       min: 4132.231404958678,
@@ -642,8 +644,8 @@ export const activities: unknown[] = [
     objectKey: '2021-01-26_09-58-34_hk_1611615514.fit',
     title: 'Night Run',
     type: 'Running',
-    startTime: '2021-01-25T22:58:34.000Z',
-    endTime: '2021-01-25T23:32:23.000Z',
+    startTime: new Date('2021-01-25T22:58:34.000Z'),
+    endTime: new Date('2021-01-25T23:32:23.000Z'),
     pace: {
       avg: 395.25691699604744,
       min: 28571.42857142857,

@@ -1,26 +1,68 @@
-export const filters = [
+import { ActivityTypeAggregation } from "../../Activities/models";
+
+export const filters: ActivityTypeAggregation[] = [
   {
-    Name: "Running",
-    Total: 294,
+    total: 302,
+    type: 'Running',
   },
   {
-    Name: "Cycling",
-    Total: 66,
+    total: 64,
+    type: 'Strength Training',
   },
   {
-    Name: "Walking",
-    Total: 41,
+    total: 60,
+    type: 'Cycling',
   },
   {
-    Name: "Indoor Sport & Fitness",
-    Total: 10,
+    total: 52,
+    type: 'Fitness Equipment',
   },
   {
-    Name: "Hiking",
-    Total: 8,
+    total: 45,
+    type: 'Walking',
   },
   {
-    Name: "Treadmill Running",
-    Total: 1,
+    total: 32,
+    type: 'Generic',
+  },
+  {
+    total: 18,
+    type: 'Cardio Training',
+  },
+  {
+    total: 13,
+    type: 'Tennis',
+  },
+  {
+    total: 9,
+    type: 'Hiking',
+  },
+  {
+    total: 9,
+    type: 'Indoor Cycling',
+  },
+  {
+    total: 8,
+    type: 'Swimming',
+  },
+  {
+    total: 3,
+    type: 'Indoor Rowing',
+  },
+  {
+    total: 2,
+    type: 'Treadmill',
+  },
+  {
+    total: 2,
+    type: 'Yoga',
+  },
+  {
+    total: 2,
+    type: 'Trail Running',
+  },
+  {
+    total: 1,
+    type: 'Elliptical Trainer',
   },
 ];

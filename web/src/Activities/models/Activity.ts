@@ -1,31 +1,12 @@
-import { LatLng, Bounds } from ".";
-
-export interface Activity {
-  id: string;
-  title: string;
-  type: string;
-  distance: number;
-  startTime: Date;
-  endTime: Date;
-  pace: number;
-  elapsedTime: number;
-  movingTime: number;
-  polyline: string;
-  locations: LatLng[];
-  bounds: Bounds;
-  minElevation: number;
-  maxElevation: number;
-  image: string;
-};
-
 type MinMaxAvg = {
-  min: number;
-  max: number;
-  avg: number;
+  min: number | null;
+  max: number | null;
+  avg: number | null;
 }
 
-export interface ActivityV2 {
+export interface Activity {
   _id: string;
+  objectKey?: string;
   title: string;
   type: string;
   distance: number;
@@ -33,20 +14,29 @@ export interface ActivityV2 {
   endTime: Date;
   pace: MinMaxAvg;
   elapsedTime: number;
-  movingTime: number;
+  movingTime: PointValue;
   polyline?: string;
   simplePolyline?: string;
   elevation: MinMaxAvg;
   heartRate: MinMaxAvg;
   calories: number;
-  ascent: number;
-  descent: number;
-  imageURL: string;
-  bounds?: Bounds;
+  ascent: PointValue;
+  descent: PointValue;
+  imageURL: string | null;
   duration: number;
   streamData?: DataPoint[];
 }
 
+type PointValue = number | null;
+
 export type DataPoint = {
-  [type: string]: number | Date | null;
+  time: Date;
+  heartRate: PointValue;
+  altitude: PointValue;
+  cadence: PointValue;
+  distance: PointValue;
+  speed: PointValue;
+  grade: PointValue;
+  gradeAdjustedSpeed: PointValue;
+  speedInMPM: PointValue;
 }

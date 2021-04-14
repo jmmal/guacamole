@@ -3,12 +3,12 @@ import { useHistory } from 'react-router-dom';
 
 import { format } from 'date-fns';
 
-import { ActivityV2 } from './models';
+import { Activity } from './models';
 import { formatDuration, formatPace } from '../Shared';
 import '../styles/styles.scss'
 
 type ActivityPreviewProps = {
-  activity: ActivityV2;
+  activity: Activity;
 }
 
 export const ActivityPreview = ({ activity }: ActivityPreviewProps) => {
@@ -31,16 +31,18 @@ export const ActivityPreview = ({ activity }: ActivityPreviewProps) => {
         <p className="title mb-0">{ activity.title }</p>
       </div>
       
-      <img
-        src={activity.imageURL}
-        alt="Activity GPS preview"
-        className="map-image"
-      />
+      {activity.imageURL && (
+        <img
+          src={activity.imageURL}
+          alt="Activity GPS preview"
+          className="map-image"
+        />
+      )}
 
       <div className="stats-footer">
         <FooterColumn title='Distance' value={ `${Number(activity.distance / 1000).toFixed(2)} km`} />
-        <FooterColumn title='Pace' value={ `${formatPace(activity.pace.avg) } min / km`} />
-        <FooterColumn title='Elevation' value={`${Number(activity.elevation.max - activity.elevation.min).toFixed(1)} m`} />
+        <FooterColumn title='Pace' value={ `${formatPace(activity.pace.avg ?? 0) } min / km`} />
+        <FooterColumn title='Elevation' value={`${Number((activity.elevation.max ?? 0) - (activity.elevation.min ?? 0)).toFixed(1)} m`} />
         <FooterColumn title='Elapsed Time' value={ formatDuration(activity.elapsedTime)} />
       </div>
     </div>

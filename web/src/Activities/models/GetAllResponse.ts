@@ -1,6 +1,6 @@
-import { Activity } from ".";
+import { Activity } from "./Activity";
 
 export interface GetAllResponse {
-  totalCount: number;
-  results: Activity[];
+  total: number;
+  data: Activity[];
 };

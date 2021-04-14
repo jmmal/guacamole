@@ -5,10 +5,10 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { ActivityPreview } from './ActivityPreview';
 import { Filters } from './Filters';
 import { Loading } from '../Shared';
-import { ActivityV2 } from './models';
+import { Activity } from './models';
 
 const useActivities = () => {
-  const [activities, setActivities] = useState<ActivityV2[]>([]);
+  const [activities, setActivities] = useState<Activity[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

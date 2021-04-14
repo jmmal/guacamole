@@ -52,7 +52,7 @@ export const Filters = () => {
       >
         <option value='All'>Filter by: All</option>
         { filters && filters.map(filter => (
-          <option key={filter.Name} value={filter.Name}>{ filter.Name } ({filter.Total})</option>
+          <option key={filter.type} value={filter.type}>{ filter.type } ({filter.total})</option>
         ))}
       </select>
     </div>

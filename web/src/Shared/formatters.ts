@@ -17,7 +17,7 @@ export const formatPace = (value: number): string => {
 export const formatDuration = (value: number): string => {
  const totalMinutes = Math.floor(value / 60);
  const totalHours = Math.floor(totalMinutes / 60);
- const seconds = value - totalMinutes * 60;
+ const seconds = Math.floor(value - totalMinutes * 60);
 
  if (totalHours >= 1) {
    return `${totalHours}h ${totalMinutes % 60}m`;

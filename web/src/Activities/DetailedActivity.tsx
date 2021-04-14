@@ -7,7 +7,7 @@ import {
 import { format } from 'date-fns';
 
 import { Mapbox } from '../Shared';
-import { ActivityV2 } from './models';
+import { Activity } from './models';
 import { Loading } from '../Shared';
 import { ElevationChart, PaceChart, SplitsChart } from '../Charts';
 import * as mapboxPoly from '@mapbox/polyline';
@@ -20,7 +20,7 @@ const DetailedActivityContainer = () => {
   const history = useHistory();
   const { activityId } = useParams<DetailedActivityParams>();
 
-  const [ activity, setActivity ] = useState<ActivityV2>();
+  const [ activity, setActivity ] = useState<Activity>();
 
   useEffect(() => {
     loadActivities(activityId);
@@ -46,7 +46,7 @@ const DetailedActivityContainer = () => {
 }
 
 type DetailedActivityProps = {
-  activity?: ActivityV2;
+  activity?: Activity;
   handleGoBack(): void;
 }
 
@@ -61,7 +61,7 @@ const DetailedActivity = ({ activity, handleGoBack }: DetailedActivityProps) => 
       { (activity && activity.streamData) ? (
         <div className="detail-activity">
           <p className="lead">{ `${format(new Date(activity.startTime), 'HH:mm')} on ${format(new Date(activity.startTime), 'EEEE, LLLL d, yyyy')}`}</p>
-          {/* { activity.polyline && <Mapbox polyline={ activity.polyline } />} */}
+          { activity.polyline && <Mapbox polyline={ activity.polyline } />}
 
           <h3 className="el-text mt-3">Elevation</h3>
           <ElevationChart points={activity.streamData} />
