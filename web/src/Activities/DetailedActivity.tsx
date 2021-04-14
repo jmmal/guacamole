@@ -61,7 +61,7 @@ const DetailedActivity = ({ activity, handleGoBack }: DetailedActivityProps) => 
       { (activity && activity.streamData) ? (
         <div className="detail-activity">
           <p className="lead">{ `${format(new Date(activity.startTime), 'HH:mm')} on ${format(new Date(activity.startTime), 'EEEE, LLLL d, yyyy')}`}</p>
-          { activity.polyline && <Mapbox polyline={ activity.polyline } />}
+          {/* { activity.polyline && <Mapbox polyline={ activity.polyline } />} */}
 
           <h3 className="el-text mt-3">Elevation</h3>
           <ElevationChart points={activity.streamData} />

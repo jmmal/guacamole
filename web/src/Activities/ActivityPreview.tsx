@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
 
 import { ActivityV2 } from './models';
-import { Helpers } from '../Shared';
+import { formatDuration, formatPace } from '../Shared';
 import '../styles/styles.scss'
 
 type ActivityPreviewProps = {
@@ -39,9 +39,9 @@ export const ActivityPreview = ({ activity }: ActivityPreviewProps) => {
 
       <div className="stats-footer">
         <FooterColumn title='Distance' value={ `${Number(activity.distance / 1000).toFixed(2)} km`} />
-        <FooterColumn title='Pace' value={ `${Helpers.pace(activity.pace.avg) } min / km`} />
+        <FooterColumn title='Pace' value={ `${formatPace(activity.pace.avg) } min / km`} />
         <FooterColumn title='Elevation' value={`${Number(activity.elevation.max - activity.elevation.min).toFixed(1)} m`} />
-        <FooterColumn title='Elapsed Time' value={ Helpers.duration(activity.elapsedTime)} />
+        <FooterColumn title='Elapsed Time' value={ formatDuration(activity.elapsedTime)} />
       </div>
     </div>
   )

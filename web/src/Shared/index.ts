@@ -1,3 +1,10 @@
-export * from './Helpers';
-export * from './Loading';
-export * from './Mapbox';
+import { formatDuration, formatPace } from './formatters';
+import { Loading } from './Loading';
+import { Mapbox } from './Mapbox';
+
+export {
+  formatDuration,
+  formatPace,
+  Loading,
+  Mapbox
+};
