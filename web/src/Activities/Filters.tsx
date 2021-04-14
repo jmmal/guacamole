@@ -1,27 +1,40 @@
-import React, { FormEvent, useEffect } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { observer } from 'mobx-react-lite';
 import { ReactComponent as CloudIcon } from 'bootstrap-icons/icons/cloud-upload.svg';
+import { ActivityTypeAggregation } from './models';
 
-import { useStores } from '../Stores/useStores';
-
-export const Filters = observer(() => {
-  const history = useHistory()
-
-  const { activityStore } = useStores();
-
+const useFilters = () => {
+  const [filters, setFilters] = useState<ActivityTypeAggregation[]>([]);
+  const [filter, setFilter] = useState('');
+  
   useEffect(() => {
-    const fetch = async () => activityStore.loadFilters();
-    fetch();
-  }, [activityStore])
+    fetch('/filters')
+      .then(resp => resp.json())
+      .then(json => setFilters(json));
+  }, []);
+
+  return {
+    filter,
+    changeFilter: setFilter,
+    filters
+  }
+}
+
+export const Filters = () => {
+  const history = useHistory();
+  const { 
+    filter,
+    changeFilter,
+    filters
+  } = useFilters();
 
   const onUploadClick = () => {
     history.push('/activities/upload')
   }
 
   const handleFilterChange = ($event: FormEvent<HTMLSelectElement>) => {
-    activityStore.setFilter($event.currentTarget.value);
+    changeFilter($event.currentTarget.value);
   }
 
   return (
@@ -38,10 +51,10 @@ export const Filters = observer(() => {
         onChange={handleFilterChange}
       >
         <option value='All'>Filter by: All</option>
-        { activityStore.filters && activityStore.filters.map(filter => (
+        { filters && filters.map(filter => (
           <option key={filter.Name} value={filter.Name}>{ filter.Name } ({filter.Total})</option>
         ))}
       </select>
     </div>
   )
-});
+};

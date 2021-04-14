@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { observer } from 'mobx-react-lite';
 
 import { ActivityPreview } from './ActivityPreview';
 import { Filters } from './Filters';
 import { Loading } from '../Shared';
-import { useStores } from '../Stores/useStores';
 import { ActivityV2 } from './models';
 
 const useActivities = () => {
@@ -29,7 +27,7 @@ const useActivities = () => {
   };
 }
 
-export const ActivityList = observer(() => {
+export const ActivityList = () => {
   const  {
     activities,
     isLoading
@@ -51,4 +49,4 @@ export const ActivityList = observer(() => {
       </div>
     </div>
   )
-})
+}
