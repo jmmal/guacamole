@@ -12,7 +12,8 @@ module.exports = (env) => {
     entry: {
       getActivitiesRequest: './src/getActivities/index.ts',
       processActivityFileUpload: './src/processActivityUpload/index.ts',
-      getActivityByIdRequest: './src/getActivityById/index.ts'
+      getActivityByIdRequest: './src/getActivityById/index.ts',
+      getActivityTypeAggregation: './src/getActivityTypeAggregation/index.ts'
     },
     target: 'node',
     resolve: {

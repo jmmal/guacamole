@@ -1,8 +1,8 @@
 import { getActivities } from '../common/mongodb/get';
 
-import { APIGatewayProxyEvent } from 'aws-lambda';
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
-const handler = async (event: APIGatewayProxyEvent): Promise<unknown> => {
+const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const page = parseInt(event.queryStringParameters['page']);
   const pageSize = parseInt(event.queryStringParameters['pageSize']);
 

@@ -44,7 +44,46 @@ const getById = async (id: string): Promise<Activity> => {
   return activity;
 };
 
+export type ActivityTypeAggregation = {
+  type: string;
+  count: number;
+};
+
+const getActivityTypeAggregations = async (): Promise<ActivityTypeAggregation[]> => {
+  const db = await connectToDatabase(MONGODB_URI);
+
+  const pipeline = [
+    {
+      $group: {
+        _id: "$type",
+        total: {
+          $sum: 1
+        }
+      }
+    },
+    {
+      $addFields: {
+        type: "$_id"
+      }
+    },
+    {
+      $sort: {
+        total: -1
+      }
+    },
+    {
+      $project: {
+        _id: 0
+      }
+    }
+  ];
+
+  const cursor = await db.collection<Activity>('activities_v2').aggregate<ActivityTypeAggregation>(pipeline);
+  return cursor.toArray();
+};
+
 export {
   getActivities,
-  getById
+  getById,
+  getActivityTypeAggregations
 };

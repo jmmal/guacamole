@@ -178,7 +178,7 @@ describe('mapActivity()', () => {
   });
 });
 
-describe.only('generateTitle()', () => {
+describe('generateTitle()', () => {
   [
     { date: new Date("2020-01-12T19:52:33Z"), type: "Running", expected: "Evening Run" },
     { date: new Date("2020-01-12T19:52:33Z"), type: "Cycling", expected: "Evening Ride" },

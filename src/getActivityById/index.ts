@@ -1,13 +1,14 @@
 import { getById } from '../common/mongodb/get';
 
-import { APIGatewayProxyEvent } from 'aws-lambda';
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
-const handler = async (event: APIGatewayProxyEvent): Promise<unknown> => {
+const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const id = event.pathParameters['id'];
 
   if (!id) {
     return {
-      status: 403
+      statusCode: 403,
+      body: null
     };
   }
 
