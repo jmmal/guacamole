@@ -6,7 +6,6 @@ import { ActivityTypeAggregation } from './models';
 
 const useFilters = () => {
   const [filters, setFilters] = useState<ActivityTypeAggregation[]>([]);
-  const [filter, setFilter] = useState('');
   
   useEffect(() => {
     fetch('/filters')
@@ -15,17 +14,17 @@ const useFilters = () => {
   }, []);
 
   return {
-    filter,
-    changeFilter: setFilter,
     filters
-  }
+  };
+};
+
+type FiltersProps = {
+  onFilterChange: (filter: string) => void;
 }
 
-export const Filters = () => {
+export const Filters = ({ onFilterChange }: FiltersProps) => {
   const history = useHistory();
   const { 
-    filter,
-    changeFilter,
     filters
   } = useFilters();
 
@@ -33,8 +32,8 @@ export const Filters = () => {
     history.push('/activities/upload')
   }
 
-  const handleFilterChange = ($event: FormEvent<HTMLSelectElement>) => {
-    changeFilter($event.currentTarget.value);
+  const handleChange = ($event: FormEvent<HTMLSelectElement>) => {
+    onFilterChange($event.currentTarget.value);
   }
 
   return (
@@ -48,7 +47,7 @@ export const Filters = () => {
       <select
         className="form-select type-filters"
         aria-label="Filter by activity type"
-        onChange={handleFilterChange}
+        onChange={handleChange}
       >
         <option value='All'>Filter by: All</option>
         { filters && filters.map(filter => (
