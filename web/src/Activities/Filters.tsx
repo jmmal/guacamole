@@ -1,7 +1,7 @@
-import React, { FormEvent, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Select } from 'grommet';
+import React, { useEffect, useState } from 'react';
+import { createUseStyles } from 'react-jss';
 
-import { ReactComponent as CloudIcon } from 'bootstrap-icons/icons/cloud-upload.svg';
 import { ActivityTypeAggregation } from './models';
 
 const useFilters = () => {
@@ -22,38 +22,57 @@ type FiltersProps = {
   onFilterChange: (filter: string) => void;
 }
 
+type SelectOption = {
+  label: string;
+  value: string;
+}
+
 export const Filters = ({ onFilterChange }: FiltersProps) => {
-  const history = useHistory();
   const { 
     filters
   } = useFilters();
+  const [filter, setFilter] = useState<SelectOption>();
+  const [options, setOptions] = useState<SelectOption[]>([]);
 
-  const onUploadClick = () => {
-    history.push('/activities/upload')
-  }
+  useEffect(() => {
+    if (filters.length === 0) {
+      return;
+    };
 
-  const handleChange = ($event: FormEvent<HTMLSelectElement>) => {
-    onFilterChange($event.currentTarget.value);
-  }
+    const totalCount = filters.reduce((prev, curr) => prev + curr.total, 0);
+    const all: SelectOption = {
+      label: 'All ' + `(${totalCount})`,
+      value: 'All'
+    };
+
+    const options: SelectOption[] = [
+      all,
+      ...filters.map(filter => {
+        return {
+          label: filter.type + ` (${filter.total})`,
+          value: filter.type
+        }
+      })
+    ];
+
+    setFilter(all);
+    setOptions(options);
+  }, [filters]);
+
+  const handleSelect = (e: any) => {
+    console.log(e.option);
+    setFilter(e.option);
+  };
 
   return (
-    <div className="options">
-      <button
-        type="button"
-        className="btn btn-outline-secondary upload-btn"
-        onClick={onUploadClick}
-      >Upload <CloudIcon />
-      </button>
-      <select
-        className="form-select type-filters"
-        aria-label="Filter by activity type"
-        onChange={handleChange}
-      >
-        <option value='All'>Filter by: All</option>
-        { filters && filters.map(filter => (
-          <option key={filter.type} value={filter.type}>{ filter.type } ({filter.total})</option>
-        ))}
-      </select>
-    </div>
-  )
+    <Select
+      a11yTitle="Filter by activity type"
+      options={options}
+      labelKey='label'
+      placeholder='-'
+      value={filter}
+      size="small"
+      onChange={handleSelect}
+    />
+  );
 };

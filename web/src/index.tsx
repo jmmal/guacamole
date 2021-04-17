@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './mocks/server';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 ReactDOM.render(

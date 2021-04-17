@@ -6,13 +6,38 @@ import { format } from 'date-fns';
 import { Activity } from './models';
 import { formatDuration, formatPace } from '../Shared';
 import '../styles/styles.scss'
+import { createUseStyles } from 'react-jss';
+import { Box, Heading, Text } from 'grommet';
 
 type ActivityPreviewProps = {
   activity: Activity;
+  index: number;
+  totalCount?: number;
 }
 
-export const ActivityPreview = ({ activity }: ActivityPreviewProps) => {
+const useStyles = createUseStyles({
+  image: {
+    width: '100%'
+  },
+  preview: {
+    borderRadius: 3,
+    border: '1px solid #e2e2e2',
+    boxShadow: '0px 8px 24px rgba(13,13,18,0.04)',
+    padding: '1rem 1rem 1rem 1rem',
+    marginBottom: '1rem'
+  },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    marginBottom: '0.5rem'
+  }
+})
+
+export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
   const history = useHistory();
+  const classes = useStyles();
 
   function openActivity() {
     history.push(`/activities/${activity._id}`);
@@ -25,27 +50,37 @@ export const ActivityPreview = ({ activity }: ActivityPreviewProps) => {
   }
 
   return (
-    <div className="activity__preview focusable" tabIndex={0} onClick={openActivity} onKeyDown={handleKeyDown}>
-      <div className="header">
-        <h3 className="date mb-0">{ format(new Date(activity.startTime), "EEEE, LLLL d, yyyy") }</h3>
-        <p className="title mb-0">{ activity.title }</p>
+    <article
+      role="article"
+      className={classes.preview}
+      aria-posinset={index}
+      tabIndex={0}
+      onClick={openActivity}
+      onKeyDown={handleKeyDown}
+    >
+      <div className={classes.header}>
+        <Heading
+          margin="none"
+          level="4"
+        >{ format(new Date(activity.startTime), "EEEE, LLLL d, yyyy") }</Heading>
+        <Text>{ activity.title }</Text>
       </div>
-      
+
       {activity.imageURL && (
         <img
           src={activity.imageURL}
           alt="Activity GPS preview"
-          className="map-image"
+          className={classes.image}
         />
       )}
 
-      <div className="stats-footer">
+      <Box direction='row' justify='between'>
         <FooterColumn title='Distance' value={ `${Number(activity.distance / 1000).toFixed(2)} km`} />
         <FooterColumn title='Pace' value={ `${formatPace(activity.pace.avg ?? 0) } min / km`} />
         <FooterColumn title='Elevation' value={`${Number((activity.elevation.max ?? 0) - (activity.elevation.min ?? 0)).toFixed(1)} m`} />
         <FooterColumn title='Elapsed Time' value={ formatDuration(activity.elapsedTime)} />
-      </div>
-    </div>
+      </Box>
+    </article>
   )
 }
 
@@ -56,9 +91,9 @@ type FooterColumnProps = {
 
 const FooterColumn = ({title, value}: FooterColumnProps) => {
   return (
-    <div className="col">
-      <p className="title">{ title }</p>
-      <p className="value mb-0">{ value }</p>
-    </div>
+    <Box direction='column'>
+      <Text className="title">{ title }</Text>
+      <Text className="value mb-0">{ value }</Text>
+    </Box>
   )
 }

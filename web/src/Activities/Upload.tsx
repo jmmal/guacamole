@@ -1,11 +1,39 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { ActivityService } from './ActivityService';
 import { Loading } from '../Shared';
+import { Button, FileInput, Heading, Text } from 'grommet';
+import { createUseStyles } from 'react-jss';
+
+const useStyles = createUseStyles({
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%'
+  },
+  content: {
+    width: 'calc(100% - 2rem)',
+    maxWidth: '30rem'
+  },
+  actions: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  fileInput: {
+    marginTop: '1rem',
+    marginBottom: '1rem'
+  },
+  actionBtn: {
+    minWidth: 'calc(50% - 0.5rem)',
+    marginBottom: '1rem'
+  }
+})
 
 export const Upload = () => {
   const history = useHistory();
+  const classes = useStyles();
   
   const [loading, setLoading] = useState<boolean>(false);
   const [file, setFile] = useState<File>();
@@ -28,44 +56,33 @@ export const Upload = () => {
   }
 
   return (
-    <div className="upload-container">
-      <div className="upload">
-        <p id="inputGroupFileAddon01" className="h2">Upload</p>
+    <div className={classes.container}>
+      <div className={classes.content}>
+        <Heading id="inputGroupFileAddon01" level='2'>Upload</Heading>
         
-        <p>Accepted file types: '.gpx'</p>
-        <div className="form-file">
-          <input
-            type="file"
-            name="file"
-            id="fileInput"
-            className="form-file-input"
+        <Text>Accepted file types: '.gpx'</Text>
+        <div className={classes.fileInput}>
+          <FileInput
             onChange={handleFileInput}
           />
-          
-          <label className="form-file-label" htmlFor="fileInput">
-            <span
-              className="form-file-text"
-            >
-              {file ? file.name : 'Select a GPX file to upload' }
-            </span>
-            <span className="form-file-button">Browse</span>
-          </label>
         </div>
-        
-        <div className="upload-actions">
-          <button
-            type="button"
-            className="btn btn-outline-secondary back"
-            onClick={() => history.push('/activities')}
-          >Go Back</button>
-          <button
-            type="button"
-            className="btn btn-success"
+        <div className={classes.actions}>
+          <Link to='/activities' className={classes.actionBtn}>
+            <Button
+              type="button"
+              label='Go Back'
+              fill="horizontal"
+            />
+          </Link>
+          <Button
+            label='Submit'
+            type='submit'
+            className={classes.actionBtn}
             onClick={handleSubmit}
             disabled={!file}
-          >Submit</button>
+          />
         </div>
-        { loading && <Loading /> }
+        { loading && (<Loading />) }
       </div>
     </div>
   )

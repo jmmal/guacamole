@@ -1,16 +1,16 @@
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import { ActivityList } from './ActivityList';
+import { Activities } from './Activities';
 import { DetailedActivity } from './DetailedActivity';
 import { Upload } from './Upload';
 
-export const Activities = () => {
+export const ActivityRoutes = () => {
   const { path } = useRouteMatch();
 
   return (
     <Switch>
       <Route exact path={path}>
-        <ActivityList />
+        <Activities />
       </Route>
       <Route path={`${path}/upload`}>
         <Upload />

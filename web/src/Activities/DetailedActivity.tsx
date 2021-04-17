@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
-import {
-  ReactComponent as ChevronLeft
-} from 'bootstrap-icons/icons/chevron-left.svg';
+import { Previous } from 'grommet-icons';
 import { format } from 'date-fns';
 
 import { Mapbox } from '../Shared';
@@ -54,7 +52,7 @@ const DetailedActivity = ({ activity, handleGoBack }: DetailedActivityProps) => 
   return (
     <div className="activity-component">
       <div className="header-detail">
-        <button type="button" className="btn btn-outline-dark btn-sm" onClick={handleGoBack}><ChevronLeft /> Activities</button>
+        <button type="button" className="btn btn-outline-dark btn-sm" onClick={handleGoBack}><Previous /> Activities</button>
         <h4 className="activity-type mb-0">{ activity?.type ? activity.type : 'Loading' }</h4>
       </div>
        

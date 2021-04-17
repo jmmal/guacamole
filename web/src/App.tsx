@@ -8,22 +8,23 @@ import {
 import './App.scss';
 import './styles/styles.scss';
 
-import { Activities } from './Activities';
+import { ActivityRoutes } from './Activities';
+import { Grommet } from 'grommet';
 
 function App() {
   return (
-    <HashRouter>
-      <div className="content-wrapper">
+    <Grommet>
+      <HashRouter>
         <Switch>
           <Route path='/activities'>
-            <Activities />
+            <ActivityRoutes />
           </Route>
           <Route path='/' exact>
-            <Activities />
+            <ActivityRoutes />
           </Route>
         </Switch>
-      </div>
-    </HashRouter>
+      </HashRouter>
+    </Grommet>
   );
 }
 
