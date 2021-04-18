@@ -1,6 +1,5 @@
 import { Select } from 'grommet';
 import React, { useEffect, useState } from 'react';
-import { createUseStyles } from 'react-jss';
 
 import { ActivityTypeAggregation } from './models';
 
@@ -41,7 +40,7 @@ export const Filters = ({ onFilterChange }: FiltersProps) => {
 
     const totalCount = filters.reduce((prev, curr) => prev + curr.total, 0);
     const all: SelectOption = {
-      label: 'All ' + `(${totalCount})`,
+      label: `All (${totalCount})`,
       value: 'All'
     };
 

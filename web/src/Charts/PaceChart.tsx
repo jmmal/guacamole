@@ -9,7 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { DataPoint, Point } from '../Activities/models';
+import { DataPoint } from '../Activities/models';
 
 type PaceChartProps = {
   points: DataPoint[];

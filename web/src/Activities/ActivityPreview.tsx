@@ -5,7 +5,6 @@ import { format } from 'date-fns';
 
 import { Activity } from './models';
 import { formatDuration, formatPace } from '../Shared';
-import '../styles/styles.scss'
 import { createUseStyles } from 'react-jss';
 import { Box, Heading, Text } from 'grommet';
 
@@ -51,7 +50,6 @@ export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
 
   return (
     <article
-      role="article"
       className={classes.preview}
       aria-posinset={index}
       tabIndex={0}

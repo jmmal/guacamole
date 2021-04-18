@@ -1,7 +1,6 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import { BeatLoader } from 'react-spinners';
-import '../styles/styles.scss'
 
 const useStyles = createUseStyles({
   container: {

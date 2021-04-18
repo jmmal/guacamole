@@ -68,7 +68,7 @@ type ActivityListProps = {
 export const ActivityList = ({ filter }: ActivityListProps) => {
   const { activities, isLoading, finished, nextPage, totalCount } = useActivities(filter);
 
-  const { ref, inView, entry } = useInView({
+  const { ref, inView } = useInView({
     threshold: 0,
     initialInView: false,
   });
@@ -77,7 +77,7 @@ export const ActivityList = ({ filter }: ActivityListProps) => {
     if (inView && !isLoading && !finished) {
       nextPage();
     }
-  }, [inView]);
+  }, [inView, isLoading, finished, nextPage]);
 
   return (
     <div

@@ -8,7 +8,6 @@ import { Mapbox } from '../Shared';
 import { Activity } from './models';
 import { Loading } from '../Shared';
 import { ElevationChart, PaceChart, SplitsChart } from '../Charts';
-import * as mapboxPoly from '@mapbox/polyline';
 import { createUseStyles } from 'react-jss';
 import { Button, Heading } from 'grommet';
 

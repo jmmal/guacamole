@@ -5,9 +5,6 @@ import {
   HashRouter
 } from 'react-router-dom';
 
-import './App.scss';
-import './styles/styles.scss';
-
 import { ActivityRoutes } from './Activities';
 import { Grommet } from 'grommet';
 
