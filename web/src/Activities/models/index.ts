@@ -1,6 +1,15 @@
-export * from './Activity';
-export * from './ActivityTypeAggregation';
-export * from './GetAllResponse';
-export * from './InsertResponse';
-export * from './LatLng';
-export * from './Point';
+import {
+  Activity,
+  DataPoint
+} from './Activity';
+import { ActivityTypeAggregation } from './ActivityTypeAggregation';
+import { GetAllResponse } from './GetAllResponse';
+import { InsertResponse }  from './InsertResponse';
+
+export type {
+  Activity,
+  DataPoint,
+  ActivityTypeAggregation,
+  GetAllResponse,
+  InsertResponse
+}

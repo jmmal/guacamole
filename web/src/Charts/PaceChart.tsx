@@ -1,35 +1,45 @@
 import React from 'react';
 
 import {
-  AreaChart,
-  Area,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  LineChart,
+  Line
 } from "recharts";
 import { DataPoint } from '../Activities/models';
+import { formatPace } from '../Shared';
 
 type PaceChartProps = {
   points: DataPoint[];
 }
 
-export const PaceChart = ({ points }: PaceChartProps) => {
-  const data = points
+const MetersPerSecondToMinutesPerKMConversionFactor = 1000 / 60;
+
+const PaceChart = ({ points }: PaceChartProps) => {
+  let data = points
     .filter(point => {
       return point.distance && point.speed;
     })
     .map(point => {
       return {
         distance: Number((point.distance as number) / 1000).toFixed(1),
-        pace: Number(point.speed)
+        pace: MetersPerSecondToMinutesPerKMConversionFactor / Number(point.speed)
       };
     });
+  
+  data = filterStanding(data);
+
+  const valFormatter = (d: any) => {
+    const val = d * 60;
+    return `${formatPace(val)} min / km`;
+  }
 
   return (
     <ResponsiveContainer height={250} width='100%'>
-      <AreaChart
+      <LineChart
         data={data}
         margin={{
           top: 10, right: 30, left: 0, bottom: 0,
@@ -37,10 +47,16 @@ export const PaceChart = ({ points }: PaceChartProps) => {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="distance" allowDecimals={false} tickCount={4} unit={'km'} minTickGap={20} />
-        <YAxis allowDecimals={false} unit={'m/s'} />
-        <Tooltip />
-        <Area isAnimationActive={false} type="monotone" dataKey="pace" stroke="#5293fa" fill="#5293fa" />
-      </AreaChart>
+        <YAxis allowDecimals={false} reversed />
+        <Tooltip formatter={valFormatter} labelFormatter={(val) => `${val}km`} />
+        <Line type="monotone" dataKey="pace" stroke="#8884d8" dot={false} />
+      </LineChart>
     </ResponsiveContainer>
   )
 }
+
+function filterStanding(data: any[]) {  
+  return data.filter((point) => point.pace <= 20);
+}
+
+export default PaceChart;

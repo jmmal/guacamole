@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import { Mapbox } from '../Shared';
 import { Activity } from './models';
 import { Loading } from '../Shared';
-import { ElevationChart, PaceChart, SplitsChart } from '../Charts';
+import { ElevationChart, PaceChart, SplitsChart, HeartRateChart } from '../Charts';
 import { createUseStyles } from 'react-jss';
 import { Button, Heading } from 'grommet';
 
@@ -102,8 +102,12 @@ const DetailedActivity = ({ activity, handleGoBack }: DetailedActivityProps) => 
             level='2'
             className={css.statsHeader}
           >{ `${format(new Date(activity.startTime), 'EEEE, LLLL d, yyyy')} at ${format(new Date(activity.startTime), 'HH:mm aaa')}`}</Heading>
+          
+          <Heading level='3' className={css.statsHeader}>Heart Rate</Heading>
+          <HeartRateChart streamData={activity.streamData} distance={activity.distance} />
+
           <Heading level='3' className={css.statsHeader}>Elevation</Heading>
-          <ElevationChart points={activity.streamData} />
+          <ElevationChart points={activity.streamData} distance={activity.distance} />
 
           <Heading level='3' className={css.statsHeader}>Pace</Heading>
           <PaceChart points={activity.streamData} />   

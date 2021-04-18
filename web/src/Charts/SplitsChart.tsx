@@ -15,7 +15,7 @@ type SplitsChartProps = {
   points: DataPoint[]
 }
 
-export const SplitsChart = ({ points }: SplitsChartProps) => {
+const SplitsChart = ({ points }: SplitsChartProps) => {
   const data = calculateSplits(points);
 
   function calculateSplits(points: DataPoint[]) {
@@ -75,3 +75,5 @@ export const SplitsChart = ({ points }: SplitsChartProps) => {
     </ResponsiveContainer>
   )
 }
+
+export default SplitsChart;

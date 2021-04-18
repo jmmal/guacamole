@@ -17,8 +17,8 @@ export const Loading = () => {
   return (
     <div className={css.container}>
       <BeatLoader
-        size='30'
-        margin='4'
+        size='30px'
+        margin='4px'
         color='#7D4CDB'
       />
     </div>
