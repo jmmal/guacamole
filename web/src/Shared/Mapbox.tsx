@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 
 import * as mapboxgl from 'mapbox-gl';
 import * as mapboxPoly from '@mapbox/polyline';
+import { createUseStyles } from 'react-jss';
 
 const getBoundingBox = (coords: any[]) => {
   const bbox = [
@@ -21,6 +22,11 @@ const getBoundingBox = (coords: any[]) => {
   }, bbox);
 };
 
+const useStyles = createUseStyles({
+  map: {
+    height: '25rem'
+  }
+});
 
 type MapboxProps = {
   polyline: string;
@@ -28,6 +34,7 @@ type MapboxProps = {
 
 export const Mapbox = ({ polyline }: MapboxProps) => {
   const mapContainer = useRef(null);
+  const css = useStyles();
 
   useEffect(() => {
     setupMap();
@@ -54,6 +61,7 @@ export const Mapbox = ({ polyline }: MapboxProps) => {
 
     // Add map controls
     map.addControl(new mapboxgl.NavigationControl());
+    map.scrollZoom.disable();
 
     map.on('load', () => {
       map.addSource('route', {
@@ -84,6 +92,6 @@ export const Mapbox = ({ polyline }: MapboxProps) => {
   }
 
   return (
-    <div ref={mapContainer} className="map match-parent"></div>
+    <div ref={mapContainer} className={css.map}></div>
   )
 }

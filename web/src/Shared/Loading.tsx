@@ -7,7 +7,8 @@ const useStyles = createUseStyles({
   container: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    margin: '2rem 0'
   }
 })
 

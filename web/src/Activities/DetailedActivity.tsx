@@ -9,6 +9,8 @@ import { Activity } from './models';
 import { Loading } from '../Shared';
 import { ElevationChart, PaceChart, SplitsChart } from '../Charts';
 import * as mapboxPoly from '@mapbox/polyline';
+import { createUseStyles } from 'react-jss';
+import { Button, Heading } from 'grommet';
 
 interface DetailedActivityParams {
   activityId: string;
@@ -48,28 +50,68 @@ type DetailedActivityProps = {
   handleGoBack(): void;
 }
 
+const useStyles = createUseStyles({
+  header: {
+    position: 'sticky',
+    top: 0,
+    borderBottom: '1px solid #e0e0e0',
+    zIndex: 1000,
+    backgroundColor: 'white',
+    padding: '1rem',
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  headerLayout: {
+    display: 'grid',
+    gridTemplateColumns: '1fr auto 1fr',
+    justifyContent: 'center',
+    maxWidth: '55rem',
+    width: '100%'
+  },
+  marginAuto: {
+    margin: 'auto',
+    marginRight: 0
+  },
+  statsHeader: {
+    padding: '0rem 1rem',
+  }
+})
+
 const DetailedActivity = ({ activity, handleGoBack }: DetailedActivityProps) => { 
+  const css = useStyles();
+
   return (
     <div className="activity-component">
-      <div className="header-detail">
-        <button type="button" className="btn btn-outline-dark btn-sm" onClick={handleGoBack}><Previous /> Activities</button>
-        <h4 className="activity-type mb-0">{ activity?.type ? activity.type : 'Loading' }</h4>
+      <div className={css.header}>
+        <div className={css.headerLayout}>
+          <div>
+            <Button
+              onClick={handleGoBack}
+              icon={<Previous />}
+              label='Activities'
+              size='small'
+            />
+          </div>
+          <Heading level='4' className={css.marginAuto}>{ activity?.type ? activity.type : 'Loading' }</Heading>
+        </div>
       </div>
        
+      { activity?.polyline && <Mapbox polyline={ activity.polyline } />}
       { (activity && activity.streamData) ? (
-        <div className="detail-activity">
-          <p className="lead">{ `${format(new Date(activity.startTime), 'HH:mm')} on ${format(new Date(activity.startTime), 'EEEE, LLLL d, yyyy')}`}</p>
-          { activity.polyline && <Mapbox polyline={ activity.polyline } />}
-
-          <h3 className="el-text mt-3">Elevation</h3>
+        <>
+          <Heading
+            level='2'
+            className={css.statsHeader}
+          >{ `${format(new Date(activity.startTime), 'EEEE, LLLL d, yyyy')} at ${format(new Date(activity.startTime), 'HH:mm aaa')}`}</Heading>
+          <Heading level='3' className={css.statsHeader}>Elevation</Heading>
           <ElevationChart points={activity.streamData} />
 
-          <h3 className="el-text mt-3">Pace</h3>
+          <Heading level='3' className={css.statsHeader}>Pace</Heading>
           <PaceChart points={activity.streamData} />   
 
-          <h3 className="el-text mt-3">Splits</h3>
+          <Heading level='3' className={css.statsHeader}>Splits</Heading>
           <SplitsChart points={activity.streamData} />
-        </div>
+        </>
       ) : <Loading />}
     </div>
   )
