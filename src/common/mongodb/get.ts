@@ -5,7 +5,7 @@ import { everyNthElement } from '../utils';
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-const getActivities = async (page = 1, pageSize = 10): Promise<Activity[]> => {
+const getActivities = async (page = 1, pageSize = 10, type: string): Promise<Activity[]> => {
   const db = await connectToDatabase(MONGODB_URI);
 
   const options: FindOneOptions<Activity> = {
@@ -19,7 +19,9 @@ const getActivities = async (page = 1, pageSize = 10): Promise<Activity[]> => {
     }
   };
 
-  const cursor = await db.collection<Activity>('activities_v2').find({}, options);
+  const query = type ? { type } : {};
+
+  const cursor = await db.collection<Activity>('activities_v2').find(query, options);
 
   return cursor.toArray();
 };
