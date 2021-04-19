@@ -7,6 +7,9 @@ const handler = async (): Promise<APIGatewayProxyResult> => {
 
   return {
       statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': 'https://jmmal.github.io'
+      },
       body: JSON.stringify(aggregations),
   };
 };

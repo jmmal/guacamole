@@ -16,8 +16,11 @@ const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
     total: count
   };
 
-  const response = {
+  const response: APIGatewayProxyResult = {
       statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': 'https://jmmal.github.io'
+      },
       body: JSON.stringify(result),
   };
   
