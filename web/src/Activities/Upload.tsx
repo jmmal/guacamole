@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import { ActivityService } from './ActivityService';
 import { Loading } from '../Shared';
 import { Button, FileInput, Heading, Text } from 'grommet';
 import { createUseStyles } from 'react-jss';
@@ -49,7 +48,7 @@ export const Upload = () => {
   async function handleSubmit() {
     if (file) {
       setLoading(true);
-      await ActivityService.upload(file);
+      // await ActivityService.upload(file);
       setLoading(false);
       history.push('/activities');
     }
