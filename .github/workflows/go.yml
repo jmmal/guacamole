@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  REACT_APP_BASE_API_URL: ${{ secrets.REACT_APP_BASE_API_URL }}
+  REACT_APP_MAPBOX_PUBLIC_KEY: ${{ secrets.REACT_APP_MAPBOX_PUBLIC_KEY }}
+
 jobs:
   web:
     runs-on: ubuntu-latest
