@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react';
 
 import { ActivityTypeAggregation } from './models';
 
+const baseUrl = process.env.REACT_APP_BASE_API_URL;
+
 const useFilters = () => {
   const [filters, setFilters] = useState<ActivityTypeAggregation[]>([]);
   
   useEffect(() => {
-    fetch('/filters')
+    fetch(baseUrl + '/filters')
       .then(resp => resp.json())
       .then(json => setFilters(json));
   }, []);

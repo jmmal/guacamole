@@ -3,8 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import './mocks/server';
+import makeServer from './mocks/server';
 
+if (process.env.NODE_ENV === "development") {
+  makeServer()
+}
 
 ReactDOM.render(
   <React.StrictMode>

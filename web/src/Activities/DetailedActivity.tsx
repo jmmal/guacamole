@@ -15,6 +15,8 @@ interface DetailedActivityParams {
   activityId: string;
 }
 
+const baseUrl = process.env.REACT_APP_BASE_API_URL;
+
 const DetailedActivityContainer = () => {
   const history = useHistory();
   const { activityId } = useParams<DetailedActivityParams>();
@@ -26,7 +28,7 @@ const DetailedActivityContainer = () => {
   }, [ activityId ]);
 
   async function loadActivities(id: string) {
-    const response = await fetch('/activities/' + id);
+    const response = await fetch(baseUrl + '/activities/' + id);
     const json = await response.json();
 
     setActivity(json);
@@ -91,7 +93,7 @@ const DetailedActivity = ({ activity, handleGoBack }: DetailedActivityProps) => 
               size='small'
             />
           </div>
-          <Heading level='4' className={css.marginAuto}>{ activity?.type ? activity.type : 'Loading' }</Heading>
+          <Heading level='3' className={css.marginAuto}>{ activity?.type ? activity.type : 'Loading' }</Heading>
         </div>
       </div>
        
