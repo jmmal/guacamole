@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@testing-library/jest-dom": "5.11.10",
-    "@testing-library/react": "9.5.0",
+    "@testing-library/react": "11.2.6",
     "@testing-library/user-event": "7.2.1",
     "@types/jest": "24.9.1",
     "@types/mapbox-gl": "1.13.0",
