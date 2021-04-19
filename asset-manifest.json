@@ -1,27 +1,22 @@
 {
   "files": {
-    "main.css": "/guacamole/static/css/main.2cfb0518.chunk.css",
-    "main.js": "/guacamole/static/js/main.c7b7aa12.chunk.js",
-    "main.js.map": "/guacamole/static/js/main.c7b7aa12.chunk.js.map",
+    "main.css": "/guacamole/static/css/main.145168eb.chunk.css",
+    "main.js": "/guacamole/static/js/main.cda83cae.chunk.js",
+    "main.js.map": "/guacamole/static/js/main.cda83cae.chunk.js.map",
     "runtime-main.js": "/guacamole/static/js/runtime-main.2c7e92e3.js",
     "runtime-main.js.map": "/guacamole/static/js/runtime-main.2c7e92e3.js.map",
-    "static/css/2.83531460.chunk.css": "/guacamole/static/css/2.83531460.chunk.css",
-    "static/js/2.bfea6f3c.chunk.js": "/guacamole/static/js/2.bfea6f3c.chunk.js",
-    "static/js/2.bfea6f3c.chunk.js.map": "/guacamole/static/js/2.bfea6f3c.chunk.js.map",
+    "static/js/2.7a65d319.chunk.js": "/guacamole/static/js/2.7a65d319.chunk.js",
+    "static/js/2.7a65d319.chunk.js.map": "/guacamole/static/js/2.7a65d319.chunk.js.map",
     "index.html": "/guacamole/index.html",
-    "precache-manifest.6ee6f16ad1731a6687be2d5d30065cdf.js": "/guacamole/precache-manifest.6ee6f16ad1731a6687be2d5d30065cdf.js",
+    "precache-manifest.bde1013c675616e66aae4f196bf39b98.js": "/guacamole/precache-manifest.bde1013c675616e66aae4f196bf39b98.js",
     "service-worker.js": "/guacamole/service-worker.js",
-    "static/css/2.83531460.chunk.css.map": "/guacamole/static/css/2.83531460.chunk.css.map",
-    "static/css/main.2cfb0518.chunk.css.map": "/guacamole/static/css/main.2cfb0518.chunk.css.map",
-    "static/js/2.bfea6f3c.chunk.js.LICENSE.txt": "/guacamole/static/js/2.bfea6f3c.chunk.js.LICENSE.txt",
-    "static/media/chevron-left.svg": "/guacamole/static/media/chevron-left.83785ce4.svg",
-    "static/media/cloud-upload.svg": "/guacamole/static/media/cloud-upload.2668a232.svg"
+    "static/css/main.145168eb.chunk.css.map": "/guacamole/static/css/main.145168eb.chunk.css.map",
+    "static/js/2.7a65d319.chunk.js.LICENSE.txt": "/guacamole/static/js/2.7a65d319.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.2c7e92e3.js",
-    "static/css/2.83531460.chunk.css",
-    "static/js/2.bfea6f3c.chunk.js",
-    "static/css/main.2cfb0518.chunk.css",
-    "static/js/main.c7b7aa12.chunk.js"
+    "static/js/2.7a65d319.chunk.js",
+    "static/css/main.145168eb.chunk.css",
+    "static/js/main.cda83cae.chunk.js"
   ]
 }
