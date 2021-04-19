@@ -38,7 +38,7 @@
     "mongodb": "3.6.6",
     "mongodb-client-encryption": "1.2.3",
     "node-fetch": "2.6.1",
-    "xmldom": "0.5.0"
+    "xmldom": "0.6.0"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
