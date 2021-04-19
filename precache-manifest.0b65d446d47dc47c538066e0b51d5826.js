@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8e8b7a01c90bbe34cca4e73103ecd035",
+    "revision": "96142f35b6d0d57162bc9bfacb971ff1",
     "url": "/guacamole/index.html"
   },
   {
-    "revision": "849eecf850db8a407e0c",
+    "revision": "352bb855c8c376743479",
     "url": "/guacamole/static/css/main.145168eb.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/guacamole/static/js/2.7a65d319.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "849eecf850db8a407e0c",
-    "url": "/guacamole/static/js/main.cda83cae.chunk.js"
+    "revision": "352bb855c8c376743479",
+    "url": "/guacamole/static/js/main.d3864cfc.chunk.js"
   },
   {
     "revision": "a8ccc81d4302bf1e4ecd",
