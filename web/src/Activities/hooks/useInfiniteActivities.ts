@@ -23,6 +23,8 @@ const useActivities = (filter: string) => {
   useEffect(() => {
     setActivities([]);
     setPage(1);
+    setHasNextPage(true);
+    setTotalCount(undefined);
   }, [filter]);
 
   const onLoadMore = async () => {
