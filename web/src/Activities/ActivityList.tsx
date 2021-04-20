@@ -2,18 +2,18 @@ import React from "react";
 
 import { ActivityPreview } from "./ActivityPreview";
 import { Loading } from "../Shared";
-import { useInfiniteActivities } from './hooks/useInfiniteActivities';
+import { useInfiniteActivities } from "./hooks/useInfiniteActivities";
 import { createUseStyles } from "react-jss";
 
 type ActivityListProps = {
   filter: string;
-}
+};
 
 const useStyles = createUseStyles({
   container: {
-    paddingBottom: '2rem'
-  }
-})
+    paddingBottom: "2rem",
+  },
+});
 
 export const ActivityList = ({ filter }: ActivityListProps) => {
   const {
@@ -21,7 +21,7 @@ export const ActivityList = ({ filter }: ActivityListProps) => {
     activities,
     loading,
     hasNextPage,
-    totalCount
+    totalCount,
   } = useInfiniteActivities(filter);
   const css = useStyles();
 
@@ -41,7 +41,7 @@ export const ActivityList = ({ filter }: ActivityListProps) => {
         />
       ))}
       {loading && <Loading />}
-      {hasNextPage && <span ref={ref} /> }
+      {hasNextPage && <span ref={ref} />}
     </div>
   );
 };

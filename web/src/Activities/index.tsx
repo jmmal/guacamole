@@ -1,8 +1,8 @@
-import React from 'react';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import { Activities } from './Activities';
-import { DetailedActivity } from './DetailedActivity';
-import { Upload } from './Upload';
+import React from "react";
+import { Route, Switch, useRouteMatch } from "react-router-dom";
+import { Activities } from "./Activities";
+import { DetailedActivity } from "./DetailedActivity";
+import { Upload } from "./Upload";
 
 export const ActivityRoutes = () => {
   const { path } = useRouteMatch();
@@ -19,5 +19,5 @@ export const ActivityRoutes = () => {
         <DetailedActivity />
       </Route>
     </Switch>
-  )
-}
+  );
+};

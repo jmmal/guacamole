@@ -4,4 +4,4 @@ export const range = (from: number, to: number): number[] => {
     result.push(i);
   }
   return result;
-}
+};
