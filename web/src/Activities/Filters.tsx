@@ -59,7 +59,6 @@ export const Filters = ({ onFilterChange }: FiltersProps) => {
   }, [filters]);
 
   const handleSelect = (e: any) => {
-    console.log(e.option);
     setFilter(e.option);
     onFilterChange(e.option.value);
   };
