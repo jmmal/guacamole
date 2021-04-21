@@ -1,5 +1,6 @@
-const path = require('path');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const path = require("path");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 module.exports = (env) => {
   const plugins = [];
@@ -10,21 +11,22 @@ module.exports = (env) => {
   return {
     mode: "production",
     entry: {
-      getActivitiesRequest: './src/getActivities/index.ts',
-      processActivityFileUpload: './src/processActivityUpload/index.ts',
-      getActivityByIdRequest: './src/getActivityById/index.ts',
-      getActivityTypeAggregation: './src/getActivityTypeAggregation/index.ts'
+      getActivitiesRequest: "./src/getActivities/index.ts",
+      getSignedURL: "./src/getSignedURL/index.ts",
+      processActivityFileUpload: "./src/processActivityUpload/index.ts",
+      getActivityByIdRequest: "./src/getActivityById/index.ts",
+      getActivityTypeAggregation: "./src/getActivityTypeAggregation/index.ts",
     },
-    target: 'node',
+    target: "node",
     resolve: {
       extensions: [".js", ".json", ".ts"],
     },
-    externals: [ 'electron' ],
+    externals: ["electron"],
     module: {
       rules: [
         {
           test: /\.(ts|js)x?$/,
-          use: 'babel-loader',
+          use: "babel-loader",
           exclude: /node_modules/,
         },
       ],
@@ -34,6 +36,6 @@ module.exports = (env) => {
       path: path.resolve(__dirname, "dist"),
       filename: "[name].js",
     },
-    plugins
+    plugins,
   };
 };

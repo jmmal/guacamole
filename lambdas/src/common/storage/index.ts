@@ -3,6 +3,7 @@ import { AWSError } from 'aws-sdk/lib/error';
 import { PromiseResult } from 'aws-sdk/lib/request';
 
 const REGION = 'ap-southeast-2';
+const URL_EXPIRATION_SECONDS = 300;
 const s3 = new S3Client({ region: REGION });
 
 type UploadResponse = Promise<
@@ -26,4 +27,21 @@ const uploadToBucket = (key: string, data: Buffer): UploadResponse => {
     .promise();
 };
 
-export { uploadToBucket };
+const getUploadURL = async (filename: string): Promise<unknown> => {
+  // Get signed URL from S3
+  const s3Params = {
+    Bucket: process.env.UploadBucket,
+    Key: filename,
+    Expires: URL_EXPIRATION_SECONDS,
+    ContentType: 'binary/octet-stream',
+  };
+
+  const uploadURL = await s3.getSignedUrlPromise('putObject', s3Params);
+
+  return {
+    uploadURL: uploadURL,
+    Key: filename,
+  };
+};
+
+export { uploadToBucket, getUploadURL };

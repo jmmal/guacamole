@@ -5,6 +5,12 @@ import { Loading } from "../Shared";
 import { Button, FileInput, Heading, Text } from "grommet";
 import { createUseStyles } from "react-jss";
 
+type SignedURL = {
+  uploadURL: string;
+};
+
+const baseUrl = process.env.REACT_APP_BASE_API_URL;
+
 const useStyles = createUseStyles({
   container: {
     display: "flex",
@@ -48,7 +54,22 @@ export const Upload = () => {
   async function handleSubmit() {
     if (file) {
       setLoading(true);
-      // await ActivityService.upload(file);
+      const params = new URLSearchParams();
+      params.append("filename", file.name);
+
+      const uploadResponse: Response = await fetch(
+        baseUrl + "/upload?" + params.toString()
+      );
+      const response: SignedURL = await uploadResponse.json();
+
+      await fetch(response.uploadURL, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "binary/octet-stream",
+        },
+        body: file,
+      });
+
       setLoading(false);
       history.push("/activities");
     }

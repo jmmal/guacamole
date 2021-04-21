@@ -1,5 +1,5 @@
 import { createServer } from 'miragejs';
-import { activities, activity, filters } from './data';
+import { activities, activity, filters, signedUrl } from './data';
 
 export default function makeServer() {
   createServer({
@@ -24,6 +24,9 @@ export default function makeServer() {
       );
       this.get('/activities/:id', () => activity);
       this.get('/filters', () => filters);
+
+      this.get('/upload', () => signedUrl);
+      this.put('/upload/activity');
 
       this.passthrough('https://api.mapbox.com/**');
       this.passthrough('https://events.mapbox.com/**');
