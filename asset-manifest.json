@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/guacamole/static/css/main.2d44f05c.chunk.css",
-    "main.js": "/guacamole/static/js/main.d8fccbe3.chunk.js",
-    "main.js.map": "/guacamole/static/js/main.d8fccbe3.chunk.js.map",
+    "main.js": "/guacamole/static/js/main.b5677b36.chunk.js",
+    "main.js.map": "/guacamole/static/js/main.b5677b36.chunk.js.map",
     "runtime-main.js": "/guacamole/static/js/runtime-main.c1897bce.js",
     "runtime-main.js.map": "/guacamole/static/js/runtime-main.c1897bce.js.map",
     "static/js/2.7257724e.chunk.js": "/guacamole/static/js/2.7257724e.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.c1897bce.js",
     "static/js/2.7257724e.chunk.js",
     "static/css/main.2d44f05c.chunk.css",
-    "static/js/main.d8fccbe3.chunk.js"
+    "static/js/main.b5677b36.chunk.js"
   ]
 }
