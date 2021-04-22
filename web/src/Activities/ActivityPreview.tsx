@@ -32,11 +32,17 @@ const useStyles = createUseStyles({
     flexWrap: "wrap",
     marginBottom: "0.5rem",
   },
+  stats: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+    gap: "1rem",
+  },
 });
 
 export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
   const history = useHistory();
-  const classes = useStyles();
+  const css = useStyles();
 
   function openActivity() {
     history.push(`/activities/${activity._id}`);
@@ -48,15 +54,17 @@ export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
     }
   }
 
+  const { avg, min, max } = activity.heartRate;
+
   return (
     <article
-      className={classes.preview}
+      className={css.preview}
       aria-posinset={index}
       tabIndex={0}
       onClick={openActivity}
       onKeyDown={handleKeyDown}
     >
-      <div className={classes.header}>
+      <div className={css.header}>
         <Heading margin="none" level="4">
           {format(new Date(activity.startTime), "EEEE, LLLL d, yyyy")}
         </Heading>
@@ -67,11 +75,11 @@ export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
         <img
           src={activity.imageURL}
           alt="Activity GPS preview"
-          className={classes.image}
+          className={css.image}
         />
       )}
 
-      <Box direction="row" justify="between">
+      <div className={css.stats}>
         <FooterColumn
           title="Distance"
           value={`${Number(activity.distance / 1000).toFixed(2)} km`}
@@ -90,7 +98,10 @@ export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
           title="Elapsed Time"
           value={formatDuration(activity.elapsedTime)}
         />
-      </Box>
+        {activity.heartRate.avg && (
+          <FooterColumn title="Heart Rate" value={`${min}/${avg}/${max}`} />
+        )}
+      </div>
     </article>
   );
 };
