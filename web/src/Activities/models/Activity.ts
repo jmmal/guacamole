@@ -1,8 +1,8 @@
-type MinMaxAvg = {
+export type MinMaxAvg = {
   min: number | null;
   max: number | null;
   avg: number | null;
-}
+};
 
 export interface Activity {
   _id: string;
@@ -39,4 +39,4 @@ export type DataPoint = {
   grade: PointValue;
   gradeAdjustedSpeed: PointValue;
   speedInMPM: PointValue;
-}
+};

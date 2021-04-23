@@ -7,6 +7,11 @@ import { Activity } from "./models";
 import { formatDuration, formatPace } from "../Shared";
 import { createUseStyles } from "react-jss";
 import { Box, Heading, Text } from "grommet";
+import {
+  formatElevation,
+  formatDistance,
+  formatTitle,
+} from "../Shared/formatters";
 
 type ActivityPreviewProps = {
   activity: Activity;
@@ -14,7 +19,7 @@ type ActivityPreviewProps = {
   totalCount?: number;
 };
 
-const useStyles = createUseStyles({
+const usePreviewStyles = createUseStyles({
   image: {
     width: "100%",
   },
@@ -42,7 +47,7 @@ const useStyles = createUseStyles({
 
 export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
   const history = useHistory();
-  const css = useStyles();
+  const css = usePreviewStyles();
 
   function openActivity() {
     history.push(`/activities/${activity._id}`);
@@ -54,7 +59,7 @@ export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
     }
   }
 
-  const { avg, min, max } = activity.heartRate;
+  const { avg, max } = activity.heartRate;
 
   return (
     <article
@@ -68,7 +73,7 @@ export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
         <Heading margin="none" level="4">
           {format(new Date(activity.startTime), "EEEE, LLLL d, yyyy")}
         </Heading>
-        <Text>{activity.title}</Text>
+        <Text>{formatTitle(activity.startTime, activity.type)}</Text>
       </div>
 
       {activity.imageURL && (
@@ -82,24 +87,25 @@ export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
       <div className={css.stats}>
         <FooterColumn
           title="Distance"
-          value={`${Number(activity.distance / 1000).toFixed(2)} km`}
+          value={formatDistance(activity.distance)}
         />
         <FooterColumn
           title="Pace"
-          value={`${formatPace(activity.pace.avg ?? 0)} min / km`}
+          value={`${formatPace(activity.pace.avg ?? 0)}/km`}
         />
         <FooterColumn
           title="Elevation"
-          value={`${Number(
-            (activity.elevation.max ?? 0) - (activity.elevation.min ?? 0)
-          ).toFixed(1)} m`}
+          value={formatElevation(activity.elevation)}
         />
         <FooterColumn
           title="Elapsed Time"
           value={formatDuration(activity.elapsedTime)}
         />
         {activity.heartRate.avg && (
-          <FooterColumn title="Heart Rate" value={`${min}/${avg}/${max}`} />
+          <>
+            <FooterColumn title="Avg Heart Rate" value={`${avg}bpm`} />
+            <FooterColumn title="Max Heart Rate" value={`${max}bpm`} />
+          </>
         )}
       </div>
     </article>
@@ -111,11 +117,25 @@ type FooterColumnProps = {
   value: string;
 };
 
+const useFooterStyles = createUseStyles({
+  title: {
+    fontSize: 11,
+    color: "#626262",
+    marginBottom: 0,
+    marginTop: 8,
+  },
+  stat: {
+    margin: 0,
+  },
+});
+
 const FooterColumn = ({ title, value }: FooterColumnProps) => {
+  const css = useFooterStyles();
+
   return (
     <Box direction="column">
-      <Text className="title">{title}</Text>
-      <Text className="value mb-0">{value}</Text>
+      <p className={css.title}>{title}</p>
+      <p className={css.stat}>{value}</p>
     </Box>
   );
 };

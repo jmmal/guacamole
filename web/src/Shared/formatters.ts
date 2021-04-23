@@ -1,3 +1,5 @@
+import { MinMaxAvg } from '../Activities/models/Activity';
+
 /**
  * Converts a number value (representing a speed in m/s) into a string representation
  * of the value in Minutes / Kilometer
@@ -25,3 +27,42 @@ export const formatDuration = (value: number): string => {
 
   return `${totalMinutes}m ${seconds}s`;
 };
+
+export const formatElevation = (elevation: MinMaxAvg): string => {
+  const { max = 0, min = 0 } = elevation;
+
+  return (max! - min!).toFixed(1).toString() + 'm';
+};
+
+export const formatDistance = (distance: number): string => {
+  return Number(distance / 1000).toFixed(2) + 'km';
+};
+
+export const formatTitle = (start: Date, type: string): string => {
+  const hourOfDay = new Date(start).getHours();
+  console.log(hourOfDay);
+
+  let timeOfDayString = 'Morning';
+  if (hourOfDay >= 12) {
+    timeOfDayString = 'Lunch';
+  }
+  if (hourOfDay >= 14) {
+    timeOfDayString = 'Afternoon';
+  }
+  if (hourOfDay >= 16) {
+    timeOfDayString = 'Evening';
+  }
+  if (hourOfDay >= 21) {
+    timeOfDayString = 'Night';
+  }
+
+  const activityString = ActivityTypeMap.get(type) ?? 'Workout';
+
+  return `${timeOfDayString} ${activityString}`;
+};
+
+const ActivityTypeMap: Map<string, string> = new Map([
+  ['Running', 'Run'],
+  ['Cycling', 'Ride'],
+  ['Hiking', 'Hike'],
+]);
