@@ -39,9 +39,8 @@ const usePreviewStyles = createUseStyles({
   },
   stats: {
     display: "flex",
-    justifyContent: "space-between",
     flexWrap: "wrap",
-    gap: "1rem",
+    margin: "0 -1rem",
   },
 });
 
@@ -127,15 +126,20 @@ const useFooterStyles = createUseStyles({
   stat: {
     margin: 0,
   },
+  column: {
+    display: "flex",
+    flexDirection: "column",
+    margin: "0 1rem",
+  },
 });
 
 const FooterColumn = ({ title, value }: FooterColumnProps) => {
   const css = useFooterStyles();
 
   return (
-    <Box direction="column">
+    <div className={css.column}>
       <p className={css.title}>{title}</p>
       <p className={css.stat}>{value}</p>
-    </Box>
+    </div>
   );
 };
