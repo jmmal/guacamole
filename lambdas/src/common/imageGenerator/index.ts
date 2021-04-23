@@ -27,7 +27,7 @@ const getImage = async (points: GPSPoint[]): Promise<Buffer> => {
     // Sending the request with fetch rather than request.send() and static
     // image client did not seem to return the right format
     response = await fetch(request);
-  } while (response.status === 413);
+  } while (response.status === 413 && precision < 10);
 
   return response.buffer();
 };
