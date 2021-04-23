@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import { Activity } from "./models";
 import { formatDuration, formatPace } from "../Shared";
 import { createUseStyles } from "react-jss";
-import { Box, Heading, Text } from "grommet";
+import { Heading, Text } from "grommet";
 import {
   formatElevation,
   formatDistance,

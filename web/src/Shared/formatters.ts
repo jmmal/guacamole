@@ -39,7 +39,9 @@ export const formatDistance = (distance: number): string => {
 };
 
 export const formatTitle = (start: Date, type: string): string => {
-  const hourOfDay = new Date(start).getHours();
+  const date = new Date(start);
+  console.log(date);
+  const hourOfDay = date.getHours();
   console.log(hourOfDay);
 
   let timeOfDayString = 'Morning';
@@ -58,6 +60,7 @@ export const formatTitle = (start: Date, type: string): string => {
 
   const activityString = ActivityTypeMap.get(type) ?? 'Workout';
 
+  console.log(`${timeOfDayString} ${activityString}`);
   return `${timeOfDayString} ${activityString}`;
 };
 
