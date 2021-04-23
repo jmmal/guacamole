@@ -100,6 +100,7 @@ export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
           title="Elapsed Time"
           value={formatDuration(activity.elapsedTime)}
         />
+        <FooterColumn title="Calories" value={activity.calories} />
         {activity.heartRate.avg && (
           <>
             <FooterColumn title="Avg Heart Rate" value={`${avg}bpm`} />
@@ -113,7 +114,7 @@ export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
 
 type FooterColumnProps = {
   title: string;
-  value: string;
+  value: string | number;
 };
 
 const useFooterStyles = createUseStyles({
@@ -122,11 +123,15 @@ const useFooterStyles = createUseStyles({
     color: "#626262",
     marginBottom: 0,
     marginTop: 8,
+    whiteSpace: "nowrap",
   },
   stat: {
     margin: 0,
+    whiteSpace: "nowrap",
   },
   column: {
+    flexGrow: 1,
+    flexBasis: 0,
     display: "flex",
     flexDirection: "column",
     margin: "0 1rem",
