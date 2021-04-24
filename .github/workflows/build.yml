@@ -11,11 +11,11 @@ env:
   REACT_APP_MAPBOX_PUBLIC_KEY: ${{ secrets.REACT_APP_MAPBOX_PUBLIC_KEY }}
 
 jobs:
-  web:
+  client:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: web
+        working-directory: client
 
     steps:
       - uses: actions/checkout@v2
@@ -29,7 +29,7 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('../yarn.lock') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
@@ -39,19 +39,16 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build project
-        run: yarn build
+        run: yarn build:client
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: web/build # The folder the action should deploy.
+          folder: client/build # The folder the action should deploy.
 
   lambdas:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: lambdas
 
     steps:
       - uses: actions/checkout@v2
@@ -65,7 +62,7 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
@@ -75,4 +72,4 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build project
-        run: yarn build
+        run: yarn build:server

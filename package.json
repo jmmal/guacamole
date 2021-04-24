@@ -5,7 +5,9 @@
     "server"
   ],
   "scripts": {
-    "web": "yarn workspace web start",
+    "start": "yarn workspace client start",
+    "build:client": "yarn workspace client build",
+    "build:server": "yarn workspace server build",
     "deploy:server": "yarn workspace server deploy",
     "deploy:client": "yarn workspace client deploy"
   }
