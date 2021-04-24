@@ -6,6 +6,8 @@
   ],
   "scripts": {
     "start": "yarn workspace client start",
+    "test:client": "yarn workspace client test",
+    "test:server": "yarn workspace server test",
     "build:client": "yarn workspace client build",
     "build:server": "yarn workspace server build",
     "deploy:server": "yarn workspace server deploy",
