@@ -40,3 +40,18 @@ export type DataPoint = {
   gradeAdjustedSpeed: PointValue;
   speedInMPM: PointValue;
 };
+
+export type StatVal = number | null;
+export type ActivitySummary = {
+  _id: string;
+  type: string;
+  startTime: Date;
+  pace: {
+    min: StatVal;
+    max: StatVal;
+    avg: StatVal;
+  };
+  calories: StatVal;
+  distance: StatVal;
+  duration: StatVal;
+};

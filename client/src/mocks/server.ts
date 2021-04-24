@@ -1,5 +1,6 @@
 import { createServer } from 'miragejs';
 import { activities, activity, filters, signedUrl } from './data';
+import { stats } from './data/stats';
 
 export default function makeServer() {
   createServer({
@@ -22,6 +23,8 @@ export default function makeServer() {
         },
         { timing: 1000 }
       );
+
+      this.get('/activities/stats', () => stats);
       this.get('/activities/:id', () => activity);
       this.get('/filters', () => filters);
 
