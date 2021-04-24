@@ -3,14 +3,11 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es6",
+    "target": "es5",
     "noImplicitAny": true,
     "outDir": "dist",
     "paths": {
-      "*": [
-        "./node_modules/*",
-        "./src/types/*"
-      ]
+      "*": ["../node_modules/*", "./src/types/*"]
     }
   },
   "include": ["src/**/*"],
