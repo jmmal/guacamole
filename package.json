@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "web": "yarn workspace web start",
+    "deploy:server": "yarn workspace server deploy",
+    "deploy:client": "yarn workspace client deploy"
+  }
+}
