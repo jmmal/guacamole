@@ -11,7 +11,7 @@ import {
 } from "recharts";
 
 import { range } from "../Shared/utils";
-import { DataPoint } from "../Activities/models";
+import { DataPoint } from "../Shared/types";
 
 export type Props = {
   streamData: DataPoint[];

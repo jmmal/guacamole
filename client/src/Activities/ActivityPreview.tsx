@@ -3,8 +3,8 @@ import { useHistory } from "react-router-dom";
 
 import { format } from "date-fns";
 
-import { Activity } from "./models";
-import { formatDuration, formatPace } from "../Shared";
+import { Activity } from "../Shared/types";
+import { formatDuration, formatPace } from "../Shared/formatters";
 import { createUseStyles } from "react-jss";
 import { Heading, Text } from "grommet";
 import {

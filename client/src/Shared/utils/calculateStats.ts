@@ -1,13 +1,4 @@
-import { ActivitySummary } from '../Activities/models/Activity';
-import { StatsSummary } from '../types';
-
-export const range = (from: number, to: number): number[] => {
-  const result = [];
-  for (let i = from; i <= to; i++) {
-    result.push(i);
-  }
-  return result;
-};
+import { ActivitySummary, StatsSummary } from '../types';
 
 const distanceAccumulator = (prev: number, curr: ActivitySummary) =>
   prev + (curr.distance ?? 0);

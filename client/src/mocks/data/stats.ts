@@ -1,4 +1,4 @@
-import { ActivitySummary } from '../../Activities/models/Activity';
+import { ActivitySummary } from '../../Shared/types';
 
 export const stats: ActivitySummary[] = [
   {

@@ -1,7 +1,7 @@
 import { Select } from "grommet";
 import React, { useEffect, useState } from "react";
 
-import { ActivityTypeAggregation } from "./models";
+import { ActivityTypeAggregation } from "../Shared/types";
 
 const baseUrl = process.env.REACT_APP_BASE_API_URL;
 

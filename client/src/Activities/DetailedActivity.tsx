@@ -4,9 +4,8 @@ import { useParams, useHistory } from "react-router-dom";
 import { Previous } from "grommet-icons";
 import { format } from "date-fns";
 
-import { Mapbox } from "../Shared";
-import { Activity } from "./models";
-import { Loading } from "../Shared";
+import { Mapbox, Loading } from "../Shared/components";
+import { Activity } from "../Shared/types";
 import {
   ElevationChart,
   PaceChart,

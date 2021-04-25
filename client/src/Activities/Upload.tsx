@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
-import { Loading } from "../Shared";
+import { Loading } from "../Shared/components";
 import { Button, FileInput, Heading, Text } from "grommet";
 import { createUseStyles } from "react-jss";
 

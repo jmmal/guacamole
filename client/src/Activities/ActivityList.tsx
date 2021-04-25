@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ActivityPreview } from "./ActivityPreview";
-import { Loading } from "../Shared";
+import { Loading } from "../Shared/components";
 import { useInfiniteActivities } from "./hooks/useInfiniteActivities";
 import { createUseStyles } from "react-jss";
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useInView } from 'react-intersection-observer';
 
-import { Activity, GetAllResponse } from '../models';
+import { Activity, GetAllResponse } from '../../Shared/types';
 
 const baseUrl = process.env.REACT_APP_BASE_API_URL;
 
@@ -31,7 +31,7 @@ const useActivities = (filter: string) => {
     setLoading(true);
     const params = new URLSearchParams();
     params.append('page', page.toString());
-    params.append('pageSize', '5');
+    params.append('pageSize', '10');
 
     if (filter !== '' && filter !== 'All') {
       params.append('type', filter);

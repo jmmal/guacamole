@@ -1,6 +1,6 @@
 import { createUseStyles } from "react-jss";
 
-import { Summary } from "../types";
+import { Summary } from "../Shared/types";
 import { formatDuration } from "../Shared/formatters";
 
 const useStyles = createUseStyles({

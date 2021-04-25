@@ -9,8 +9,8 @@ import {
   LineChart,
   Line,
 } from "recharts";
-import { DataPoint } from "../Activities/models";
-import { formatPace } from "../Shared";
+import { DataPoint } from "../Shared/types";
+import { formatPace } from "../Shared/formatters";
 
 type PaceChartProps = {
   points: DataPoint[];

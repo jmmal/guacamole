@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { calculateStats } from '../Shared/utils';
-import { StatsSummary } from '../types';
+import { StatsSummary } from '../Shared/types';
 
 export const useStats = () => {
   const [stats, setStats] = useState<StatsSummary>();

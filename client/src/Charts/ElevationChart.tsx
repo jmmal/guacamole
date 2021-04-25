@@ -9,7 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { DataPoint } from "../Activities/models";
+import { DataPoint } from "../Shared/types";
 import { range } from "../Shared/utils";
 
 type ElevationChartProps = {

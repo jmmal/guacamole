@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import { Activities } from "./Activities";
 import { DetailedActivity } from "./DetailedActivity";

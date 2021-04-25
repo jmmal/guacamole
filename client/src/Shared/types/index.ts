@@ -1,3 +1,15 @@
+export type Summary = {
+  count: number;
+  distance: number;
+  duration: number;
+};
+
+export type StatsSummary = {
+  allTime: Summary;
+  runs: Summary;
+  year: Summary;
+};
+
 export type MinMaxAvg = {
   min: number | null;
   max: number | null;
@@ -55,3 +67,13 @@ export type ActivitySummary = {
   distance: StatVal;
   duration: StatVal;
 };
+
+export interface ActivityTypeAggregation {
+  type: string;
+  total: number;
+}
+
+export interface GetAllResponse {
+  total: number;
+  data: Activity[];
+}

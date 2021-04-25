@@ -1,4 +1,4 @@
-import { ActivityTypeAggregation } from "../../Activities/models";
+import { ActivityTypeAggregation } from '../../Shared/types';
 
 export const filters: ActivityTypeAggregation[] = [
   {
