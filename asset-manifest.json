@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/guacamole/static/css/main.2d44f05c.chunk.css",
-    "main.js": "/guacamole/static/js/main.6b5c5d41.chunk.js",
-    "main.js.map": "/guacamole/static/js/main.6b5c5d41.chunk.js.map",
+    "main.js": "/guacamole/static/js/main.c6fbb6f8.chunk.js",
+    "main.js.map": "/guacamole/static/js/main.c6fbb6f8.chunk.js.map",
     "runtime-main.js": "/guacamole/static/js/runtime-main.3242fca6.js",
     "runtime-main.js.map": "/guacamole/static/js/runtime-main.3242fca6.js.map",
-    "static/js/2.5fda83a8.chunk.js": "/guacamole/static/js/2.5fda83a8.chunk.js",
-    "static/js/2.5fda83a8.chunk.js.map": "/guacamole/static/js/2.5fda83a8.chunk.js.map",
+    "static/js/2.9805bdeb.chunk.js": "/guacamole/static/js/2.9805bdeb.chunk.js",
+    "static/js/2.9805bdeb.chunk.js.map": "/guacamole/static/js/2.9805bdeb.chunk.js.map",
     "index.html": "/guacamole/index.html",
     "static/css/main.2d44f05c.chunk.css.map": "/guacamole/static/css/main.2d44f05c.chunk.css.map",
-    "static/js/2.5fda83a8.chunk.js.LICENSE.txt": "/guacamole/static/js/2.5fda83a8.chunk.js.LICENSE.txt"
+    "static/js/2.9805bdeb.chunk.js.LICENSE.txt": "/guacamole/static/js/2.9805bdeb.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.3242fca6.js",
-    "static/js/2.5fda83a8.chunk.js",
+    "static/js/2.9805bdeb.chunk.js",
     "static/css/main.2d44f05c.chunk.css",
-    "static/js/main.6b5c5d41.chunk.js"
+    "static/js/main.c6fbb6f8.chunk.js"
   ]
 }
