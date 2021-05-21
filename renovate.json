@@ -5,7 +5,7 @@
   "packageRules": [
     {
       "matchPackageNames": "aws-sdk",
-      "schedule": "weekly"
+      "extends": ["schedule:weekly"]
     }
   ],
   "rangeStrategy": "bump"
