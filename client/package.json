@@ -52,7 +52,7 @@
     "@types/jest": "26.0.23",
     "@types/mapbox-gl": "1.13.1",
     "@types/mapbox__polyline": "1.0.2",
-    "@types/node": "14.17.1",
+    "@types/node": "14.17.2",
     "@types/react": "17.0.9",
     "@types/react-dom": "17.0.5",
     "@types/react-router-dom": "5.1.7",
