@@ -2077,10 +2077,10 @@
   resolved "https://registry.yarnpkg.com/@mapbox/mapbox-gl-supported/-/mapbox-gl-supported-1.5.0.tgz#f60b6a55a5d8e5ee908347d2ce4250b15103dc8e"
   integrity sha512-/PT1P6DNf7vjEEiPkVIRJkvibbqWtqnyGaBz3nfRdcxclNSnSdaLU5tfAgcD7I8Yt5i+L19s406YLl1koLnLbg==
 
-"@mapbox/mapbox-sdk@0.12.1":
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/@mapbox/mapbox-sdk/-/mapbox-sdk-0.12.1.tgz#917cc9a7f5b12390340c1958277400facfb44bec"
-  integrity sha512-XSYYhw8+Y6Osz0JF87Z3YAh40b4gt3riqQM4ZpRsPBHx7QT+vBfHwCvBaR/p6Oc+kDiTAQ7zNpudbjB5cKWpTw==
+"@mapbox/mapbox-sdk@0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@mapbox/mapbox-sdk/-/mapbox-sdk-0.13.0.tgz#e53d6136f9ecaa41b10d94835d365542b12a9faf"
+  integrity sha512-jrswWOsewkTGDNxtPMQmPdUHS1X+8HjwZzcc6Ndxmmyo3XOvC6XjkAMwXP8Ueh3SQI6wu/PErdx9nErd/2YbCw==
   dependencies:
     "@mapbox/fusspot" "^0.4.0"
     "@mapbox/parse-mapbox-token" "^0.2.0"
