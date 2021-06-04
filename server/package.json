@@ -9,7 +9,7 @@
     "@babel/plugin-transform-runtime": "7.14.3",
     "@babel/preset-env": "7.14.4",
     "@babel/preset-typescript": "7.13.0",
-    "@types/aws-lambda": "8.10.76",
+    "@types/aws-lambda": "8.10.77",
     "@types/jest": "26.0.23",
     "@types/mapbox__mapbox-sdk": "0.11.1",
     "@types/mapbox__polyline": "1.0.2",
