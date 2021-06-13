@@ -1,6 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
-import * as mapboxgl from "mapbox-gl";
+/**
+ * '!mapbox-gl' is a workaround to ES6 compilation errors.
+ * @see https://github.com/mapbox/mapbox-gl-js/issues/10565
+ */
+// @ts-ignore
+// eslint-disable-next-line
+import mapboxgl from "!mapbox-gl";
 import * as mapboxPoly from "@mapbox/polyline";
 import { createUseStyles } from "react-jss";
 
