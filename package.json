@@ -12,5 +12,6 @@
     "build:server": "yarn workspace server build",
     "deploy:server": "yarn workspace server deploy",
     "deploy:client": "yarn workspace client deploy"
-  }
+  },
+  "dependencies": {}
 }
