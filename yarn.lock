@@ -3147,7 +3147,7 @@
   dependencies:
     "@types/geojson" "*"
 
-"@types/mapbox__mapbox-sdk@*", "@types/mapbox__mapbox-sdk@0.11.1":
+"@types/mapbox__mapbox-sdk@*":
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/@types/mapbox__mapbox-sdk/-/mapbox__mapbox-sdk-0.11.1.tgz#c1e24da12a168f2d89a1c46241c9fe4cb02855bc"
   integrity sha512-8zP3p+K6mJMlw1k1ZnBgeJ+rUsevx3KOB8NWdm0vCBLmHVcZk/DK69lS1BU11VGJCKG36JCP9EXhkMAbaRoJGg==
@@ -3155,6 +3155,16 @@
     "@types/geojson" "*"
     "@types/mapbox-gl" "*"
     "@types/mapbox__mapbox-sdk" "*"
+
+"@types/mapbox__mapbox-sdk@0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@types/mapbox__mapbox-sdk/-/mapbox__mapbox-sdk-0.13.0.tgz#eb50f695ac5f7ac4f49579332d73eb7008a70643"
+  integrity sha512-ni2GbYDWrK2HbehjHSm/s9TN4bTj1d52VMtN4zpvEoq3imzxVycNaSQ69MFJm4YytAUpA/mUUP/ogwo/VjkthQ==
+  dependencies:
+    "@types/geojson" "*"
+    "@types/mapbox-gl" "*"
+    "@types/mapbox__mapbox-sdk" "*"
+    "@types/node" "*"
 
 "@types/mapbox__polyline@1.0.2":
   version "1.0.2"
