@@ -36,7 +36,7 @@
     "@sports-alliance/sports-lib": "5.4.22",
     "aws-sdk": "2.935.0",
     "mongodb": "3.6.9",
-    "mongodb-client-encryption": "1.2.5",
+    "mongodb-client-encryption": "1.2.6",
     "node-fetch": "2.6.1",
     "xmldom": "0.6.0"
   },
