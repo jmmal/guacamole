@@ -10,7 +10,7 @@
     "@babel/preset-env": "7.14.7",
     "@babel/preset-typescript": "7.14.5",
     "@types/aws-lambda": "8.10.78",
-    "@types/jest": "26.0.23",
+    "@types/jest": "26.0.24",
     "@types/mapbox__mapbox-sdk": "0.13.0",
     "@types/mapbox__polyline": "1.0.2",
     "@types/mongodb": "3.6.19",
