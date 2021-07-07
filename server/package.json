@@ -13,7 +13,7 @@
     "@types/jest": "26.0.24",
     "@types/mapbox__mapbox-sdk": "0.13.0",
     "@types/mapbox__polyline": "1.0.2",
-    "@types/mongodb": "3.6.19",
+    "@types/mongodb": "3.6.20",
     "@types/node-fetch": "2.5.10",
     "@types/xmldom": "0.1.31",
     "@typescript-eslint/eslint-plugin": "4.28.2",
