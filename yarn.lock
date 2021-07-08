@@ -3180,10 +3180,10 @@
     "@types/mapbox-gl" "*"
     "@types/mapbox__mapbox-sdk" "*"
 
-"@types/mapbox__mapbox-sdk@0.13.0":
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/@types/mapbox__mapbox-sdk/-/mapbox__mapbox-sdk-0.13.0.tgz#eb50f695ac5f7ac4f49579332d73eb7008a70643"
-  integrity sha512-ni2GbYDWrK2HbehjHSm/s9TN4bTj1d52VMtN4zpvEoq3imzxVycNaSQ69MFJm4YytAUpA/mUUP/ogwo/VjkthQ==
+"@types/mapbox__mapbox-sdk@0.13.1":
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/@types/mapbox__mapbox-sdk/-/mapbox__mapbox-sdk-0.13.1.tgz#ad54b577bcd0070771dd676d692c10f8b8524e27"
+  integrity sha512-npphhFvJx5Hvykh3ZEIz8990TN1QXP36Vhaz3zDdAuI4tbwTj2oV3Q5M+Qz/qFWtXSg5cHi2fNYQAxHYRsJtWA==
   dependencies:
     "@types/geojson" "*"
     "@types/mapbox-gl" "*"
