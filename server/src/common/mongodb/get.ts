@@ -1,6 +1,6 @@
 import { connectToDatabase } from './connect';
 import { Activity } from '../types';
-import { FindOneOptions, ObjectId } from 'mongodb';
+import { FindOptions, ObjectId } from 'mongodb';
 import { everyNthElement } from '../utils';
 import { ActivityTypeAggregation } from './types';
 
@@ -13,7 +13,7 @@ export const getActivities = async (
 ): Promise<Activity[]> => {
   const db = await connectToDatabase(MONGODB_URI);
 
-  const options: FindOneOptions<Activity> = {
+  const options: FindOptions<Activity> = {
     sort: { startTime: -1 },
     limit: pageSize,
     skip: (page - 1) * pageSize,
@@ -46,7 +46,7 @@ export const getById = async (id: string): Promise<Activity> => {
     _id: new ObjectId(id),
   };
 
-  const options: FindOneOptions<Activity> = {
+  const options: FindOptions<Activity> = {
     projection: {
       simplePolyline: 0,
       points: 0,
@@ -103,7 +103,7 @@ export const getLightweightActivities = async (): Promise<
 > => {
   const db = await connectToDatabase(MONGODB_URI);
 
-  const options: FindOneOptions<Activity> = {
+  const options: FindOptions<Activity> = {
     sort: { startTime: -1 },
     projection: {
       distance: 1,
