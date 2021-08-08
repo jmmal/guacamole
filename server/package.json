@@ -13,7 +13,7 @@
     "@types/jest": "26.0.24",
     "@types/mapbox__mapbox-sdk": "0.13.2",
     "@types/mapbox__polyline": "1.0.2",
-    "@types/mongodb": "3.6.20",
+    "@types/mongodb": "4.0.6",
     "@types/node-fetch": "2.5.12",
     "@types/xmldom": "0.1.31",
     "@typescript-eslint/eslint-plugin": "4.29.0",
@@ -35,7 +35,7 @@
     "@mapbox/polyline": "1.1.1",
     "@sports-alliance/sports-lib": "5.4.22",
     "aws-sdk": "2.958.0",
-    "mongodb": "3.6.11",
+    "mongodb": "4.1.0",
     "mongodb-client-encryption": "1.2.6",
     "node-fetch": "2.6.1",
     "xmldom": "0.6.0"
