@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -8,6 +8,7 @@ import { ActivityList } from "./ActivityList";
 import { Box, Button } from "grommet";
 import { createUseStyles } from "react-jss";
 import { Stats } from "../Stats/Stats";
+import { ActivityTypeAggregation } from "../Shared/types";
 
 const useStyles = createUseStyles({
   main: {
@@ -45,7 +46,24 @@ const useStyles = createUseStyles({
   },
 });
 
+const baseUrl = process.env.REACT_APP_BASE_API_URL;
+
+const useFilters = () => {
+  const [filters, setFilters] = useState<ActivityTypeAggregation[]>([]);
+
+  useEffect(() => {
+    fetch(baseUrl + "/filters")
+      .then((resp) => resp.json())
+      .then((json) => setFilters(json));
+  }, []);
+
+  return {
+    filters,
+  };
+};
+
 export const Activities = () => {
+  const { filters } = useFilters();
   const [filter, setFilter] = useState("");
   const classes = useStyles();
   return (
@@ -54,13 +72,13 @@ export const Activities = () => {
         <header className={classes.header}>
           <Box direction="row" justify="between">
             <UploadButton />
-            <Filters onFilterChange={setFilter} />
+            <Filters onFilterChange={setFilter} filters={filters} />
           </Box>
         </header>
         <ActivityList filter={filter} />
       </div>
       <div className={classes.rightSidebar}>
-        <Stats />
+        <Stats filters={filters} />
       </div>
     </main>
   );

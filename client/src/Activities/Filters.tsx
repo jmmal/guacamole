@@ -1,26 +1,10 @@
 import { Select } from "grommet";
-import React, { useEffect, useState } from "react";
-
+import { useEffect, useState } from "react";
 import { ActivityTypeAggregation } from "../Shared/types";
-
-const baseUrl = process.env.REACT_APP_BASE_API_URL;
-
-const useFilters = () => {
-  const [filters, setFilters] = useState<ActivityTypeAggregation[]>([]);
-
-  useEffect(() => {
-    fetch(baseUrl + "/filters")
-      .then((resp) => resp.json())
-      .then((json) => setFilters(json));
-  }, []);
-
-  return {
-    filters,
-  };
-};
 
 type FiltersProps = {
   onFilterChange: (filter: string) => void;
+  filters: ActivityTypeAggregation[];
 };
 
 type SelectOption = {
@@ -28,8 +12,7 @@ type SelectOption = {
   value: string;
 };
 
-export const Filters = ({ onFilterChange }: FiltersProps) => {
-  const { filters } = useFilters();
+export const Filters = ({ onFilterChange, filters }: FiltersProps) => {
   const [filter, setFilter] = useState<SelectOption>();
   const [options, setOptions] = useState<SelectOption[]>([]);
 

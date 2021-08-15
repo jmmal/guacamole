@@ -2,6 +2,8 @@ import { createUseStyles } from "react-jss";
 
 import { StatsSummary } from "./Summary";
 import { useStats } from "./useStats";
+import { ActivityPieChart } from "./ActivityPieChart";
+import { ActivityTypeAggregation } from "../Shared/types";
 
 const useStyles = createUseStyles({
   container: {
@@ -14,7 +16,11 @@ const useStyles = createUseStyles({
   },
 });
 
-export const Stats = () => {
+type Props = {
+  filters: ActivityTypeAggregation[];
+};
+
+export const Stats = ({ filters }: Props) => {
   const stats = useStats();
   const css = useStyles();
 
@@ -29,6 +35,7 @@ export const Stats = () => {
       <StatsSummary summary={allTime} title="All Time" />
       <StatsSummary summary={runs} title="Runs" />
       <StatsSummary summary={year} title="2021" />
+      <ActivityPieChart filters={filters} />
     </div>
   );
 };
