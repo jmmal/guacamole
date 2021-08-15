@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ActivityPreview } from "./ActivityPreview";
-import { Loading } from "../Shared/components";
+import { ActivityPreviewSkeleton } from "./ActivityPreviewSkeleton";
 import { useInfiniteActivities } from "./hooks/useInfiniteActivities";
 import { createUseStyles } from "react-jss";
 
@@ -16,13 +16,8 @@ const useStyles = createUseStyles({
 });
 
 export const ActivityList = ({ filter }: ActivityListProps) => {
-  const {
-    ref,
-    activities,
-    loading,
-    hasNextPage,
-    totalCount,
-  } = useInfiniteActivities(filter);
+  const { ref, activities, loading, hasNextPage, totalCount } =
+    useInfiniteActivities(filter);
   const css = useStyles();
 
   return (
@@ -40,7 +35,12 @@ export const ActivityList = ({ filter }: ActivityListProps) => {
           totalCount={totalCount}
         />
       ))}
-      {loading && <Loading />}
+      {loading && (
+        <>
+          <ActivityPreviewSkeleton />
+          <ActivityPreviewSkeleton />
+        </>
+      )}
       {hasNextPage && <span ref={ref} />}
     </div>
   );
