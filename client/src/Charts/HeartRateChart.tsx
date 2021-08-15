@@ -12,6 +12,7 @@ import {
 
 import { range } from "../Shared/utils";
 import { DataPoint } from "../Shared/types";
+import { useCallback } from "react";
 
 export type Props = {
   streamData: DataPoint[];
@@ -32,6 +33,14 @@ export const HeartRateChart = ({ streamData, distance }: Props) => {
 
   const ticks = range(0, Number(distance / 1000));
 
+  const tooltipLabelFormat = useCallback((d: any) => {
+    return `Distance: ${d}km`;
+  }, []);
+
+  const valueFormatter = useCallback((d: any) => {
+    return `${d}bpm`;
+  }, []);
+
   return (
     <>
       {data && (
@@ -41,14 +50,17 @@ export const HeartRateChart = ({ streamData, distance }: Props) => {
             margin={{
               top: 10,
               right: 30,
-              left: 30,
+              left: 0,
               bottom: 0,
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="distance" unit={"km"} ticks={ticks} />
-            <YAxis allowDecimals={true} unit={"bpm"} />
-            <Tooltip />
+            <YAxis allowDecimals={true} />
+            <Tooltip
+              labelFormatter={tooltipLabelFormat}
+              formatter={valueFormatter}
+            />
             <Area
               isAnimationActive={false}
               type="monotone"

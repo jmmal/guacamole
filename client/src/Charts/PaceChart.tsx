@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   XAxis,
   YAxis,
@@ -11,6 +9,7 @@ import {
 } from "recharts";
 import { DataPoint } from "../Shared/types";
 import { formatPace } from "../Shared/formatters";
+import { useCallback } from "react";
 
 type PaceChartProps = {
   points: DataPoint[];
@@ -26,17 +25,20 @@ const PaceChart = ({ points }: PaceChartProps) => {
     .map((point) => {
       return {
         distance: Number((point.distance as number) / 1000).toFixed(1),
-        pace:
+        Pace:
           MetersPerSecondToMinutesPerKMConversionFactor / Number(point.speed),
       };
     });
 
   data = filterStanding(data);
 
-  const valFormatter = (d: any) => {
+  const valFormatter = useCallback((d: any) => {
     const val = d * 60;
     return `${formatPace(val)} min / km`;
-  };
+  }, []);
+  const labelFormatted = useCallback((d: any) => {
+    return `${d}km`;
+  }, []);
 
   return (
     <ResponsiveContainer height={250} width="100%">
@@ -50,26 +52,17 @@ const PaceChart = ({ points }: PaceChartProps) => {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis
-          dataKey="distance"
-          allowDecimals={false}
-          tickCount={4}
-          unit={"km"}
-          minTickGap={20}
-        />
+        <XAxis dataKey="distance" unit={"km"} />
         <YAxis allowDecimals={false} reversed />
-        <Tooltip
-          formatter={valFormatter}
-          labelFormatter={(val) => `${val}km`}
-        />
-        <Line type="monotone" dataKey="pace" stroke="#8884d8" dot={false} />
+        <Tooltip formatter={valFormatter} labelFormatter={labelFormatted} />
+        <Line type="monotone" dataKey="Pace" stroke="#8884d8" dot={false} />
       </LineChart>
     </ResponsiveContainer>
   );
 };
 
 function filterStanding(data: any[]) {
-  return data.filter((point) => point.pace <= 20);
+  return data.filter((point) => point.Pace <= 20);
 }
 
 export default PaceChart;

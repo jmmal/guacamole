@@ -1,5 +1,4 @@
-import React from "react";
-
+import { useCallback } from "react";
 import {
   Bar,
   BarChart,
@@ -9,11 +8,14 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { formatPace } from "../Shared/formatters";
 import { DataPoint } from "../Shared/types";
 
 type SplitsChartProps = {
   points: DataPoint[];
 };
+
+const MetersPerSecondToMinutesPerKMConversionFactor = 1000 / 60;
 
 const SplitsChart = ({ points }: SplitsChartProps) => {
   const data = calculateSplits(points);
@@ -43,7 +45,9 @@ const SplitsChart = ({ points }: SplitsChartProps) => {
 
       data.push({
         name: currentSplit,
-        value: Number(1000 / seconds).toFixed(4),
+        value:
+          MetersPerSecondToMinutesPerKMConversionFactor /
+          Number(1000 / seconds),
       });
       currentSplit++;
       startTime = point.time!;
@@ -63,19 +67,25 @@ const SplitsChart = ({ points }: SplitsChartProps) => {
 
     data.push({
       name: currentSplit,
-      value: Number(seconds / dist).toFixed(2),
+      value:
+        MetersPerSecondToMinutesPerKMConversionFactor / Number(dist / seconds),
     });
 
     return data;
   }
 
+  const valFormatter = useCallback((d: any) => {
+    const val = d * 60;
+    return `${formatPace(val)} min / km`;
+  }, []);
+
   return (
-    <ResponsiveContainer height={250} width="100%">
+    <ResponsiveContainer height={500} width="100%">
       <BarChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
+        <XAxis dataKey="name" unit="km" />
         <YAxis />
-        <Tooltip />
+        <Tooltip labelFormatter={(d) => `${d}km`} formatter={valFormatter} />
         <Bar dataKey="value" fill="#6fd450" />
       </BarChart>
     </ResponsiveContainer>
