@@ -13,8 +13,6 @@ if (process.env.NODE_ENV === "development") {
   makeServer();
 }
 
-console.log(process.env.REACT_APP_SENTRY_URL);
-
 const history = createBrowserHistory();
 
 Sentry.init({
