@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import * as Sentry from "@sentry/react";
+import { Integrations as TracingIntegrations } from "@sentry/tracing";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
@@ -9,9 +11,18 @@ if (process.env.NODE_ENV === "development") {
   makeServer();
 }
 
+Sentry.init({
+  dsn: process.env.REACT_APP_SENTRY_URL,
+  integrations: [new TracingIntegrations.BrowserTracing()()],
+  tracesSampleRate: 1.0,
+  environment: process.env.NODE_ENV,
+});
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Sentry.ErrorBoundary>
+      <App />
+    </Sentry.ErrorBoundary>
   </React.StrictMode>,
   document.getElementById("root")
 );
