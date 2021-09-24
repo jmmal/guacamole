@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import * as Sentry from "@sentry/react";
 import { Integrations as TracingIntegrations } from "@sentry/tracing";
+import { createBrowserHistory } from "history";
+
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
@@ -11,9 +13,18 @@ if (process.env.NODE_ENV === "development") {
   makeServer();
 }
 
+const history = createBrowserHistory();
+
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_URL,
-  integrations: [new TracingIntegrations.BrowserTracing()],
+  integrations: [
+    new TracingIntegrations.BrowserTracing({
+      tracingOrigins: ["localhost", "jmmal.github.io", /^\//],
+      routingInstrumentation: Sentry.reactRouterV5Instrumentation(
+        history as any
+      ),
+    }),
+  ],
   tracesSampleRate: 1.0,
   environment: process.env.NODE_ENV,
 });
