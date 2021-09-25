@@ -11343,10 +11343,10 @@ mkdirp@^1.0.3, mkdirp@^1.0.4:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
-mongodb-client-encryption@1.2.6:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/mongodb-client-encryption/-/mongodb-client-encryption-1.2.6.tgz#388b163651644c9929c955bfaecdd7fec64cb378"
-  integrity sha512-GOO0PKAkbqPy27tRs26PdEu2wypdMLLjEOVUd7obRg7nj9I3f7dYCDWQzgT+HfsEbHnCLq7z4jDcmgUorSAXwA==
+mongodb-client-encryption@1.2.7:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/mongodb-client-encryption/-/mongodb-client-encryption-1.2.7.tgz#1c90097008a4fbf03c7a73764cb06f84bc5455c2"
+  integrity sha512-cDm1sIhrQq+AvegHH6PbfzPAF3wJ9Fu5IOlsSkJQqCSqP7hh4WoW47SeQ2FIJDDdEyU/FekLqcxgEAhjDqJg1g==
   dependencies:
     bindings "^1.5.0"
     bl "^2.2.1"
