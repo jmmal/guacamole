@@ -3126,14 +3126,13 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@sports-alliance/sports-lib@5.4.22":
-  version "5.4.22"
-  resolved "https://registry.yarnpkg.com/@sports-alliance/sports-lib/-/sports-lib-5.4.22.tgz#9f7af73f139acaaf4bcd30fb9cb92619b54e297d"
-  integrity sha512-5OAGV6Bnc0psDRqXXh5/QRo6JI7IX3FUvhLPyvkyeqKIuINUjCV9jAOgmN/AfRVZlsEg1e025bVXodgY7zar3g==
+"@sports-alliance/sports-lib@5.4.24":
+  version "5.4.24"
+  resolved "https://registry.yarnpkg.com/@sports-alliance/sports-lib/-/sports-lib-5.4.24.tgz#12f95f7281a7321f34149cabafa2ad274d4ce515"
+  integrity sha512-h3UePKudUtEWg1PJkVqk0tiKPVctUV8REuz5v/X9uPpRPFXhTMTiNf7BtVAKY9ZyNTqhsyNuzVVPH/XLVqI8qw==
   dependencies:
-    "@types/node" "^14.6.1"
     fast-xml-parser "^3.17.4"
-    fit-file-parser "^1.9.0"
+    fit-file-parser "^1.9.2"
     geolib "^3.3.1"
     gpx-builder "^3.6.0"
     kalmanjs "^1.1.0"
@@ -3590,7 +3589,7 @@
   dependencies:
     node-fetch "*"
 
-"@types/node@*", "@types/node@^14.6.1":
+"@types/node@*":
   version "14.14.41"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.41.tgz#d0b939d94c1d7bd53d04824af45f1139b8c45615"
   integrity sha512-dueRKfaJL4RTtSa7bWeTK1M+VH+Gns73oCgzvYfHZywRCoPSd8EkXBL0mZ9unPTveBn+D9phZBaxuzpwjWkW0g==
@@ -7972,10 +7971,10 @@ find-up@^3.0.0:
   dependencies:
     locate-path "^3.0.0"
 
-fit-file-parser@^1.9.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/fit-file-parser/-/fit-file-parser-1.9.0.tgz#f1c782e5d0b48d9cfc62e820a18c6bc955fd2b4e"
-  integrity sha512-QCnKcR/v3gFkS5Gy/FRLrCQwuUy7fiihvQ89dvGdDxtmbOEE3+cJtSeXOUYRKwnst1fDteALHYGoZBWp870F1g==
+fit-file-parser@^1.9.2:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/fit-file-parser/-/fit-file-parser-1.9.2.tgz#5bda1e9b8d394ba1846ee80d58bb2b00abea4efa"
+  integrity sha512-nc5Lpz5BSIEqgEy6OF+e23bku5u4agSkTa/S86Zwiv7qjRGyBAHpLhgS6BFqlWdqEFtmruxrcFEgMvxQfGwc1w==
   dependencies:
     buffer "^5.1.0"
 
