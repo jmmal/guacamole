@@ -3712,10 +3712,10 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/recharts@1.8.21":
-  version "1.8.21"
-  resolved "https://registry.yarnpkg.com/@types/recharts/-/recharts-1.8.21.tgz#6c8914480d051cb7432c37953283e372674b12e2"
-  integrity sha512-x67lssiIzCTFLDYKv4Axdm+kPR7YSt7eAwjLvDSNFt13GGGtqdQ4SHucyJStM31gRC+NCgiMB2pYfVeyy8wTPw==
+"@types/recharts@1.8.22":
+  version "1.8.22"
+  resolved "https://registry.yarnpkg.com/@types/recharts/-/recharts-1.8.22.tgz#295e0964fcbadf7f99841a077c63bb89378c7620"
+  integrity sha512-9vXteQXtaIwWA9XLFRsr2mdoq79T1z55W5y6Yvh9uL4W9CLjFM3jWPcNT2oA6NFR+7LpQTb31iIgdAmmupB0EA==
   dependencies:
     "@types/d3-shape" "^1"
     "@types/react" "*"
