@@ -1,5 +1,5 @@
 import { SportsLib } from '@sports-alliance/sports-lib';
-import { DOMParser } from 'xmldom';
+import { DOMParser } from '@xmldom/xmldom';
 import { Activity } from '../../common/types';
 import { getImage } from '../../common/imageGenerator';
 import { uploadToBucket } from '../../common/storage';
