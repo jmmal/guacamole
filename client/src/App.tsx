@@ -1,5 +1,4 @@
-import React from "react";
-import { Switch, Route, HashRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 
 import { ActivityRoutes } from "./Activities";
 import { Grommet } from "grommet";
@@ -8,14 +7,14 @@ function App() {
   return (
     <Grommet>
       <HashRouter>
-        <Switch>
+        <Routes>
           <Route path="/activities">
             <ActivityRoutes />
           </Route>
-          <Route path="/" exact>
+          <Route path="/">
             <ActivityRoutes />
           </Route>
-        </Switch>
+        </Routes>
       </HashRouter>
     </Grommet>
   );
