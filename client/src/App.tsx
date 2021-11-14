@@ -1,21 +1,20 @@
-import React from "react";
-import { Switch, Route, HashRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 
-import { ActivityRoutes } from "./Activities";
 import { Grommet } from "grommet";
+import { Upload } from "./Activities/Upload";
+import { Activities } from "./Activities/Activities";
+import { DetailedActivity } from "./Activities/DetailedActivity";
 
 function App() {
   return (
     <Grommet>
       <HashRouter>
-        <Switch>
-          <Route path="/activities">
-            <ActivityRoutes />
-          </Route>
-          <Route path="/" exact>
-            <ActivityRoutes />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Activities />} />
+          <Route path="activities" element={<Activities />} />
+          <Route path="activities/upload" element={<Upload />} />
+          <Route path="activities/:activityId" element={<DetailedActivity />} />
+        </Routes>
       </HashRouter>
     </Grommet>
   );
