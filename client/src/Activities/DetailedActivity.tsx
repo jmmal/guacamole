@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { Previous } from "grommet-icons";
 import { format } from "date-fns";
@@ -22,13 +22,13 @@ interface DetailedActivityParams {
 const baseUrl = process.env.REACT_APP_BASE_API_URL;
 
 const DetailedActivityContainer = () => {
-  const history = useHistory();
-  const { activityId } = useParams<DetailedActivityParams>();
+  const navigate = useNavigate();
+  const { activityId } = useParams<any>();
 
   const [activity, setActivity] = useState<Activity>();
 
   useEffect(() => {
-    loadActivities(activityId);
+    loadActivities(activityId ?? "");
   }, [activityId]);
 
   async function loadActivities(id: string) {
@@ -39,7 +39,7 @@ const DetailedActivityContainer = () => {
   }
 
   function goBack() {
-    history.goBack();
+    navigate(-1);
   }
 
   return <DetailedActivity activity={activity} handleGoBack={goBack} />;

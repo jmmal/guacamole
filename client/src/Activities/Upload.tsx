@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Loading } from "../Shared/components";
 import { Button, FileInput, Heading, Text } from "grommet";
@@ -37,7 +37,7 @@ const useStyles = createUseStyles({
 });
 
 export const Upload = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const classes = useStyles();
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -71,7 +71,7 @@ export const Upload = () => {
       });
 
       setLoading(false);
-      history.push("/activities");
+      navigate("/activities");
     }
   }
 

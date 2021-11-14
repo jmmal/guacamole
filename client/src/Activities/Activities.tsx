@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 import { Filters } from "./Filters";
 import { ActivityList } from "./ActivityList";
@@ -86,8 +86,11 @@ export const Activities = () => {
 
 const UploadButton = () => {
   return (
-    <Link to="/activities/upload">
-      <Button primary label="Upload" fill="vertical"></Button>
-    </Link>
+    <>
+      <Link to="/activities/upload">
+        <Button primary label="Upload" fill="vertical"></Button>
+      </Link>
+      <Outlet />
+    </>
   );
 };

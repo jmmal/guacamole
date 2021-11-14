@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { format } from "date-fns";
 
@@ -45,11 +45,11 @@ const usePreviewStyles = createUseStyles({
 });
 
 export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const css = usePreviewStyles();
 
   function openActivity() {
-    history.push(`/activities/${activity._id}`);
+    navigate(`/activities/${activity._id}`);
   }
 
   function handleKeyDown(event: React.KeyboardEvent) {
