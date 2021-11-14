@@ -39,16 +39,25 @@ jobs:
       - name: Build project
         run: yarn build:client
 
-      - name: Bundle size check
-        uses: jackyef/bundlewatch-gh-action@master
-        with:
-          bundlewatch-github-token: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
-
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: client/build # The folder the action should deploy.
+
+  bundlewatch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: Borales/actions-yarn@v2.1.0
+
+      - name: Install node_modules
+        run: yarn install --frozen-lockfile
+
+      - uses: jackyef/bundlewatch-gh-action@master
+        with:
+          build-script: yarn build:client
+          bundlewatch-github-token: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
 
   lambdas:
     runs-on: ubuntu-latest
