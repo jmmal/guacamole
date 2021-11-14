@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-
 import { Previous } from "grommet-icons";
 import { format } from "date-fns";
 
@@ -14,32 +11,6 @@ import {
 } from "../Charts";
 import { createUseStyles } from "react-jss";
 import { Button, Heading } from "grommet";
-
-const baseUrl = process.env.REACT_APP_BASE_API_URL;
-
-const DetailedActivityContainer = () => {
-  const navigate = useNavigate();
-  const { activityId } = useParams<any>();
-
-  const [activity, setActivity] = useState<Activity>();
-
-  useEffect(() => {
-    loadActivities(activityId ?? "");
-  }, [activityId]);
-
-  async function loadActivities(id: string) {
-    const response = await fetch(baseUrl + "/activities/" + id);
-    const json = await response.json();
-
-    setActivity(json);
-  }
-
-  function goBack() {
-    navigate(-1);
-  }
-
-  return <DetailedActivity activity={activity} handleGoBack={goBack} />;
-};
 
 type DetailedActivityProps = {
   activity?: Activity;
@@ -138,4 +109,4 @@ const DetailedActivity = ({
   );
 };
 
-export { DetailedActivityContainer as DetailedActivity };
+export default DetailedActivity;

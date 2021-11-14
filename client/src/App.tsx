@@ -1,9 +1,11 @@
 import { Routes, Route, HashRouter } from "react-router-dom";
 
 import { Grommet } from "grommet";
-import { Upload } from "./Activities/Upload";
 import { Activities } from "./Activities/Activities";
-import { DetailedActivity } from "./Activities/DetailedActivity";
+import DetailedActivityContainer from "./Activities/DetailedActivityContainer";
+import { lazy, Suspense } from "react";
+
+const Upload = lazy(() => import("./Activities/Upload"));
 
 function App() {
   return (
@@ -12,8 +14,18 @@ function App() {
         <Routes>
           <Route path="/" element={<Activities />} />
           <Route path="activities" element={<Activities />} />
-          <Route path="activities/upload" element={<Upload />} />
-          <Route path="activities/:activityId" element={<DetailedActivity />} />
+          <Route
+            path="activities/upload"
+            element={
+              <Suspense fallback={<></>}>
+                <Upload />
+              </Suspense>
+            }
+          />
+          <Route
+            path="activities/:activityId"
+            element={<DetailedActivityContainer />}
+          />
         </Routes>
       </HashRouter>
     </Grommet>

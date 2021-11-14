@@ -36,7 +36,7 @@ const useStyles = createUseStyles({
   },
 });
 
-export const Upload = () => {
+const Upload = () => {
   const navigate = useNavigate();
   const classes = useStyles();
 
@@ -103,3 +103,5 @@ export const Upload = () => {
     </div>
   );
 };
+
+export default Upload;
