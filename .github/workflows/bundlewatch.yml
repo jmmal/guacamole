@@ -1,0 +1,39 @@
+name: Bundlesize Check
+
+on:
+  pull_request:
+    types: [synchronize, opened]
+
+env:
+  REACT_APP_BASE_API_URL: ${{ secrets.REACT_APP_BASE_API_URL }}
+  REACT_APP_MAPBOX_PUBLIC_KEY: ${{ secrets.REACT_APP_MAPBOX_PUBLIC_KEY }}
+  REACT_APP_SENTRY_URL: ${{ secrets.REACT_APP_SENTRY_URL }}
+
+jobs:
+  bundlewatch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install node_modules
+        run: yarn install --frozen-lockfile
+
+      - uses: jackyef/bundlewatch-gh-action@master
+        with:
+          build-script: yarn build:client
+          bundlewatch-github-token: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
