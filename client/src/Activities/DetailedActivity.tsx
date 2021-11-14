@@ -15,10 +15,6 @@ import {
 import { createUseStyles } from "react-jss";
 import { Button, Heading } from "grommet";
 
-interface DetailedActivityParams {
-  activityId: string;
-}
-
 const baseUrl = process.env.REACT_APP_BASE_API_URL;
 
 const DetailedActivityContainer = () => {
