@@ -9,7 +9,7 @@
     "@sentry/tracing": "^6.15.0",
     "date-fns": "2.25.0",
     "grommet": "2.19.0",
-    "grommet-icons": "4.6.2",
+    "grommet-icons": "4.7.0",
     "history": "^5.1.0",
     "mapbox-gl": "^2.6.1",
     "react": "17.0.2",
