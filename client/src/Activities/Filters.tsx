@@ -1,9 +1,9 @@
-import { Select } from "grommet";
-import { useEffect, useState } from "react";
+import { Select } from "@primer/react";
+import { ChangeEventHandler, useEffect, useState } from "react";
 import { ActivityTypeAggregation } from "../Shared/types";
 
 type FiltersProps = {
-  onFilterChange: (filter: string) => void;
+  onChange: ChangeEventHandler<HTMLSelectElement>;
   filters: ActivityTypeAggregation[];
 };
 
@@ -12,8 +12,7 @@ type SelectOption = {
   value: string;
 };
 
-export const Filters = ({ onFilterChange, filters }: FiltersProps) => {
-  const [filter, setFilter] = useState<SelectOption>();
+export const Filters = ({ onChange, filters }: FiltersProps) => {
   const [options, setOptions] = useState<SelectOption[]>([]);
 
   useEffect(() => {
@@ -37,24 +36,18 @@ export const Filters = ({ onFilterChange, filters }: FiltersProps) => {
       }),
     ];
 
-    setFilter(all);
     setOptions(options);
   }, [filters]);
 
-  const handleSelect = (e: any) => {
-    setFilter(e.option);
-    onFilterChange(e.option.value);
-  };
-
   return (
-    <Select
-      a11yTitle="Filter by activity type"
-      options={options}
-      labelKey="label"
-      placeholder="-"
-      value={filter}
-      size="small"
-      onChange={handleSelect}
-    />
+    <>
+      <Select id="filters" css={undefined} onChange={onChange}>
+        {options.map(({ value, label }) => (
+          <Select.Option key={value} value={value}>
+            {label}
+          </Select.Option>
+        ))}
+      </Select>
+    </>
   );
 };

@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 import { Link, Outlet } from "react-router-dom";
 
 import { Filters } from "./Filters";
 import { ActivityList } from "./ActivityList";
 
-import { Box, Button } from "grommet";
+import { Box, ButtonPrimary } from "@primer/react";
 import { createUseStyles } from "react-jss";
 import { Stats } from "../Stats/Stats";
 import { ActivityTypeAggregation } from "../Shared/types";
+import { useCallback } from "react";
 
 const useStyles = createUseStyles({
   main: {
@@ -66,13 +67,21 @@ export const Activities = () => {
   const { filters } = useFilters();
   const [filter, setFilter] = useState("");
   const classes = useStyles();
+
+  const handleFilterChange = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      setFilter(e.target.value);
+    },
+    []
+  );
+
   return (
     <main className={classes.main}>
       <div className={classes.mainContent}>
         <header className={classes.header}>
-          <Box direction="row" justify="between">
+          <Box display="flex" justifyContent="space-between">
             <UploadButton />
-            <Filters onFilterChange={setFilter} filters={filters} />
+            <Filters onChange={handleFilterChange} filters={filters} />
           </Box>
         </header>
         <ActivityList filter={filter} />
@@ -88,7 +97,7 @@ const UploadButton = () => {
   return (
     <>
       <Link to="/activities/upload">
-        <Button primary label="Upload" fill="vertical"></Button>
+        <ButtonPrimary>Upload</ButtonPrimary>
       </Link>
       <Outlet />
     </>

@@ -1,4 +1,3 @@
-import { Previous } from "grommet-icons";
 import { format } from "date-fns";
 
 import { Mapbox, Loading } from "../Shared/components";
@@ -10,7 +9,9 @@ import {
   HeartRateChart,
 } from "../Charts";
 import { createUseStyles } from "react-jss";
-import { Button, Heading } from "grommet";
+import { Button, Heading } from "@primer/react";
+
+import Previous from "../Shared/icons/Previous";
 
 type DetailedActivityProps = {
   activity?: Activity;
@@ -42,6 +43,10 @@ const useStyles = createUseStyles({
   statsHeader: {
     padding: "0rem 1rem",
   },
+  container: {
+    maxWidth: "60rem",
+    margin: "auto",
+  },
 });
 
 const DetailedActivity = ({
@@ -51,18 +56,16 @@ const DetailedActivity = ({
   const css = useStyles();
 
   return (
-    <div className="activity-component">
+    <div className={css.container}>
       <div className={css.header}>
         <div className={css.headerLayout}>
           <div>
-            <Button
-              onClick={handleGoBack}
-              icon={<Previous />}
-              label="Activities"
-              size="small"
-            />
+            <Button onClick={handleGoBack}>
+              <Previous />
+              Activities
+            </Button>
           </div>
-          <Heading level="3" className={css.marginAuto}>
+          <Heading as="h3" className={css.marginAuto}>
             {activity?.type ? activity.type : "Loading"}
           </Heading>
         </div>
@@ -71,35 +74,27 @@ const DetailedActivity = ({
       {activity?.polyline && <Mapbox polyline={activity.polyline} />}
       {activity && activity.streamData ? (
         <>
-          <Heading level="2" className={css.statsHeader}>{`${format(
+          <Heading className={css.statsHeader}>{`${format(
             new Date(activity.startTime),
             "EEEE, LLLL d, yyyy"
           )} at ${format(new Date(activity.startTime), "HH:mm aaa")}`}</Heading>
 
-          <Heading level="3" className={css.statsHeader}>
-            Heart Rate
-          </Heading>
+          <Heading className={css.statsHeader}>Heart Rate</Heading>
           <HeartRateChart
             streamData={activity.streamData}
             distance={activity.distance}
           />
 
-          <Heading level="3" className={css.statsHeader}>
-            Elevation
-          </Heading>
+          <Heading className={css.statsHeader}>Elevation</Heading>
           <ElevationChart
             points={activity.streamData}
             distance={activity.distance}
           />
 
-          <Heading level="3" className={css.statsHeader}>
-            Pace
-          </Heading>
+          <Heading className={css.statsHeader}>Pace</Heading>
           <PaceChart points={activity.streamData} />
 
-          <Heading level="3" className={css.statsHeader}>
-            Splits
-          </Heading>
+          <Heading className={css.statsHeader}>Splits</Heading>
           <SplitsChart points={activity.streamData} />
         </>
       ) : (

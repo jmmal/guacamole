@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import { Activity } from "../Shared/types";
 import { formatDuration, formatPace } from "../Shared/formatters";
 import { createUseStyles } from "react-jss";
-import { Heading, Text } from "grommet";
+import { Heading, Text } from "@primer/react";
 import {
   formatElevation,
   formatDistance,
@@ -69,7 +69,12 @@ export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
       onKeyDown={handleKeyDown}
     >
       <div className={css.header}>
-        <Heading margin="none" level="4">
+        <Heading
+          as="h3"
+          sx={{
+            fontSize: 3,
+          }}
+        >
           {format(new Date(activity.startTime), "EEEE, LLLL d, yyyy")}
         </Heading>
         <Text>{formatTitle(activity.startTime, activity.type)}</Text>

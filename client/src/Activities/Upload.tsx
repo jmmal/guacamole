@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Loading } from "../Shared/components";
-import { Button, FileInput, Heading, Text } from "grommet";
+import { Box, Button, ButtonPrimary, Heading, Text } from "@primer/react";
 import { createUseStyles } from "react-jss";
 
 type SignedURL = {
@@ -76,31 +76,38 @@ const Upload = () => {
   }
 
   return (
-    <div className={classes.container}>
+    <form className={classes.container}>
       <div className={classes.content}>
-        <Heading id="inputGroupFileAddon01" level="2">
+        <Heading
+          id="inputGroupFileAddon01"
+          sx={{
+            marginTop: 16,
+          }}
+        >
           Upload
         </Heading>
 
         <Text>Accepted file types: '.gpx'</Text>
         <div className={classes.fileInput}>
-          <FileInput onChange={handleFileInput} />
-        </div>
-        <div className={classes.actions}>
-          <Link to="/activities" className={classes.actionBtn}>
-            <Button type="button" label="Go Back" fill="horizontal" />
-          </Link>
-          <Button
-            label="Submit"
-            type="submit"
-            className={classes.actionBtn}
-            onClick={handleSubmit}
-            disabled={!file}
+          <input
+            type="file"
+            id="myFile"
+            name="filename"
+            onChange={handleFileInput}
           />
         </div>
+
+        <Box display="flex">
+          <Link to="/activities">
+            <Button type="button">Go Back</Button>
+          </Link>
+          <ButtonPrimary type="submit" onClick={handleSubmit} disabled={!file}>
+            Submit
+          </ButtonPrimary>
+        </Box>
         {loading && <Loading />}
       </div>
-    </div>
+    </form>
   );
 };
 
