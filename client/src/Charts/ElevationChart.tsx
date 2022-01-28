@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   AreaChart,
   Area,
@@ -17,7 +15,7 @@ type ElevationChartProps = {
   distance: number;
 };
 
-const ElevationChart = ({ points, distance }: ElevationChartProps) => {
+export const ElevationChart = ({ points, distance }: ElevationChartProps) => {
   const data = points
     .filter((point) => {
       return point.altitude && point.distance;
@@ -72,5 +70,3 @@ const ElevationChart = ({ points, distance }: ElevationChartProps) => {
     </ResponsiveContainer>
   );
 };
-
-export default ElevationChart;

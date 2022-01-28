@@ -17,7 +17,7 @@ type SplitsChartProps = {
 
 const MetersPerSecondToMinutesPerKMConversionFactor = 1000 / 60;
 
-const SplitsChart = ({ points }: SplitsChartProps) => {
+export const SplitsChart = ({ points }: SplitsChartProps) => {
   const data = calculateSplits(points);
 
   function calculateSplits(points: DataPoint[]) {
@@ -91,5 +91,3 @@ const SplitsChart = ({ points }: SplitsChartProps) => {
     </ResponsiveContainer>
   );
 };
-
-export default SplitsChart;

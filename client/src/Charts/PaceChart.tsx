@@ -17,7 +17,7 @@ type PaceChartProps = {
 
 const MetersPerSecondToMinutesPerKMConversionFactor = 1000 / 60;
 
-const PaceChart = ({ points }: PaceChartProps) => {
+export const PaceChart = ({ points }: PaceChartProps) => {
   let data = points
     .filter((point) => {
       return point.distance && point.speed;
@@ -64,5 +64,3 @@ const PaceChart = ({ points }: PaceChartProps) => {
 function filterStanding(data: any[]) {
   return data.filter((point) => point.Pace <= 20);
 }
-
-export default PaceChart;
