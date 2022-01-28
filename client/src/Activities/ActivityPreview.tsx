@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import { Activity } from "../Shared/types";
 import { formatDuration, formatPace } from "../Shared/formatters";
 import { createUseStyles } from "react-jss";
-import { Heading, Text } from "@primer/react";
+import { Box, Heading, Text } from "@primer/react";
 import {
   formatElevation,
   formatDistance,
@@ -22,25 +22,6 @@ type ActivityPreviewProps = {
 const usePreviewStyles = createUseStyles({
   image: {
     width: "100%",
-  },
-  preview: {
-    borderRadius: 3,
-    border: "1px solid #e2e2e2",
-    boxShadow: "0px 8px 24px rgba(13,13,18,0.04)",
-    padding: "1rem 1rem 1rem 1rem",
-    marginBottom: "1rem",
-  },
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexWrap: "wrap",
-    marginBottom: "0.5rem",
-  },
-  stats: {
-    display: "flex",
-    flexWrap: "wrap",
-    margin: "0 -1rem",
   },
 });
 
@@ -61,14 +42,26 @@ export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
   const { avg, max } = activity.heartRate;
 
   return (
-    <article
-      className={css.preview}
+    <Box
+      as="article"
+      borderColor="border.default"
+      borderRadius={1}
+      borderWidth={1}
+      marginBottom={16}
+      borderStyle="solid"
+      padding={16}
       aria-posinset={index}
       tabIndex={0}
       onClick={openActivity}
       onKeyDown={handleKeyDown}
     >
-      <div className={css.header}>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        flexWrap="wrap"
+        marginBottom={1}
+      >
         <Heading
           as="h3"
           sx={{
@@ -78,7 +71,7 @@ export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
           {format(new Date(activity.startTime), "EEEE, LLLL d, yyyy")}
         </Heading>
         <Text>{formatTitle(activity.startTime, activity.type)}</Text>
-      </div>
+      </Box>
 
       {activity.imageURL && (
         <img
@@ -87,8 +80,7 @@ export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
           className={css.image}
         />
       )}
-
-      <div className={css.stats}>
+      <Box display="flex" flexWrap="wrap" margin="0 -1rem">
         <FooterColumn
           title="Distance"
           value={formatDistance(activity.distance)}
@@ -112,8 +104,8 @@ export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
             <FooterColumn title="Max Heart Rate" value={`${max}bpm`} />
           </>
         )}
-      </div>
-    </article>
+      </Box>
+    </Box>
   );
 };
 
@@ -122,34 +114,15 @@ type FooterColumnProps = {
   value: string | number;
 };
 
-const useFooterStyles = createUseStyles({
-  title: {
-    fontSize: 11,
-    color: "#626262",
-    marginBottom: 0,
-    marginTop: 8,
-    whiteSpace: "nowrap",
-  },
-  stat: {
-    margin: 0,
-    whiteSpace: "nowrap",
-  },
-  column: {
-    flexGrow: 1,
-    flexBasis: 0,
-    display: "flex",
-    flexDirection: "column",
-    margin: "0 1rem",
-  },
-});
-
 const FooterColumn = ({ title, value }: FooterColumnProps) => {
-  const css = useFooterStyles();
-
   return (
-    <div className={css.column}>
-      <p className={css.title}>{title}</p>
-      <p className={css.stat}>{value}</p>
-    </div>
+    <Box display="flex" flex="1 1 auto" flexDirection="column" margin="0 1rem">
+      <Text as="p" color="fg.subtle" fontSize={0} marginBottom={0}>
+        {title}
+      </Text>
+      <Text as="p" margin={0} whiteSpace="nowrap">
+        {value}
+      </Text>
+    </Box>
   );
 };
