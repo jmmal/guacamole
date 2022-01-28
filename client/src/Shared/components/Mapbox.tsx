@@ -1,4 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
+
+import { useTheme } from "@primer/react";
 
 /**
  * '!mapbox-gl' is a workaround to ES6 compilation errors.
@@ -41,18 +43,19 @@ type MapboxProps = {
 export const Mapbox = ({ polyline }: MapboxProps) => {
   const mapContainer = useRef(null);
   const css = useStyles();
+  const theme = useTheme();
 
-  useEffect(() => {
-    setupMap();
-  });
-
-  const setupMap = (): void => {
+  const setupMap = useCallback(() => {
     const geojson = mapboxPoly.toGeoJSON(polyline);
     const bounds = getBoundingBox(geojson.coordinates);
+    const mapStyle =
+      theme.colorMode === "night"
+        ? "mapbox://styles/mapbox/dark-v10"
+        : "mapbox://styles/mapbox/outdoors-v11";
 
     const map = new mapboxgl.Map({
       container: mapContainer.current || "",
-      style: "mapbox://styles/mapbox/outdoors-v11",
+      style: mapStyle,
       bounds: new mapboxgl.LngLatBounds(bounds),
       fitBoundsOptions: {
         padding: {
@@ -95,7 +98,11 @@ export const Mapbox = ({ polyline }: MapboxProps) => {
         },
       });
     });
-  };
+  }, [theme.colorMode, polyline]);
+
+  useEffect(() => {
+    setupMap();
+  }, [setupMap]);
 
   return <div ref={mapContainer} className={css.map}></div>;
 };
