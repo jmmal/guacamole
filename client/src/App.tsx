@@ -9,7 +9,7 @@ const Upload = lazy(() => import("./Activities/Upload"));
 
 function App() {
   return (
-    <ThemeProvider colorMode="day" nightScheme="dark_dimmed">
+    <ThemeProvider colorMode="night" nightScheme="dark_dimmed">
       <BaseStyles>
         <Box bg="canvas.default">
           <HashRouter>

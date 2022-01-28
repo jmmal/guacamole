@@ -117,7 +117,7 @@ type FooterColumnProps = {
 const FooterColumn = ({ title, value }: FooterColumnProps) => {
   return (
     <Box display="flex" flex="1 1 auto" flexDirection="column" margin="0 1rem">
-      <Text as="p" color="fg.subtle" fontSize={0} marginBottom={0}>
+      <Text as="p" fontSize={0} marginBottom={0}>
         {title}
       </Text>
       <Text as="p" margin={0} whiteSpace="nowrap">
