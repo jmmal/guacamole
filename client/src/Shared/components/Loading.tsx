@@ -1,6 +1,6 @@
-import React from "react";
 import { createUseStyles } from "react-jss";
-import { BeatLoader } from "react-spinners";
+
+import { Spinner } from "@primer/react";
 
 const useStyles = createUseStyles({
   container: {
@@ -16,7 +16,7 @@ export const Loading = () => {
 
   return (
     <div className={css.container}>
-      <BeatLoader size="30px" margin="4px" color="#7D4CDB" />
+      <Spinner size="large" />
     </div>
   );
 };
