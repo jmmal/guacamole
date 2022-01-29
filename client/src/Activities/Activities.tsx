@@ -19,6 +19,7 @@ const useStyles = createUseStyles({
     paddingTop: "1rem",
     paddingLeft: "1rem",
     paddingRight: "1rem",
+    height: "100%",
   },
   "@media (max-width: 1400px)": {
     main: {

@@ -39,7 +39,7 @@ export function ActivityPreviewSkeleton() {
       borderStyle="solid"
       padding={16}
     >
-      <Box bg="neutral.muted"></Box>
+      <Box bg="neutral.muted" className={css.text}></Box>
       <Box bg="neutral.muted" className={css.img}></Box>
       <Box bg="neutral.muted" className={css.statsTitle}></Box>
       <Box bg="neutral.muted" className={css.statsValue}></Box>

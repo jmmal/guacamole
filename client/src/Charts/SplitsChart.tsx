@@ -80,7 +80,7 @@ export const SplitsChart = ({ points }: SplitsChartProps) => {
   }, []);
 
   return (
-    <ResponsiveContainer height={500} width="100%">
+    <ResponsiveContainer height={300} width="100%">
       <BarChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" unit="km" />
