@@ -1,15 +1,19 @@
 import { Routes, Route, HashRouter } from "react-router-dom";
+import { useLocalStorage } from "@rehooks/local-storage";
 
 import { ThemeProvider, BaseStyles, Box } from "@primer/react";
 import { Activities } from "./Activities/Activities";
 import DetailedActivityContainer from "./Activities/DetailedActivityContainer";
+
 import { lazy, Suspense } from "react";
 
 const Upload = lazy(() => import("./Activities/Upload"));
 
 function App() {
+  const [theme, _] = useLocalStorage("theme", "day");
+
   return (
-    <ThemeProvider colorMode="night" nightScheme="dark_dimmed">
+    <ThemeProvider colorMode={theme as any} nightScheme="dark_dimmed">
       <BaseStyles>
         <Box bg="canvas.default">
           <HashRouter>

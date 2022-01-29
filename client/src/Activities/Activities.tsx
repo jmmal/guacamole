@@ -1,15 +1,16 @@
 import { ChangeEvent, useEffect, useState } from "react";
+import { useCallback } from "react";
 
 import { Link, Outlet } from "react-router-dom";
 
 import { Filters } from "./Filters";
 import { ActivityList } from "./ActivityList";
+import { DarkThemeToggle } from "./DarkThemeToggle";
 
 import { Box, ButtonPrimary } from "@primer/react";
 import { createUseStyles } from "react-jss";
 import { Stats } from "../Stats/Stats";
 import { ActivityTypeAggregation } from "../Shared/types";
-import { useCallback } from "react";
 
 const useStyles = createUseStyles({
   main: {
@@ -82,7 +83,15 @@ export const Activities = () => {
         <header className={classes.header}>
           <Box display="flex" justifyContent="space-between">
             <UploadButton />
-            <Filters onChange={handleFilterChange} filters={filters} />
+            <Box
+              sx={{
+                display: "flex",
+                gap: "12px",
+              }}
+            >
+              <Filters onChange={handleFilterChange} filters={filters} />
+              <DarkThemeToggle />
+            </Box>
           </Box>
         </header>
         <ActivityList filter={filter} />
