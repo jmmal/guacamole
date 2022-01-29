@@ -10,7 +10,7 @@ import { lazy, Suspense } from "react";
 const Upload = lazy(() => import("./Activities/Upload"));
 
 function App() {
-  const [theme, _] = useLocalStorage("theme", "day");
+  const [theme] = useLocalStorage("theme", "day");
 
   return (
     <ThemeProvider colorMode={theme as any} nightScheme="dark_dimmed">
