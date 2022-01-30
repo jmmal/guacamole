@@ -11,7 +11,7 @@ import {
 import { createUseStyles } from "react-jss";
 import { Box, Button, Heading } from "@primer/react";
 
-import Previous from "../Shared/icons/Previous";
+import { ArrowLeftIcon } from "@primer/octicons-react";
 
 type DetailedActivityProps = {
   activity?: Activity;
@@ -57,7 +57,7 @@ const DetailedActivity = ({
         >
           <div>
             <Button onClick={handleGoBack}>
-              <Previous />
+              <ArrowLeftIcon />
               Activities
             </Button>
           </div>

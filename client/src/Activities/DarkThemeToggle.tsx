@@ -1,7 +1,7 @@
 import { Button, useTheme } from "@primer/react";
 import { useLocalStorage } from "@rehooks/local-storage";
 
-import { MoonIcon } from "../Shared/icons/Moon";
+import { MoonIcon, SunIcon } from "@primer/octicons-react";
 
 export const DarkThemeToggle = () => {
   const theme = useTheme();
@@ -16,7 +16,7 @@ export const DarkThemeToggle = () => {
 
   return (
     <Button onClick={changeTheme}>
-      <MoonIcon />
+      {theme.colorMode === "night" ? <SunIcon /> : <MoonIcon />}
     </Button>
   );
 };
