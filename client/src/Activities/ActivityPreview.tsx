@@ -12,6 +12,7 @@ import {
   formatDistance,
   formatTitle,
 } from "../Shared/formatters";
+import { AnimatePresence, motion } from "framer-motion";
 
 type ActivityPreviewProps = {
   activity: Activity;
@@ -42,70 +43,79 @@ export const ActivityPreview = ({ activity, index }: ActivityPreviewProps) => {
   const { avg, max } = activity.heartRate;
 
   return (
-    <Box
-      as="article"
-      borderColor="border.default"
-      borderRadius={1}
-      borderWidth={1}
-      marginBottom={16}
-      borderStyle="solid"
-      padding={16}
-      aria-posinset={index}
-      tabIndex={0}
-      onClick={openActivity}
-      onKeyDown={handleKeyDown}
-    >
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        flexWrap="wrap"
-        marginBottom={1}
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        whileHover={{ scale: 1.01 }}
       >
-        <Heading
-          as="h3"
-          sx={{
-            fontSize: 3,
-          }}
+        <Box
+          as="article"
+          borderColor="border.default"
+          borderRadius={1}
+          borderWidth={1}
+          marginBottom={16}
+          borderStyle="solid"
+          padding={16}
+          aria-posinset={index}
+          tabIndex={0}
+          onClick={openActivity}
+          onKeyDown={handleKeyDown}
         >
-          {format(new Date(activity.startTime), "EEEE, LLLL d, yyyy")}
-        </Heading>
-        <Text>{formatTitle(activity.startTime, activity.type)}</Text>
-      </Box>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            flexWrap="wrap"
+            marginBottom={1}
+          >
+            <Heading
+              as="h3"
+              sx={{
+                fontSize: 3,
+              }}
+            >
+              {format(new Date(activity.startTime), "EEEE, LLLL d, yyyy")}
+            </Heading>
+            <Text>{formatTitle(activity.startTime, activity.type)}</Text>
+          </Box>
 
-      {activity.imageURL && (
-        <img
-          src={activity.imageURL}
-          alt="Activity GPS preview"
-          className={css.image}
-        />
-      )}
-      <Box display="flex" flexWrap="wrap" margin="0 -1rem">
-        <FooterColumn
-          title="Distance"
-          value={formatDistance(activity.distance)}
-        />
-        <FooterColumn
-          title="Pace"
-          value={`${formatPace(activity.pace.avg ?? 0)}/km`}
-        />
-        <FooterColumn
-          title="Elevation"
-          value={formatElevation(activity.elevation)}
-        />
-        <FooterColumn
-          title="Elapsed Time"
-          value={formatDuration(activity.elapsedTime)}
-        />
-        <FooterColumn title="Calories" value={activity.calories} />
-        {activity.heartRate.avg && (
-          <>
-            <FooterColumn title="Avg Heart Rate" value={`${avg}bpm`} />
-            <FooterColumn title="Max Heart Rate" value={`${max}bpm`} />
-          </>
-        )}
-      </Box>
-    </Box>
+          {activity.imageURL && (
+            <img
+              src={activity.imageURL}
+              alt="Activity GPS preview"
+              className={css.image}
+            />
+          )}
+          <Box display="flex" flexWrap="wrap" margin="0 -1rem">
+            <FooterColumn
+              title="Distance"
+              value={formatDistance(activity.distance)}
+            />
+            <FooterColumn
+              title="Pace"
+              value={`${formatPace(activity.pace.avg ?? 0)}/km`}
+            />
+            <FooterColumn
+              title="Elevation"
+              value={formatElevation(activity.elevation)}
+            />
+            <FooterColumn
+              title="Elapsed Time"
+              value={formatDuration(activity.elapsedTime)}
+            />
+            <FooterColumn title="Calories" value={activity.calories} />
+            {activity.heartRate.avg && (
+              <>
+                <FooterColumn title="Avg Heart Rate" value={`${avg}bpm`} />
+                <FooterColumn title="Max Heart Rate" value={`${max}bpm`} />
+              </>
+            )}
+          </Box>
+        </Box>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

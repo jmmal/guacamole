@@ -1,9 +1,8 @@
-import React from "react";
-
 import { ActivityPreview } from "./ActivityPreview";
 import { ActivityPreviewSkeleton } from "./ActivityPreviewSkeleton";
 import { useInfiniteActivities } from "./hooks/useInfiniteActivities";
 import { createUseStyles } from "react-jss";
+import { motion } from "framer-motion";
 
 type ActivityListProps = {
   filter: string;
