@@ -5,12 +5,19 @@ import { ThemeProvider, BaseStyles, Box } from "@primer/react";
 import { Activities } from "./Activities/Activities";
 import DetailedActivityContainer from "./Activities/DetailedActivityContainer";
 
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 
 const Upload = lazy(() => import("./Activities/Upload"));
 
 function App() {
   const [theme] = useLocalStorage("theme", "day");
+
+  useEffect(() => {
+    document.documentElement.setAttribute(
+      "data-color-scheme",
+      theme === "day" ? "light" : "dark"
+    );
+  }, [theme]);
 
   return (
     <ThemeProvider colorMode={theme as any} nightScheme="dark_dimmed">
