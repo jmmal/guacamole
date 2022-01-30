@@ -15,7 +15,7 @@ function App() {
   return (
     <ThemeProvider colorMode={theme as any} nightScheme="dark_dimmed">
       <BaseStyles>
-        <Box bg="canvas.default">
+        <Box bg="canvas.default" minHeight={"100vh"}>
           <HashRouter>
             <Routes>
               <Route path="/" element={<Activities />} />
