@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/guacamole/static/css/main.7c49f8d8.css",
-    "main.js": "/guacamole/static/js/main.c32c08ec.js",
+    "main.js": "/guacamole/static/js/main.087e7f06.js",
     "static/js/850.93e2bae8.chunk.js": "/guacamole/static/js/850.93e2bae8.chunk.js",
     "static/js/490.6cfd753b.chunk.js": "/guacamole/static/js/490.6cfd753b.chunk.js",
-    "static/js/941.b6b1aa87.chunk.js": "/guacamole/static/js/941.b6b1aa87.chunk.js",
+    "static/js/941.825e0d4f.chunk.js": "/guacamole/static/js/941.825e0d4f.chunk.js",
     "static/js/140.44e2ef40.chunk.js": "/guacamole/static/js/140.44e2ef40.chunk.js",
     "index.html": "/guacamole/index.html",
     "main.7c49f8d8.css.map": "/guacamole/static/css/main.7c49f8d8.css.map",
-    "main.c32c08ec.js.map": "/guacamole/static/js/main.c32c08ec.js.map",
+    "main.087e7f06.js.map": "/guacamole/static/js/main.087e7f06.js.map",
     "850.93e2bae8.chunk.js.map": "/guacamole/static/js/850.93e2bae8.chunk.js.map",
     "490.6cfd753b.chunk.js.map": "/guacamole/static/js/490.6cfd753b.chunk.js.map",
-    "941.b6b1aa87.chunk.js.map": "/guacamole/static/js/941.b6b1aa87.chunk.js.map",
+    "941.825e0d4f.chunk.js.map": "/guacamole/static/js/941.825e0d4f.chunk.js.map",
     "140.44e2ef40.chunk.js.map": "/guacamole/static/js/140.44e2ef40.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7c49f8d8.css",
-    "static/js/main.c32c08ec.js"
+    "static/js/main.087e7f06.js"
   ]
 }
