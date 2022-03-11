@@ -38,7 +38,7 @@
     "aws-sdk": "2.1087.0",
     "mongodb": "4.4.1",
     "mongodb-client-encryption": "1.2.7",
-    "node-fetch": "3.2.2"
+    "node-fetch": "3.2.3"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
