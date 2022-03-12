@@ -37,7 +37,7 @@
     "@xmldom/xmldom": "^0.8.1",
     "aws-sdk": "2.1087.0",
     "mongodb": "4.4.1",
-    "mongodb-client-encryption": "1.2.7",
+    "mongodb-client-encryption": "2.0.0",
     "node-fetch": "3.2.3"
   },
   "scripts": {
