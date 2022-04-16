@@ -7,7 +7,7 @@ import { Filters } from "./Filters";
 import { ActivityList } from "./ActivityList";
 import { DarkThemeToggle } from "./DarkThemeToggle";
 
-import { Box, ButtonPrimary } from "@primer/react";
+import { Box, Button } from "@primer/react";
 import { createUseStyles } from "react-jss";
 import { Stats } from "../Stats/Stats";
 import { ActivityTypeAggregation } from "../Shared/types";
@@ -107,7 +107,7 @@ const UploadButton = () => {
   return (
     <>
       <Link to="/activities/upload">
-        <ButtonPrimary>Upload</ButtonPrimary>
+        <Button variant="primary">Upload</Button>
       </Link>
       <Outlet />
     </>
