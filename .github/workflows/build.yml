@@ -45,34 +45,6 @@ jobs:
           branch: gh-pages # The branch the action should deploy to.
           folder: client/build # The folder the action should deploy.
 
-  bundlewatch:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "14"
-
-      - name: Cache node modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
-      - name: Install node_modules
-        run: yarn install --frozen-lockfile
-
-      - uses: jackyef/bundlewatch-gh-action@master
-        with:
-          build-script: yarn build:client
-          bundlewatch-github-token: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
-
   lambdas:
     runs-on: ubuntu-latest
 
