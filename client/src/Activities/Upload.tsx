@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Loading } from "../Shared/components";
-import { Box, Button, ButtonPrimary, Heading, Text } from "@primer/react";
+import { Box, Button, Button, Heading, Text } from "@primer/react";
 import { createUseStyles } from "react-jss";
 
 type SignedURL = {
@@ -101,9 +101,14 @@ const Upload = () => {
           <Link to="/activities">
             <Button type="button">Go Back</Button>
           </Link>
-          <ButtonPrimary type="submit" onClick={handleSubmit} disabled={!file}>
+          <Button
+            variant="primary"
+            type="submit"
+            onClick={handleSubmit}
+            disabled={!file}
+          >
             Submit
-          </ButtonPrimary>
+          </Button>
         </Box>
         {loading && <Loading />}
       </div>
