@@ -41,7 +41,7 @@ export const Filters = ({ onChange, filters }: FiltersProps) => {
 
   return (
     <>
-      <Select id="filters" css={undefined} onChange={onChange}>
+      <Select id="filters" onChange={onChange}>
         {options.map(({ value, label }) => (
           <Select.Option key={value} value={value}>
             {label}
