@@ -2626,14 +2626,13 @@
   dependencies:
     "@types/geojson" "*"
 
-"@types/mapbox__mapbox-sdk@*", "@types/mapbox__mapbox-sdk@0.13.2":
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/@types/mapbox__mapbox-sdk/-/mapbox__mapbox-sdk-0.13.2.tgz#adb096d6f91642e7994cf8da9c09732f90a0aca8"
-  integrity sha512-VrKM4RJLjUkjjsQtGlEzoQkNglr7ezynftBYfa+CEAncJ2ZiBT8uioTGeN1Yiyy+7FuBpknQDv7e+p4j+UWMaQ==
+"@types/mapbox__mapbox-sdk@0.13.4":
+  version "0.13.4"
+  resolved "https://registry.yarnpkg.com/@types/mapbox__mapbox-sdk/-/mapbox__mapbox-sdk-0.13.4.tgz#5d353269bb3b82791c8cacb55ce59e1d0284c877"
+  integrity sha512-J4/7uKNo1uc4+xgjbOKFkZxNmlPbpsITcvhn3nXncTZtdGDOmJENfcDEpiRJRBIlnKMGeXy4fxVuEg+i0I3YWA==
   dependencies:
     "@types/geojson" "*"
     "@types/mapbox-gl" "*"
-    "@types/mapbox__mapbox-sdk" "*"
     "@types/node" "*"
 
 "@types/mapbox__polyline@1.0.2":
