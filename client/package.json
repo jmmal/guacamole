@@ -5,7 +5,7 @@
   "homepage": "https://jmmal.github.io/guacamole",
   "dependencies": {
     "@mapbox/polyline": "1.1.1",
-    "@primer/octicons-react": "^17.1.0",
+    "@primer/octicons-react": "^17.2.0",
     "@primer/react": "^35.2.1",
     "@rehooks/local-storage": "^2.4.4",
     "@sentry/react": "^6.19.7",
