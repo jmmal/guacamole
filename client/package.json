@@ -11,7 +11,7 @@
     "@sentry/react": "^7.2.0",
     "@sentry/tracing": "^7.2.0",
     "date-fns": "2.28.0",
-    "framer-motion": "^6.3.13",
+    "framer-motion": "^6.3.15",
     "history": "^5.3.0",
     "mapbox-gl": "^2.9.1",
     "react": "17.0.2",
