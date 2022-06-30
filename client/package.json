@@ -6,7 +6,7 @@
   "dependencies": {
     "@mapbox/polyline": "1.1.1",
     "@primer/octicons-react": "^17.3.0",
-    "@primer/react": "^35.3.0",
+    "@primer/react": "^35.4.0",
     "@rehooks/local-storage": "^2.4.4",
     "@sentry/react": "^7.3.1",
     "@sentry/tracing": "^7.3.1",
