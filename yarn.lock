@@ -2877,19 +2877,19 @@
   resolved "https://registry.yarnpkg.com/@primer/octicons-react/-/octicons-react-17.3.0.tgz#a9b868db9520e48114fd402e56600e99bcb7e8b7"
   integrity sha512-72K4SeDj3WmehiQqVeOS+icvcO5+JHXK12ee3AqbZGqNqgCKdU4zJRKeC7EGMV4lQhoJXbj8OEdppBLa3qFDhw==
 
-"@primer/primitives@^7.6.0":
-  version "7.8.3"
-  resolved "https://registry.yarnpkg.com/@primer/primitives/-/primitives-7.8.3.tgz#de7e03492cf977e99f2417490d76421db9715e9f"
-  integrity sha512-04ZwfJhpZ0QFwDrJfCuLX6iOh0BflWDTvuoRA80lQH9xk0RtIg16INbruwwtnbSgnKKXXRSykRRJ5BbxnqufRA==
+"@primer/primitives@7.8.4":
+  version "7.8.4"
+  resolved "https://registry.yarnpkg.com/@primer/primitives/-/primitives-7.8.4.tgz#484486ee47050f18b2e82c33e9df247a5886c82a"
+  integrity sha512-cXmnhKBvrwbP3FYR9oxNYx3s8y2svsQLbDNZuoGcsZJLQ6RD3HfQ9ZtXgbyTbTYTyfPvkyd0pkQLI7tRJSc5kg==
 
-"@primer/react@^35.4.0":
-  version "35.4.0"
-  resolved "https://registry.yarnpkg.com/@primer/react/-/react-35.4.0.tgz#8d616fc600a8208c84955e5d8bfe41afa64f9271"
-  integrity sha512-gXk7GauEIdgdqtX+uoY8PUo85PkPtvqBk2iwS03Dw1now490MDRhnjILlDbONozbB9Yt47LZBRogLraE4Ive8Q==
+"@primer/react@^35.5.0":
+  version "35.5.0"
+  resolved "https://registry.yarnpkg.com/@primer/react/-/react-35.5.0.tgz#b4615786bc8f50cca5b13f83f944ad87a5891c27"
+  integrity sha512-jqF3T1c/F0pCjfuGTRfB8QphEC6u9ZR+vao4MZDk1vQN9QiPCep07i6f6ijy9F7kNlhe/IGVz49tQaX5KDxM8w==
   dependencies:
     "@primer/behaviors" "^1.1.1"
     "@primer/octicons-react" "^17.3.0"
-    "@primer/primitives" "^7.6.0"
+    "@primer/primitives" "7.8.4"
     "@radix-ui/react-polymorphic" "^0.0.14"
     "@react-aria/ssr" "^3.1.0"
     "@styled-system/css" "^5.1.5"
