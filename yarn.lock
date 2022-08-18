@@ -2782,11 +2782,6 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@koddsson/textarea-caret@^4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@koddsson/textarea-caret/-/textarea-caret-4.0.1.tgz#f5496366dbf6f04dcd70762da7c4880f08472efb"
-  integrity sha512-KaHkM8WX2VCNcCzg7Q83aBcWhpCTkC/olARZbvSbQtAQPK+zXutLBhNNtpPgGL6ELXlA27tiD+kMfWyDLs3n+Q==
-
 "@mapbox/fusspot@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@mapbox/fusspot/-/fusspot-0.4.0.tgz#5ac625b5ed31695fda465fb0413ee0379bdf553c"
@@ -2997,15 +2992,14 @@
   resolved "https://registry.yarnpkg.com/@primer/primitives/-/primitives-7.9.0.tgz#c8a27287488c8308b1715a7d73214629c331544a"
   integrity sha512-ZHHfwB0z0z6nDJp263gyGIClYDy+rl0nwqyi4qhcv3Cxhkmtf+If2KVjr6FQqBBFfi1wQwUzaax2FBvfEMFBnw==
 
-"@primer/react@^35.6.0":
-  version "35.6.0"
-  resolved "https://registry.yarnpkg.com/@primer/react/-/react-35.6.0.tgz#3bd38d7e56cc68f6cd99cc95096fda3aa8ce37ba"
-  integrity sha512-c1FQzv/nlxE5LhyFXNb/5FPvKX5nc1kZyY6g98XRcn+1L6FeVpzWmXHIUdL4BXbN9csLCg+bG2MYEpOIOUWWsg==
+"@primer/react@^35.7.0":
+  version "35.7.0"
+  resolved "https://registry.yarnpkg.com/@primer/react/-/react-35.7.0.tgz#6f19993f839968ea014babf21ab6252915bd19cd"
+  integrity sha512-R7qAA2EvQHbnwjZ6aaqu5Kr9ns1hp3TK95LuaA1KghAyu+jG+Zo6h0pcZZl5hUGbQrFLbkPN6OyJ6P0nhrdd5A==
   dependencies:
     "@github/combobox-nav" "^2.1.5"
     "@github/markdown-toolbar-element" "^2.1.0"
     "@github/paste-markdown" "^1.3.1"
-    "@koddsson/textarea-caret" "^4.0.1"
     "@primer/behaviors" "^1.1.1"
     "@primer/octicons-react" "^17.3.0"
     "@primer/primitives" "7.9.0"
