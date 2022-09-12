@@ -35,7 +35,7 @@
     "@mapbox/polyline": "1.1.1",
     "@sports-alliance/sports-lib": "5.4.24",
     "@xmldom/xmldom": "^0.8.2",
-    "aws-sdk": "2.1204.0",
+    "aws-sdk": "2.1213.0",
     "mongodb": "4.9.1",
     "mongodb-client-encryption": "2.2.0",
     "node-fetch": "3.2.10"
