@@ -59,7 +59,7 @@
     "@types/mapbox__polyline": "1.0.2",
     "@types/node": "16.18.0",
     "@types/react": "17.0.50",
-    "@types/react-dom": "18.0.6",
+    "@types/react-dom": "18.0.7",
     "@types/react-router-dom": "5.3.3",
     "@types/recharts": "1.8.23",
     "@types/uuid": "8.3.4",
