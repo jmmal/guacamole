@@ -3134,6 +3134,11 @@
   resolved "https://registry.yarnpkg.com/@github/paste-markdown/-/paste-markdown-1.4.2.tgz#aedba0972536c2fc7944931b6e62bd43dc130592"
   integrity sha512-ZwSgPyo9nA6TRngXV0QnFT4e5ujeOGxRDWN2aa6qfimz2o2VOsJ9bFGuGvB723nvzq5z9zKr6JWGtvK7MSJj3w==
 
+"@github/relative-time-element@4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@github/relative-time-element/-/relative-time-element-4.1.2.tgz#8cfceb2a8bbb66e145f2fd18330e151f9b47118b"
+  integrity sha512-34izL9UqcgU2ZkziZVGuxQoCsswLM5jQ7Q7PYZ04GByaFASg8rdyZrLW3SaWzTFghANfr6l00RMBhjPX6PtxNw==
+
 "@humanwhocodes/config-array@^0.11.6":
   version "0.11.6"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.6.tgz#6a51d603a3aaf8d4cf45b42b3f2ac9318a4adc4b"
@@ -3617,6 +3622,11 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@lit-labs/react@1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@lit-labs/react/-/react-1.0.9.tgz#0703ed89fcdfd2766bc71c18ccb6b06c4bbe6019"
+  integrity sha512-yjkdcciypTIJ6vUXzZJHTAwt2fdATUAfZMkHRbLpbgEnr8OwpwVOQ04me1Y7p5Vwtmcd4GWY0/BQ6G8jUgCK1w==
+
 "@mapbox/fusspot@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@mapbox/fusspot/-/fusspot-0.4.0.tgz#5ac625b5ed31695fda465fb0413ee0379bdf553c"
@@ -3843,14 +3853,16 @@
   resolved "https://registry.yarnpkg.com/@primer/primitives/-/primitives-7.10.0.tgz#de0d9648d484184442583564f02d6600b872fa5f"
   integrity sha512-DdLHq21e93R9qDHyRuRpytBLY0Up9IwNWMOUgPNW6lRSng4N4+IdUlLS3Ekbasmxfs8Z8vKS8aezeYovQ5qsxQ==
 
-"@primer/react@^35.14.2":
-  version "35.14.2"
-  resolved "https://registry.yarnpkg.com/@primer/react/-/react-35.14.2.tgz#545dd85799250203a9b54f8c0539252ee27dab6f"
-  integrity sha512-PVg8zdJQy9SgHvqhRuCK4mNqFWmCcy9JNZkikasdPYmpqcAiHaQMbUIKvg/xJdwfj0ixG/7tFuxN99q1e0bx2A==
+"@primer/react@^35.16.0":
+  version "35.16.0"
+  resolved "https://registry.yarnpkg.com/@primer/react/-/react-35.16.0.tgz#cb625f36e3d3e92b0fc15e5c7645ec34d170011b"
+  integrity sha512-vNm4DXagnWaPVzfJqxOJJb3tJm4MAN9upOMtnE/BmFp5jx+e8N0+EQHzpfb1ngcVrKHQCVP3qA+Ry2iKSGDEJg==
   dependencies:
     "@github/combobox-nav" "^2.1.5"
     "@github/markdown-toolbar-element" "^2.1.0"
     "@github/paste-markdown" "^1.4.0"
+    "@github/relative-time-element" "4.1.2"
+    "@lit-labs/react" "1.0.9"
     "@primer/behaviors" "1.3.1"
     "@primer/octicons-react" "^17.7.0"
     "@primer/primitives" "7.10.0"
@@ -3868,7 +3880,7 @@
     focus-visible "^5.2.0"
     fzy.js "0.4.1"
     history "^5.0.0"
-    react-intersection-observer "9.4.0"
+    react-intersection-observer "9.4.1"
     styled-system "^5.1.5"
 
 "@react-aria/ssr@^3.1.0":
@@ -12484,11 +12496,6 @@ react-error-overlay@^6.0.11:
   version "6.0.11"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.11.tgz#92835de5841c5cf08ba00ddd2d677b6d17ff9adb"
   integrity sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==
-
-react-intersection-observer@9.4.0:
-  version "9.4.0"
-  resolved "https://registry.yarnpkg.com/react-intersection-observer/-/react-intersection-observer-9.4.0.tgz#f6b6e616e625f9bf255857c5cba9dbf7b1825ec7"
-  integrity sha512-v0403CmomOVlzhqFXlzOxg0ziLcVq8mfbP0AwAcEQWgZmR2OulOT79Ikznw4UlB3N+jlUYqLMe4SDHUOyp0t2A==
 
 react-intersection-observer@9.4.1:
   version "9.4.1"
