@@ -3261,10 +3261,10 @@
   resolved "https://registry.yarnpkg.com/@github/paste-markdown/-/paste-markdown-1.4.2.tgz#aedba0972536c2fc7944931b6e62bd43dc130592"
   integrity sha512-ZwSgPyo9nA6TRngXV0QnFT4e5ujeOGxRDWN2aa6qfimz2o2VOsJ9bFGuGvB723nvzq5z9zKr6JWGtvK7MSJj3w==
 
-"@github/relative-time-element@4.1.2":
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/@github/relative-time-element/-/relative-time-element-4.1.2.tgz#8cfceb2a8bbb66e145f2fd18330e151f9b47118b"
-  integrity sha512-34izL9UqcgU2ZkziZVGuxQoCsswLM5jQ7Q7PYZ04GByaFASg8rdyZrLW3SaWzTFghANfr6l00RMBhjPX6PtxNw==
+"@github/relative-time-element@^4.1.2":
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/@github/relative-time-element/-/relative-time-element-4.2.4.tgz#4c63cd05d458e38e4d7504a616881aca10f454bc"
+  integrity sha512-18qgH9FYUHYN9K3z4s35auDHww1dKTU6TacI8JkA5OuvHVa1lTMuSTZ4hIoJngD5+mizcoRMOs6p/yZYMIjsyg==
 
 "@humanwhocodes/config-array@^0.11.8":
   version "0.11.8"
@@ -3767,10 +3767,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@lit-labs/react@1.0.9":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@lit-labs/react/-/react-1.0.9.tgz#0703ed89fcdfd2766bc71c18ccb6b06c4bbe6019"
-  integrity sha512-yjkdcciypTIJ6vUXzZJHTAwt2fdATUAfZMkHRbLpbgEnr8OwpwVOQ04me1Y7p5Vwtmcd4GWY0/BQ6G8jUgCK1w==
+"@lit-labs/react@1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@lit-labs/react/-/react-1.1.1.tgz#88a4320d357dcdfd7c7e276f809e3453a124cbbc"
+  integrity sha512-9TC+/ZWb6BJlWCyUr14FKFlaGnyKpeEDorufXozQgke/VoVrslUQNaL7nBmrAWdNrmzx5jWgi8lFmWwrxMjnlA==
 
 "@mapbox/fusspot@^0.4.0":
   version "0.4.0"
@@ -3978,39 +3978,39 @@
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.12.tgz#431ec342a7195622f86688bbda82e3166ce8cb28"
   integrity sha512-6RglhutqrGFMO1MNUXp95RBuYIuc8wTnMAV5MUhLmjTOy78ncwOw7RgeQ/HeymkKXRhZd0s2DNrM1rL7unk3MQ==
 
-"@primer/behaviors@1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@primer/behaviors/-/behaviors-1.3.1.tgz#febae28e5f7824f1fa547389b3ff8563e171da58"
-  integrity sha512-aMRDUQ350lk0FxtL5gJWPFHHOSSzDbJ6uNJVIt8XSqiGe1pxuW5mVVfrEp1uvzZ0pCHkCdm9fycjnfOeMeIrOQ==
+"@primer/behaviors@1.3.3":
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/@primer/behaviors/-/behaviors-1.3.3.tgz#eddaec0d8d6056c7730ace74250fecd7533017a0"
+  integrity sha512-iHMRuu8YWDJIdqCi1krx0cyFNeqszNKTOb0dXFu2wQ5BeIqxqPJLD7rjZ2Vjf/+YaPSbWuIQE1H6TaGMMsDfdA==
 
 "@primer/octicons-react@^17.12.0":
   version "17.12.0"
   resolved "https://registry.yarnpkg.com/@primer/octicons-react/-/octicons-react-17.12.0.tgz#d863c32736e138d25b80bef5c2628a29963b7b22"
   integrity sha512-GUjV6IT1Ck2lu2GVu1loR0e2dcX2e9aIVmX5rBdR7HJnRdYKY7XH+FnYj7y9sEmzUdNEDswxkefiQlfGrBXlzA==
 
-"@primer/octicons-react@^17.7.0":
-  version "17.7.0"
-  resolved "https://registry.yarnpkg.com/@primer/octicons-react/-/octicons-react-17.7.0.tgz#50f3ceb2f636154a3e7fa6e355350b75f03bba88"
-  integrity sha512-rxJiArra+q7lorhzQH223btMcRR8di9TUei9DhQG18jmVEI+wQTY+MypI5FZqU8UyehBOtcnD4TWx+i4Zwpz5Q==
+"@primer/octicons-react@^18.0.0":
+  version "18.3.0"
+  resolved "https://registry.yarnpkg.com/@primer/octicons-react/-/octicons-react-18.3.0.tgz#1b608048fe26e4e66d9f3de1eac8eb82195839f5"
+  integrity sha512-kOoc4wrBw3bPe2ZPj9BmCwXdEkw8hxUX/tFCvcjOsZ6eywaQXm3PR0yZnPZxZ8o4RFj2tdg/cwGr4+cU83weHw==
 
-"@primer/primitives@7.10.0":
-  version "7.10.0"
-  resolved "https://registry.yarnpkg.com/@primer/primitives/-/primitives-7.10.0.tgz#de0d9648d484184442583564f02d6600b872fa5f"
-  integrity sha512-DdLHq21e93R9qDHyRuRpytBLY0Up9IwNWMOUgPNW6lRSng4N4+IdUlLS3Ekbasmxfs8Z8vKS8aezeYovQ5qsxQ==
+"@primer/primitives@7.11.1":
+  version "7.11.1"
+  resolved "https://registry.yarnpkg.com/@primer/primitives/-/primitives-7.11.1.tgz#f23a93674f6d04f3cfd3ce182b72dbf11ea86ad5"
+  integrity sha512-Sdss4XG96nqBqrTAyg+RuFOj+U5wkICK8n2hafcyT+lpSlZoIwcbmhyFjmDy9f88FkhHe2q0uCpQ8PjKd8ILTQ==
 
-"@primer/react@^35.16.0":
-  version "35.16.0"
-  resolved "https://registry.yarnpkg.com/@primer/react/-/react-35.16.0.tgz#cb625f36e3d3e92b0fc15e5c7645ec34d170011b"
-  integrity sha512-vNm4DXagnWaPVzfJqxOJJb3tJm4MAN9upOMtnE/BmFp5jx+e8N0+EQHzpfb1ngcVrKHQCVP3qA+Ry2iKSGDEJg==
+"@primer/react@^35.22.0":
+  version "35.22.0"
+  resolved "https://registry.yarnpkg.com/@primer/react/-/react-35.22.0.tgz#da5d9e707da623f3c26da43ab392df0c78668080"
+  integrity sha512-htF8djykW+ZdB8akOgddKoO1WO9tbeuhBxKWmoz4r45hWGaJvPINBYWRu8Yq/vnva9vFzEKRjJPpkUIKS1VbVA==
   dependencies:
     "@github/combobox-nav" "^2.1.5"
     "@github/markdown-toolbar-element" "^2.1.0"
     "@github/paste-markdown" "^1.4.0"
-    "@github/relative-time-element" "4.1.2"
-    "@lit-labs/react" "1.0.9"
-    "@primer/behaviors" "1.3.1"
-    "@primer/octicons-react" "^17.7.0"
-    "@primer/primitives" "7.10.0"
+    "@github/relative-time-element" "^4.1.2"
+    "@lit-labs/react" "1.1.1"
+    "@primer/behaviors" "1.3.3"
+    "@primer/octicons-react" "^18.0.0"
+    "@primer/primitives" "7.11.1"
     "@react-aria/ssr" "^3.1.0"
     "@styled-system/css" "^5.1.5"
     "@styled-system/props" "^5.1.5"
@@ -4020,7 +4020,7 @@
     "@types/styled-system__css" "^5.0.16"
     "@types/styled-system__theme-get" "^5.0.1"
     classnames "^2.3.1"
-    color2k "^1.2.4"
+    color2k "^2.0.0"
     deepmerge "^4.2.2"
     focus-visible "^5.2.0"
     fzy.js "0.4.1"
@@ -6516,10 +6516,10 @@ color-name@^1.1.4, color-name@~1.1.4:
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
-color2k@^1.2.4:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/color2k/-/color2k-1.2.5.tgz#3d8f08d213170f781fb6270424454dd3c0197b02"
-  integrity sha512-G39qNMGyM/fhl8hcy1YqpfXzQ810zSGyiJAgdMFlreCI7Hpwu3Jpu4tuBM/Oxu1Bek1FwyaBbtrtdkTr4HDhLA==
+color2k@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/color2k/-/color2k-2.0.2.tgz#ac2b4aea11c822a6bcb70c768b5a289f4fffcebb"
+  integrity sha512-kJhwH5nAwb34tmyuqq/lgjEKzlFXn1U99NlnB6Ws4qVaERcRUYeYP1cBw6BJ4vxaWStAUEef4WMr7WjOCnBt8w==
 
 colord@^2.9.1:
   version "2.9.2"
