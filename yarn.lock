@@ -11362,15 +11362,15 @@ mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@^0.5.5, mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.5"
 
-mongodb-client-encryption@2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/mongodb-client-encryption/-/mongodb-client-encryption-2.7.1.tgz#d5d04edeb2f3a54c406c9a54bbb545cf90c42640"
-  integrity sha512-LN1udDf9nZ/paUcuY2AATIVWKf7oGHb2IKMQqGu/7iiqpNlV0M6xjbQix0bxEQvzZZW0T9PG6PN8mYeMR+YDnA==
+mongodb-client-encryption@2.8.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/mongodb-client-encryption/-/mongodb-client-encryption-2.8.0.tgz#b99dda69ba5d9f29143a4b766c84801cf85cd2db"
+  integrity sha512-wIcaETX0Acis9hJkUf2SvtPMq/F1G2gxZXgp8QAe2yJzL+cIUpii8Yv4i3LIeZVwYuYSue8F6/e4pHaE21On7A==
   dependencies:
     bindings "^1.5.0"
     node-addon-api "^4.3.0"
     prebuild-install "^7.1.1"
-    socks "^2.6.1"
+    socks "^2.7.1"
 
 mongodb-connection-string-url@^2.4.1:
   version "2.4.1"
