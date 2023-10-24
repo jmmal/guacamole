@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@mapbox/mapbox-sdk": "0.13.4",
-    "@mapbox/polyline": "1.2.0",
+    "@mapbox/polyline": "1.2.1",
     "@sports-alliance/sports-lib": "5.4.24",
     "@xmldom/xmldom": "^0.8.2",
     "aws-sdk": "2.1253.0",
