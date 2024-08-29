@@ -63,7 +63,7 @@
     "@types/react-router-dom": "5.3.3",
     "@types/recharts": "1.8.24",
     "@types/uuid": "8.3.4",
-    "gh-pages": "4.0.0",
+    "gh-pages": "5.0.0",
     "miragejs": "0.1.43"
   },
   "bundlewatch": {
