@@ -31,7 +31,7 @@
     "webpack-visualizer-plugin": "0.1.11"
   },
   "dependencies": {
-    "@mapbox/mapbox-sdk": "0.13.4",
+    "@mapbox/mapbox-sdk": "0.16.1",
     "@mapbox/polyline": "1.2.1",
     "@sports-alliance/sports-lib": "5.4.24",
     "@xmldom/xmldom": "^0.8.2",
