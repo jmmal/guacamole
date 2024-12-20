@@ -4803,10 +4803,10 @@
     "@types/mapbox-gl" "*"
     "@types/node" "*"
 
-"@types/mapbox__polyline@1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@types/mapbox__polyline/-/mapbox__polyline-1.0.2.tgz#788cf4d72326961eacf44cb1abca435860ec4673"
-  integrity sha512-Kr/oznVL3e8uvWM0+VPlVu2rVP+jKyVW/994HE9YJFBfcAcKqB4wMvqCdgXLG0SSrxxlKc5Nqaj7zt+KRl9oCA==
+"@types/mapbox__polyline@1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@types/mapbox__polyline/-/mapbox__polyline-1.0.5.tgz#1925ccf4472dcc40142fdc8fe71ab6f5e51b7fce"
+  integrity sha512-KNkXjtDPu3AgNbtikPyVqZEB5sF+Ls7sFtaZEgGEdU9YZUO5kF9nfDsJAWQqkBW8UVQNbq7Ob3Kube8l/b+3tQ==
   dependencies:
     "@types/geojson" "*"
 
