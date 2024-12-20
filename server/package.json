@@ -12,7 +12,7 @@
     "@types/aws-lambda": "8.10.146",
     "@types/jest": "28.1.8",
     "@types/mapbox__mapbox-sdk": "0.13.4",
-    "@types/mapbox__polyline": "1.0.2",
+    "@types/mapbox__polyline": "1.0.5",
     "@types/mongodb": "4.0.6",
     "@types/node-fetch": "3.0.2",
     "@types/xmldom": "0.1.31",
