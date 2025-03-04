@@ -3987,15 +3987,15 @@
   resolved "https://registry.yarnpkg.com/@primer/behaviors/-/behaviors-1.3.3.tgz#eddaec0d8d6056c7730ace74250fecd7533017a0"
   integrity sha512-iHMRuu8YWDJIdqCi1krx0cyFNeqszNKTOb0dXFu2wQ5BeIqxqPJLD7rjZ2Vjf/+YaPSbWuIQE1H6TaGMMsDfdA==
 
-"@primer/octicons-react@^17.12.0":
-  version "17.12.0"
-  resolved "https://registry.yarnpkg.com/@primer/octicons-react/-/octicons-react-17.12.0.tgz#d863c32736e138d25b80bef5c2628a29963b7b22"
-  integrity sha512-GUjV6IT1Ck2lu2GVu1loR0e2dcX2e9aIVmX5rBdR7HJnRdYKY7XH+FnYj7y9sEmzUdNEDswxkefiQlfGrBXlzA==
-
 "@primer/octicons-react@^18.0.0":
   version "18.3.0"
   resolved "https://registry.yarnpkg.com/@primer/octicons-react/-/octicons-react-18.3.0.tgz#1b608048fe26e4e66d9f3de1eac8eb82195839f5"
   integrity sha512-kOoc4wrBw3bPe2ZPj9BmCwXdEkw8hxUX/tFCvcjOsZ6eywaQXm3PR0yZnPZxZ8o4RFj2tdg/cwGr4+cU83weHw==
+
+"@primer/octicons-react@^19.15.1":
+  version "19.15.1"
+  resolved "https://registry.yarnpkg.com/@primer/octicons-react/-/octicons-react-19.15.1.tgz#d1407f586e1cb4cc08bedc22ab3444030c970391"
+  integrity sha512-U9g8sj2ON2cKF1jvs3cEfhW51BNkOXjbdi5qPMSY5e4T7KVKR1gK9BZ/gpB4oTqkjoL2dikaWXdnH8vhwyR6lg==
 
 "@primer/primitives@7.11.5":
   version "7.11.5"
