@@ -7,7 +7,7 @@
     "@mapbox/polyline": "1.2.1",
     "@primer/octicons-react": "^17.12.0",
     "@primer/react": "^35.25.1",
-    "@rehooks/local-storage": "^2.4.4",
+    "@rehooks/local-storage": "^2.4.5",
     "@sentry/react": "^7.51.2",
     "@sentry/tracing": "^7.51.2",
     "date-fns": "2.30.0",
